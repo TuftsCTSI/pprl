@@ -13,15 +13,16 @@ from clkhash.schema import from_json_dict
 from clkhash.serialization import serialize_bitarray
 from yaspin import yaspin
 
-schema_file_dir = "schemas"
-user_file_dir = "my_files"
-config_file_name = "create_CLKs.yml"
-
-config = yaml.safe_load(open(config_file_name))
-
 parser = argparse.ArgumentParser()
+parser.add_argument('-c', '--config', type=str, default= 'create_CLKs.yml', help='The name of the config file (default is create_CLKs.yml)')
 parser.add_argument('-q', '--quiet', action='store_true', help='(Disables any visual updates and progress bars)')
 args = parser.parse_args()
+config_file_name = args.config
+
+schema_file_dir = "schemas"
+user_file_dir = "my_files"
+
+config = yaml.safe_load(open(config_file_name))
 
 #TODO: check for file existence, validity, etc.
 

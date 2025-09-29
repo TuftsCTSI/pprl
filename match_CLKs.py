@@ -1,4 +1,5 @@
 import anonlink
+import argparse
 import bitarray
 import csv
 import io
@@ -12,7 +13,13 @@ from clkhash.serialization import deserialize_bitarray
 #pd.set_option('display.max_columns', None)
 
 import yaml
-config_file_name = "match_CLKs.yml"
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-c', '--config', type=str, default= 'match_CLKs.yml', help='The name of the config file (default is match_CLKs.yml)')
+parser.add_argument('-q', '--quiet', action='store_true', help='(Disables any visual updates and progress bars)')
+args = parser.parse_args()
+config_file_name = args.config
+
 config = yaml.safe_load(open(config_file_name))
 
 user_file_dir = "my_files"
