@@ -1,0 +1,24 @@
+[project]
+name = "pprl"
+version = "0.0.1"
+authors = [
+  { name="TuftsCTSI" },
+]
+description = "Privacy-preserving record linkage for Tufts CTSI and collaborators"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "anonlink>=0.15.3",
+  "anyascii>=0.3.3",
+  "clkhash>=0.18.3",
+  "pandas>=2.2.3",
+  "PyYAML>=6.0.0",
+  "recordlinkage>=0.16",
+  "yaspin>=3.2.0"
+]
+license = "MIT"
+license-files = ["LICENSE"]
+
+[tool.setuptools]
+py-modules = []
+

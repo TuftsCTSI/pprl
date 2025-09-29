@@ -1,0 +1,6 @@
+# User's files
+my_files/
+
+# Build files
+venv/
+pprl.egg-info/

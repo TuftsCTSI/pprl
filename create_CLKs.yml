@@ -1,0 +1,18 @@
+# The input CSV file containing patient identifiers
+# You will probably need to provide this file yourself
+# This file should be placed in the "my_files" folder
+records: identifiers.csv
+
+# The plain-text file containing the secret
+# You will probably need to provide this file yourself
+# This file should be placed in the "my_files" folder
+secret: secret.txt
+
+# The name of the new CSV file to which cryptographic linkage keys will be written
+# This file will be created automatically in the "my_files" folder
+output: CLKs.csv
+
+# The JSON file which defines the linkage schema
+# This must be one of the files provided the schema subdirectory
+schema: schema.json
+

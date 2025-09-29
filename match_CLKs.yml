@@ -1,0 +1,11 @@
+# The input CSV files containing cryptographic linkage keys (CLKs)
+# You will probably need to obtain these files from collaborators
+# This file should be placed in the "my_files" folder
+input_1: site_A.csv
+input_2: site_B.csv
+
+# The name of the new CSV file to which linkages will be written
+# This file will be created automatically in the "my_files" folder
+matches: matches.csv
+
+threshold: 0.9
