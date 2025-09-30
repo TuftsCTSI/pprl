@@ -10,4 +10,12 @@ parser.add_argument('-c', '--config', type=str, default= 'create_CLKs.yml', help
 parser.add_argument('-q', '--quiet', action='store_true', help='(Disables any visual updates and progress bars)')
 args = parser.parse_args()
 
-pprl.create_CLKs(**vars(args))
+#=
+pprl.create_CLKs(
+    configuration["records"],
+    configuration["schema"],
+    configuration["secret"],
+    configuration["output"],
+    quiet = args.quiet
+)
+=#

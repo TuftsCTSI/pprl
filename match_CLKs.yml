@@ -6,6 +6,6 @@ input_2: site_B.csv
 
 # The name of the new CSV file to which linkages will be written
 # This file will be created automatically in the "my_files" folder
-matches: matches.csv
+output: matches.csv
 
 threshold: 0.9

@@ -16,13 +16,34 @@ from anyascii import anyascii
 from yaspin import yaspin
 
 def create_CLKs(
-    config="create_CLKs.yml",
+    config,
+    quiet = False
+    ):
+    """
+    Parse a config file and call the underlying CLK generation
+    """
+
+    configuration = yaml.safe_load(open(config))
+
+    _create_CLKs(
+        configuration["records"],
+        configuration["schema"],
+        configuration["secret"],
+        configuration["output"],
+        quiet = quiet
+        )
+
+def _create_CLKs(
+    data,
+    schema,
+    secret,
+    output,
     quiet=False
     ):
 
     schema_file_dir = "schemas"
     user_file_dir = "my_files"
-    configuration = yaml.safe_load(open(config))
+
 
     #TODO: check for file existence, validity, etc.
 
@@ -30,18 +51,18 @@ def create_CLKs(
         if quiet:
             spinner.stop()
         # Linking schema
-        schema_file_name = os.path.join(schema_file_dir, configuration["schema"])
+        schema_file_name = os.path.join(schema_file_dir, schema)
         with open(schema_file_name, 'r') as f:
             schema_dict = json.load(f)
             schema = from_json_dict(schema_dict)
 
         # Secret
-        secret_file_name = os.path.join(user_file_dir, configuration["secret"])
+        secret_file_name = os.path.join(user_file_dir, secret)
         with open(secret_file_name, 'r') as secret_file:
             secret = secret_file.read()
 
         # Patient identifiers
-        patients_file_name = os.path.join(user_file_dir, configuration["records"])
+        patients_file_name = os.path.join(user_file_dir, data)
         patients_df = (
             pd.read_csv(patients_file_name,
                 sep=',',
@@ -91,7 +112,7 @@ def create_CLKs(
 
     hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = not quiet)
 
-    out_file_name = os.path.join(user_file_dir, configuration["output"])
+    out_file_name = os.path.join(user_file_dir, output)
     with yaspin(text=f"Writing to {out_file_name}...") as spinner:
         if quiet:
             spinner.stop()
@@ -104,11 +125,31 @@ def match_CLKs(
     config="match_CLKs.yml",
     quiet=False
     ):
+    """
+    Parse a config file and call the underlying CLK matching
+    """
+
     configuration = yaml.safe_load(open(config))
 
+    _match_CLKs(
+        configuration["input_1"],
+        configuration["input_2"],
+        configuration["threshold"],
+        configuration["output"],
+        quiet = quiet
+        )
+
+def _match_CLKs(
+    input_1,
+    input_2,
+    threshold,
+    output,
+    quiet = False
+    ):
+
     user_file_dir = "my_files"
-    input_1 = os.path.join(user_file_dir, configuration["input_1"])
-    input_2 = os.path.join(user_file_dir, configuration["input_2"])
+    input_1 = os.path.join(user_file_dir, input_1)
+    input_2 = os.path.join(user_file_dir, input_2)
     df_1 = pd.read_csv(input_1)
     df_2 = pd.read_csv(input_2)
 
@@ -117,8 +158,6 @@ def match_CLKs(
 
     source_1 = df_1['source'][0]
     source_2 = df_2['source'][0]
-
-    threshold = configuration["threshold"]
 
     results_candidate_pairs = anonlink.candidate_generation.find_candidate_pairs(
             [hashed_data_1, hashed_data_2],
@@ -131,7 +170,7 @@ def match_CLKs(
     #TODO: If sources are 2 collaborating sites, produce a separate output file for each source.
     # That way, each group receives only presence/absence of link
     # This could be toggled in the config file, which I could manually prepare for each site.
-    linkages_file_name = os.path.join(user_file_dir, configuration["matches"])
+    linkages_file_name = os.path.join(user_file_dir, output)
     with open(linkages_file_name, "w") as linkages_file:
         csv_writer = csv.writer(linkages_file)
         csv_writer.writerow([source_1,source_2])
