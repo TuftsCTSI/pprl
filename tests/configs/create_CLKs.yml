@@ -1,4 +1,4 @@
-records: identifiers.csv
-secret: secret.txt
-output: CLKs.csv
-schema: schema.json
+records: ../tests/populations/3_test_patients.csv
+secret: ../tests/secrets/secret.txt
+output: ../tests/tmp/CLKs.csv
+schema: ../tests/schemas/schema.json

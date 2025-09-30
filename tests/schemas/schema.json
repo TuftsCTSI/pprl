@@ -1,0 +1,119 @@
+{
+  "version": 3,
+  "clkConfig": {
+    "l": 1024,
+    "kdf": {
+      "type": "HKDF",
+      "hash": "SHA256",
+      "info": "",
+      "keySize": 64
+    }
+  },
+  "features": [
+    {
+      "identifier": "",
+      "description": "The ID column used internally by pandas",
+      "ignored": true
+    },
+    {
+      "identifier": "source",
+      "description": "Short name that uniquely identifies the source of the records",
+      "ignored": true
+    },
+    {
+      "identifier": "row_id",
+      "description": "User-assigned value that uniquely identifies each record",
+      "ignored": true
+    },
+    {
+      "identifier": "name",
+      "format": {
+        "type": "string",
+        "encoding": "utf-8",
+        "case": "upper"
+      },
+      "hashing": {
+        "comparison": {
+          "type": "ngram",
+          "n": 2
+        },
+        "strategy": {
+            "bitsPerFeature": 500
+        },
+        "hash": {"type": "doubleHash"}
+      }
+    },
+    {
+      "identifier": "city",
+      "format": {
+        "type": "string",
+        "encoding": "utf-8",
+        "case": "upper"
+      },
+      "hashing": {
+        "comparison": {
+          "type": "ngram",
+          "n": 2
+        },
+        "strategy": {
+            "bitsPerFeature": 200
+        },
+        "hash": {"type": "doubleHash"}
+      }
+    },
+    {
+      "identifier": "state",
+      "format": {
+        "type": "string",
+        "encoding": "utf-8",
+        "case": "upper"
+      },
+      "hashing": {
+        "comparison": {
+          "type": "exact",
+	  "values": ["MA", "CT", "NH", "RI"]
+        },
+        "strategy": {
+            "bitsPerFeature": 200
+        }
+      }
+    },
+    {
+      "identifier": "zip",
+      "format": {
+        "type": "string",
+        "encoding": "utf-8",
+        "case": "upper"
+      },
+      "hashing": {
+        "comparison": {
+          "type": "ngram",
+          "n": 1,
+          "positional": true
+        },
+        "strategy": {
+            "bitsPerFeature": 200
+        }
+      }
+    },
+    {
+      "identifier": "dob",
+      "format": {
+        "type": "date",
+        "format": "%Y-%m-%d"
+      },
+      "hashing": {
+        "comparison": {
+          "type": "ngram",
+          "n": 1,
+          "positional": true
+        },
+        "strategy": {
+          "bitsPerFeature": 300
+        },
+        "hash": {"type": "doubleHash"}
+      }
+    }
+  ]
+}
+

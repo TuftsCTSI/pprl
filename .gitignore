@@ -5,3 +5,6 @@ my_files/
 venv/
 pprl.egg-info/
 __pycache__
+
+# Test files
+tests/tmp/
