@@ -12,6 +12,7 @@ dependencies = [
   "anyascii>=0.3.3",
   "clkhash>=0.18.3",
   "pandas>=2.2.3",
+  "pytest>=8.4.2",
   "PyYAML>=6.0.0",
   "recordlinkage>=0.16",
   "yaspin>=3.2.0"

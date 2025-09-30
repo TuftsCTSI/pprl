@@ -1,0 +1,4 @@
+records: identifiers.csv
+secret: secret.txt
+output: CLKs.csv
+schema: schema.json
