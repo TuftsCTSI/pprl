@@ -122,7 +122,7 @@ def _create_CLKs(
         patients_df[['row_id', 'source', 'clk']].to_csv(out_file_name, index=False)
 
 def match_CLKs(
-    config="match_CLKs.yml",
+    config,
     quiet=False
     ):
     """
@@ -144,7 +144,8 @@ def _match_CLKs(
     input_2,
     threshold,
     output,
-    quiet = False
+    self_match = False,
+    quiet = False,
     ):
 
     user_file_dir = "my_files"
@@ -165,7 +166,15 @@ def _match_CLKs(
             threshold
     )
     solution = anonlink.solving.greedy_solve(results_candidate_pairs)
+    #TODO: based on self_match, filter out row N matches row N
     found_matches = sorted(list([id_1, id_2] for ((_, id_1), (_, id_2)) in solution))
+    if self_match:
+        # When linking a dataset against itself, don't link arecord to itself
+        #TODO: this should be handled BEFORE solving...
+        #TODO: Would we filter for x[0] < x[1]? I assume all mappings are reversible, but that should be a separate test.
+        relevant_matches = [x for x in found_matches if x[0] != x[1]]
+    else:
+        relevant_matches = found_matches
 
     #TODO: If sources are 2 collaborating sites, produce a separate output file for each source.
     # That way, each group receives only presence/absence of link
@@ -174,4 +183,21 @@ def _match_CLKs(
     with open(linkages_file_name, "w") as linkages_file:
         csv_writer = csv.writer(linkages_file)
         csv_writer.writerow([source_1,source_2])
-        csv_writer.writerows(found_matches)
+        csv_writer.writerows(relevant_matches)
+
+def self_match_CLKs(
+    #TODO: data should be called input, not input_1, and it ought to be positional
+    #TODO: consider passing config as separate arguments for this
+    config,
+    quiet=False
+    ):
+
+    configuration = yaml.safe_load(open(config))
+
+    _self_match_CLKs(
+        configuration["input"],
+        configuration["threshold"],
+        configuration["output"],
+        quiet = quiet,
+        self_match = True
+        )
