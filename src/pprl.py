@@ -63,16 +63,22 @@ def _create_CLKs(
 
         # Patient identifiers
         patients_file_name = os.path.join(user_file_dir, data)
-        patients_df = (
-            pd.read_csv(patients_file_name,
+        raw_patients_df = pd.read_csv(patients_file_name,
                 sep=',',
                 dtype = str,
                 keep_default_na=False,
                 nrows = 1e4
             )
+        row_ids = raw_patients_df['row_id'].copy()
+        source = raw_patients_df['source'].copy()
+        data_fields = raw_patients_df.drop(['row_id', 'source'], axis=1)
+        patients_df = (
+            data_fields
             .map(anyascii)
             .map(lambda x: x.upper())
         )
+        patients_df.insert(0, 'source', source)
+        patients_df.insert(0, 'row_id', row_ids)
 
         # Anonlink requires the records CSV and the schema to have the same columns.
         # However, I'd like to test various schemas against the same CSV.
