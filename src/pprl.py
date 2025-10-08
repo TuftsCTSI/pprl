@@ -166,13 +166,15 @@ def _match_CLKs(
             threshold
     )
     solution = anonlink.solving.greedy_solve(results_candidate_pairs)
-    #TODO: based on self_match, filter out row N matches row N
     found_matches = sorted(list([id_1, id_2] for ((_, id_1), (_, id_2)) in solution))
     if self_match:
         # When linking a dataset against itself, don't link arecord to itself
         #TODO: this should be handled BEFORE solving...
         #TODO: Would we filter for x[0] < x[1]? I assume all mappings are reversible, but that should be a separate test.
-        relevant_matches = [x for x in found_matches if x[0] != x[1]]
+        #TODO: already complete? based on self_match, filter out row N matches row N
+        # We exclude rows matched to themselves, and we report only unique mappings
+        # No (4,4) or both (2,5) and (5,2)
+        relevant_matches = [x for x in found_matches if x[0] < x[1]]
     else:
         relevant_matches = found_matches
 
@@ -186,6 +188,7 @@ def _match_CLKs(
         csv_writer.writerows(relevant_matches)
 
 def self_match_CLKs(
+    #TODO: delete this function?
     #TODO: data should be called input, not input_1, and it ought to be positional
     #TODO: consider passing config as separate arguments for this
     config,
