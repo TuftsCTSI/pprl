@@ -2,7 +2,11 @@
 Privacy-preserving record linkage for Tufts CTSI and collaborators
 
 ## Setup
-1. Run `./setup.sh`
+1. Ensure that you have Python with pip installed.
+1. Clone the repo: `git clone https://github.com/TuftsCTSI/pprl`
+1. Open the new directory: `cd pprl`
+1. Run the setup script: `./setup.sh`
+1. Verify your setup by running the test suite: `./runtests.sh`
 
 ## Usage
 
