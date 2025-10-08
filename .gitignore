@@ -1,6 +1,5 @@
 # User's files
 my_files/
-!my_files/README.txt
 
 # Build files
 venv/
