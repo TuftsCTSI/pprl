@@ -1,3 +1,6 @@
+import filecmp
+import os
+
 from pprl_test_templates import *
 
 def test_no_patient_file_provided():

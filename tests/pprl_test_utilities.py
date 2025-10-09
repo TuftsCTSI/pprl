@@ -1,5 +1,3 @@
-import filecmp
-
 def assert_file_comparison(file_path_1, file_path_2):
     assert filecmp.cmp(file_path_1, file_path_2)
 

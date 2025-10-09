@@ -1,6 +1,6 @@
 import os
-import sys
 import pytest
+import sys
 import tempfile
 
 from pprl_test_utilities import *

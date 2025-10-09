@@ -1,5 +1,4 @@
 import os
-import yaml
 
 def read_config_file(config, allowed_config_names):
     """
