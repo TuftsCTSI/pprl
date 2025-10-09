@@ -37,6 +37,7 @@ def read_config_file(config, allowed_config_names):
 
 #TODO: warn a user if any unexpected names appear in the dictionary!
 #TODO: warn a user if a default value is used
+#TODO: to be really nice, include a list of all potential errors, and only then exist
 
     return configuration
 
@@ -48,7 +49,9 @@ def validated_file_path(descriptor, file_name, file_directory):
         raise TypeError(f'The name of a {descriptor} file must be provided.')
     file_path = os.path.join(file_directory, file_name)
     if not os.path.isfile(file_path):
-        raise FileNotFoundError(f'Cannot find {descriptor} file: {file_path}') 
+        print(f'\nERROR:\n    Cannot find {descriptor} file: {file_path}\n') 
+        exit()
+        #raise FileNotFoundError(f'Cannot find {descriptor} file: {file_path}') 
     return file_path
 
 def validated_out_path(descriptor, file_name, file_directory):
