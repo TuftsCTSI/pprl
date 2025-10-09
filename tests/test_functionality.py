@@ -50,7 +50,7 @@ def test_basic_ordering():
         output = 'matches.csv',
         quiet=True)
 
-    with open('tests/tmp/matches.csv','r') as file:
+    with open('tests/data/matches.csv','r') as file:
         output = file.read()
         print(output)
         assert output == 'zoo,zoo\n0,2\n1,1\n2,0\n'
@@ -79,8 +79,10 @@ def test_additional_ordering():
         threshold = 0.9,
         output = "qmatches.csv", # TODO: tempfile
         quiet=True)
+    #TODO: use tempfile, or otherwise delete any files created during tests (Pytests can automate?)
+    #TODO: add an aditional outdir, especially for tests
 
-    with open('tests/tmp/qmatches.csv','r') as file:
+    with open('tests/data/qmatches.csv','r') as file:
         output = file.read()
         print(output)
         assert output == 'simple_synthetic,simple_synthetic\n0,0\n1,2\n2,4\n3,6\n4,8\n5,10\n6,12\n7,14\n8,16\n9,18\n'
