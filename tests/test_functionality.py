@@ -6,14 +6,21 @@ from pprl_test_templates import *
 def test_no_patient_file_provided():
         basic_error_pattern(TypeError)
 
-@pytest.mark.skip(reason="For the user's sake, we now print a custom messsage and exit, rather than throw an error")
+@pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
+def test_empty_patient_file_provided():
+        basic_error_pattern(
+                FileNotFoundError,
+                patients_1 = "empty_file"
+                )
+
+@pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
 def test_nonexistent_patient_file_provided():
         basic_error_pattern(
                 FileNotFoundError,
                 patients_1 = "NONEXISTENT_FILE"
                 )
 
-@pytest.mark.skip(reason="For the user's sake, we now print a custom messsage and exit, rather than throw an error")
+@pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
 def test_nonexistent_schema_file_provided():
         basic_error_pattern(
                 FileNotFoundError,
@@ -35,7 +42,7 @@ def test_linkages_export_already_exists():
                 linkages = "3_test_patients"
                 )
 
-@pytest.mark.skip(reason="For the user's sake, we now print a custom messsage and exit, rather than throw an error")
+@pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
 def test_nonexistent_secret_file_provided():
         basic_error_pattern(
                 FileNotFoundError,

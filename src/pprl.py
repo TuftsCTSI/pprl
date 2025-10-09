@@ -74,12 +74,19 @@ def _create_CLKs(
             secret = secret_file.read()
 
         # Patient identifiers
-        raw_patients_df = pd.read_csv(patient_file_path,
-                sep=',',
-                dtype = str,
-                keep_default_na=False,
-                nrows = 1e4
-                )
+        try:
+            raw_patients_df = pd.read_csv(patient_file_path,
+                    sep=',',
+                    dtype = str,
+                    keep_default_na=False,
+                    nrows = 1e4
+                    )
+        except pd.errors.EmptyDataError:
+            print(f"\nERROR:\n    The data file is empty: {patient_file_path}\n")
+            exit()
+        #except pd.errors.ParserError:
+            #print(f"\nERROR:\n    The data file couldn't be read: {patient_file_path}\n")
+
         row_ids = raw_patients_df['row_id'].copy()
         source = raw_patients_df['source'].copy()
         data_fields = raw_patients_df.drop(['row_id', 'source'], axis=1)
