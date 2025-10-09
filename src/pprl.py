@@ -17,8 +17,8 @@ from anyascii import anyascii
 from yaspin import yaspin
 
 def create_CLKs(
-    config,
-    ):
+        config,
+        ):
     """
     Parse a config file and call the underlying CLK generation
     """
@@ -43,15 +43,15 @@ def create_CLKs(
     _create_CLKs(**configuration)
 
 def _create_CLKs(
-    patients = None,
-    secret = None,
-    schema = 'schema.json',
-    output = 'out.csv',
-    quiet = False,
-    data_folder = os.path.join(os.getcwd(), "my_files"),
-    output_folder = os.path.join(os.getcwd(), "my_files"),
-    schema_folder = os.path.join(os.getcwd(), "schemas"),
-    ):
+        patients = None,
+        secret = None,
+        schema = 'schema.json',
+        output = 'out.csv',
+        quiet = False,
+        data_folder = os.path.join(os.getcwd(), "my_files"),
+        output_folder = os.path.join(os.getcwd(), "my_files"),
+        schema_folder = os.path.join(os.getcwd(), "schemas"),
+        ):
     #TODO: check for file existence, validity, etc.
 
     with yaspin(text="Reading from files and preprocessing...") as spinner:
@@ -75,15 +75,15 @@ def _create_CLKs(
                 dtype = str,
                 keep_default_na=False,
                 nrows = 1e4
-            )
+                )
         row_ids = raw_patients_df['row_id'].copy()
         source = raw_patients_df['source'].copy()
         data_fields = raw_patients_df.drop(['row_id', 'source'], axis=1)
         patients_df = (
-            data_fields
-            .map(anyascii)
-            .map(lambda x: x.upper())
-        )
+                data_fields
+                .map(anyascii)
+                .map(lambda x: x.upper())
+                )
         patients_df.insert(0, 'source', source)
         patients_df.insert(0, 'row_id', row_ids)
 
@@ -97,11 +97,11 @@ def _create_CLKs(
         observed_column_names = patients_df.columns.tolist()
 
         assert observed_column_names == expected_column_names, f" \n\n\
-        The data column names or order don't match what is expected from the schema! \n\
-            Expected: {','.join(str(i) for i in expected_column_names)} \n\
-            Observed: {','.join(str(i) for i in observed_column_names)} \n\
-        If you're sure the schema is correct, update your input file to match the schema columns. \n\
-        "
+                The data column names or order don't match what is expected from the schema! \n\
+                Expected: {','.join(str(i) for i in expected_column_names)} \n\
+                Observed: {','.join(str(i) for i in observed_column_names)} \n\
+                If you're sure the schema is correct, update your input file to match the schema columns. \n\
+                "
 
         # Add and order missing columns
         for f in feature_names:
@@ -145,7 +145,7 @@ def read_config_file(config, allowed_config_names):
         print(allowed_config_names)
 
     #TODO: test to avoid mixing hashing schema with linking schema?
-    
+
     unused_config_names = allowed_config_names - observed_config_names 
     if bool(unexpected_config_names):
         print("The following variables weren't set in the config file:")
@@ -174,18 +174,18 @@ def match_CLKs(config):
     configuration = read_config_file(
             config,
             {'hashes', 'threshold', 'output', 'quiet', 'data_folder', 'output_folder'}
-    )
+            )
 
     _match_CLKs(**configuration)
 
 def _match_CLKs(
-    hashes = None,
-    threshold = 0.9,
-    output = 'out.csv',
-    quiet = True,
-    data_folder = 'my_files',
-    output_folder = 'my_files',
-    ):
+        hashes = None,
+        threshold = 0.9,
+        output = 'out.csv',
+        quiet = True,
+        data_folder = 'my_files',
+        output_folder = 'my_files',
+        ):
 
     #TODO: check other lengths
     input_1 = os.path.join(data_folder, hashes[0])
@@ -208,7 +208,7 @@ def _match_CLKs(
             [hashed_data_1, hashed_data_2],
             anonlink.similarities.dice_coefficient,
             threshold
-    )
+            )
     solution = anonlink.solving.greedy_solve(results_candidate_pairs)
     found_matches = sorted(list([id_1, id_2] for ((_, id_1), (_, id_2)) in solution))
     if self_match:
@@ -241,11 +241,11 @@ def self_match_CLKs(config):
 #TODO: warn a user if any unexpected names appear in the dictionary!
 #TODO: warn a user if a default value is used
     _self_match_CLKs(
-        data = configuration.get('data'),
-        threshold = configuration.get('threshold', 0.9),
-        output = configuration.get('output', 'matches.csv'),
-        quiet = configuration.get('quiet', True),
-        self_match = configuration.get('quiet', True),
-        data_folder = configuration.get('data_folder', os.path.join(pwd(), "my_files")),
-        schema_folder = configuration.get('schema_folder', os.path.join(pwd(), "schemas"))
-        )
+            data = configuration.get('data'),
+            threshold = configuration.get('threshold', 0.9),
+            output = configuration.get('output', 'matches.csv'),
+            quiet = configuration.get('quiet', True),
+            self_match = configuration.get('quiet', True),
+            data_folder = configuration.get('data_folder', os.path.join(pwd(), "my_files")),
+            schema_folder = configuration.get('schema_folder', os.path.join(pwd(), "schemas"))
+            )
