@@ -1,7 +1,13 @@
 from pprl_test_templates import *
 
-def test_missing_patients():
-        basic_error_pattern()
+def test_no_patient_file_provided():
+        basic_error_pattern(TypeError)
+
+def test_nonexistent_patient_file_provided():
+        basic_error_pattern(
+                FileNotFoundError,
+                patients_1 = "NONEXISTENT_FILE"
+                )
 
 def test_basic_functionality():
     basic_test_pattern(

@@ -57,8 +57,9 @@ def _create_CLKs(
     if patients is None:
         raise TypeError('The name of a patient records file must be provided.')
         
-    #if not isfile(patients):
-        #raise FileNotFoundError(f'Cannot find patient data file: {}', 
+    patient_file_path = os.path.join(data_folder, patients)
+    if not os.path.isfile(patient_file_path):
+        raise FileNotFoundError(f'Cannot find patient data file: {patient_file_path}') 
 
 
     with yaspin(text="Reading from files and preprocessing...") as spinner:
@@ -76,8 +77,7 @@ def _create_CLKs(
             secret = secret_file.read()
 
         # Patient identifiers
-        patients_file_name = os.path.join(data_folder, patients)
-        raw_patients_df = pd.read_csv(patients_file_name,
+        raw_patients_df = pd.read_csv(patient_file_path,
                 sep=',',
                 dtype = str,
                 keep_default_na=False,

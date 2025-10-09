@@ -64,7 +64,7 @@ def basic_test_pattern(
                 expected_linkages
                 )
 
-def basic_error_pattern(**kwargs):
-    with pytest.raises(TypeError):
-        basic_test_pattern(kwargs)
+def basic_error_pattern(error_type, **kwargs):
+    with pytest.raises(error_type):
+        basic_test_pattern(**kwargs)
 
