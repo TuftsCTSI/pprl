@@ -9,9 +9,9 @@ sys.path.append('./src')
 import pprl
 
 current_dir = os.getcwd()
-#parent_dir = os.path.dirname(current_dir)
-test_data_folder = os.path.join(current_dir, "tests/data")
-test_schema_folder = os.path.join(current_dir, "tests/schemas")
+parent_dir = os.path.dirname(current_dir)
+test_data_folder = os.path.join(os.getcwd(), "tests/data")
+schema_data_folder = os.path.join(os.getcwd(), "tests/schemas")
 
 def assert_file_comparison(file_path_1, file_path_2):
     assert filecmp.cmp(file_path_1, file_path_2)
@@ -24,9 +24,10 @@ def assert_file_contents(file_path, expected):
 def test_basic_functionality():
     with tempfile.TemporaryDirectory() as temp_dir:
         pprl._create_CLKs(
-                data_folder = test_data_folder,
+                data_folder = 'tests/data/',
                 patients = "3_test_patients.csv",
-                schema_folder = test_schema_folder,
+                schema_folder = 'tests/schemas/',
+                schema = "schema.json",
                 secret = "secret.txt",
                 output_folder = temp_dir,
                 output = "CLKs.csv",
@@ -45,7 +46,7 @@ def test_basic_functionality():
 def test_basic_ordering():
     with tempfile.TemporaryDirectory() as temp_dir:
         pprl._create_CLKs(
-                data_folder = test_data_folder,
+                data_folder = 'tests/data/',
                 patients = "3_test_patients.csv",
                 schema = "schema.json",
                 secret = "secret.txt",
@@ -53,7 +54,7 @@ def test_basic_ordering():
                 output_folder = temp_dir,
                 quiet=True)
         pprl._create_CLKs(
-                data_folder = test_data_folder,
+                data_folder = 'tests/data/',
                 patients = "rev_3_test_patients.csv",
                 schema = "schema.json",
                 secret = "secret.txt",
@@ -75,8 +76,8 @@ def test_basic_ordering():
 def test_additional_ordering():
     with tempfile.TemporaryDirectory() as temp_dir:
         pprl._create_CLKs(
-                data_folder = test_data_folder,
-                schema_folder = test_data_folder,
+                data_folder = 'tests/data',
+                schema_folder = 'tests/schemas',
                 patients = "20_test_matches_a.csv",
                 schema = "20_ordering.json",
                 secret = "secret.txt",
