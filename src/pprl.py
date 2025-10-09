@@ -25,16 +25,16 @@ def create_CLKs(
 
     configuration = read_config_file(
             config,
-            {'patients', 'schema', 'secret', 'output', 'quiet', 'data_dir', 'schema_dir'}
+            {'patients', 'schema', 'secret', 'output', 'quiet', 'data_folder', 'output_folder', 'schema_folder'}
             )
 
 #    print(f"""
-#        The following files will be read from {data_dir}:
+#        The following files will be read from {data_folder}:
 #          - {data}
 #          - {secret}
-#        The following files will be written to {data_dir}:
+#        The following files will be written to {data_folder}:
 #          - {output}
-#        The following schema will be read from {schema_dir}:
+#        The following schema will be read from {schema_folder}:
 #          - {schema}
 #        The following options will be applied:
 #          - quiet = {quiet}
@@ -48,8 +48,9 @@ def _create_CLKs(
     secret = 'secret.txt',
     output = 'out.csv',
     quiet = False,
-    data_dir = os.path.join(os.getcwd(), "my_files"),
-    schema_dir = os.path.join(os.getcwd(), "schemas"),
+    data_folder = os.path.join(os.getcwd(), "my_files"),
+    output_folder = os.path.join(os.getcwd(), "my_files"),
+    schema_folder = os.path.join(os.getcwd(), "schemas"),
     ):
     #TODO: check for file existence, validity, etc.
 
@@ -57,18 +58,18 @@ def _create_CLKs(
         if quiet:
             spinner.stop()
         # Linking schema
-        schema_file_name = os.path.join(schema_dir, schema)
+        schema_file_name = os.path.join(schema_folder, schema)
         with open(schema_file_name, 'r') as f:
             schema_dict = json.load(f)
             schema = from_json_dict(schema_dict)
 
         # Secret
-        secret_file_name = os.path.join(data_dir, secret)
+        secret_file_name = os.path.join(data_folder, secret)
         with open(secret_file_name, 'r') as secret_file:
             secret = secret_file.read()
 
         # Patient identifiers
-        patients_file_name = os.path.join(data_dir, patients)
+        patients_file_name = os.path.join(data_folder, patients)
         raw_patients_df = pd.read_csv(patients_file_name,
                 sep=',',
                 dtype = str,
@@ -124,7 +125,7 @@ def _create_CLKs(
 
     hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = not quiet)
 
-    out_file_name = os.path.join(data_dir, output)
+    out_file_name = os.path.join(output_folder, output)
     with yaspin(text=f"Writing to {out_file_name}...") as spinner:
         if quiet:
             spinner.stop()
@@ -155,8 +156,8 @@ def read_config_file(config, allowed_config_names):
     #configuration.setdefault('secret', 'secret.txt')
     #configuration.setdefault('output', 'out.csv')
     #configuration.setdefault('quiet', True)
-    #configuration.setdefault('data_dir', os.path.join(os.getcwd(), "my_files"))
-    #configuration.setdefault('schema_dir', os.path.join(os.getcwd(), "schemas"))
+    #configuration.setdefault('data_folder', os.path.join(os.getcwd(), "my_files"))
+    #configuration.setdefault('schema_folder', os.path.join(os.getcwd(), "schemas"))
 
 
 #TODO: warn a user if any unexpected names appear in the dictionary!
@@ -172,27 +173,25 @@ def match_CLKs(config):
 
     configuration = read_config_file(
             config,
-            {'hashes', 'threshold', 'output', 'quiet', 'data_dir'}
+            {'hashes', 'threshold', 'output', 'quiet', 'data_folder', 'output_folder'}
     )
 
     _match_CLKs(**configuration)
 
-#TODO: warn a user if any unexpected names appear in the dictionary!
-#TODO: warn a user if a default value is used
-
 def _match_CLKs(
     hashes = None,
-    threshold = None,
-    output = None,
-    quiet = None,
-    data_dir = None,
+    threshold = 0.9,
+    output = 'out.csv',
+    quiet = True,
+    data_folder = 'my_files',
+    output_folder = 'my_files',
     ):
 
     #TODO: check other lengths
-    input_1 = os.path.join(data_dir, hashes[0])
+    input_1 = os.path.join(data_folder, hashes[0])
     if len(hashes) == 2:
         self_match = False
-        input_2 = os.path.join(data_dir, hashes[1])
+        input_2 = os.path.join(data_folder, hashes[1])
     else:
         self_match = True
         input_2 = input_1
@@ -226,7 +225,7 @@ def _match_CLKs(
     #TODO: If sources are 2 collaborating sites, produce a separate output file for each source.
     # That way, each group receives only presence/absence of link
     # This could be toggled in the config file, which I could manually prepare for each site.
-    linkages_file_name = os.path.join(data_dir, output)
+    linkages_file_name = os.path.join(output_folder, output)
     with open(linkages_file_name, "w") as linkages_file:
         csv_writer = csv.writer(linkages_file)
         csv_writer.writerow([source_1,source_2])
@@ -247,6 +246,6 @@ def self_match_CLKs(config):
         output = configuration.get('output', 'matches.csv'),
         quiet = configuration.get('quiet', True),
         self_match = configuration.get('quiet', True),
-        data_dir = configuration.get('data_dir', os.path.join(pwd(), "my_files")),
-        schema_dir = configuration.get('data_dir', os.path.join(pwd(), "schemas"))
+        data_folder = configuration.get('data_folder', os.path.join(pwd(), "my_files")),
+        schema_folder = configuration.get('schema_folder', os.path.join(pwd(), "schemas"))
         )

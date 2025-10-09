@@ -1,5 +1,7 @@
 hashes: [
-  ../tests/tmp/CLKs.csv
+  CLKs.csv
 ]
-output: ../tests/tmp/matches.csv
+input_folder: ../tests/tmp
+output_folder: ../tests/tmp
+output: matches.csv
 threshold: 0.9

@@ -2,6 +2,6 @@ patients: 3_test_patients.csv
 secret: secret.txt
 output: CLKs.csv
 schema: schema.json
-data_dir: tests/data/
-schema_dir: tests/schemas/
+data_folder: tests/data/
+schema_folder: tests/schemas/
 quiet: true
