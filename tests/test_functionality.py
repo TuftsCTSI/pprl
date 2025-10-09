@@ -76,7 +76,7 @@ def test_additional_ordering():
     with tempfile.TemporaryDirectory() as temp_dir:
         pprl._create_CLKs(
                 data_folder = test_data_folder,
-                schema_folder = test_data_folder,
+                schema_folder = test_schema_folder,
                 patients = "20_test_matches_a.csv",
                 schema = "20_ordering.json",
                 secret = "secret.txt",
