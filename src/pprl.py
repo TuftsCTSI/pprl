@@ -42,7 +42,7 @@ def create_CLKs(
 
     _create_CLKs(**configuration)
 
-def get_valid_file_path(descriptor, file_name, file_directory):
+def validated_file_path(descriptor, file_name, file_directory):
     if file_name is None:
         raise TypeError(f'The name of a {descriptor} file must be provided.')
     patient_file_path = os.path.join(file_directory, file_name)
@@ -64,24 +64,20 @@ def _create_CLKs(
 
     #TODO: check for file format, validity, etc.
 
-    patient_file_path = get_valid_file_path(
-            'patient records',
-            patients,
-            data_folder
-            )
+    patient_file_path = validated_file_path('patient records', patients, data_folder)
+    secret_file_path = validated_file_path('secret', secret, data_folder)
+    schema_file_path = validated_file_path('schema', schema, schema_folder)
 
     with yaspin(text="Reading from files and preprocessing...") as spinner:
         if quiet:
             spinner.stop()
         # Linking schema
-        schema_file_name = os.path.join(schema_folder, schema)
-        with open(schema_file_name, 'r') as f:
+        with open(schema_file_path, 'r') as f:
             schema_dict = json.load(f)
             schema = from_json_dict(schema_dict)
 
         # Secret
-        secret_file_name = os.path.join(data_folder, secret)
-        with open(secret_file_name, 'r') as secret_file:
+        with open(secret_file_path, 'r') as secret_file:
             secret = secret_file.read()
 
         # Patient identifiers
