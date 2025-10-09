@@ -60,6 +60,7 @@ def _create_CLKs(
     patient_file_path = validated_file_path('patient records', patients, data_folder)
     secret_file_path = validated_file_path('secret', secret, data_folder)
     schema_file_path = validated_file_path('schema', schema, schema_folder)
+    output_file_path = validated_out_path('hash', output, output_folder)
 
     with yaspin(text="Reading from files and preprocessing...") as spinner:
         if quiet:
@@ -129,16 +130,13 @@ def _create_CLKs(
 
     hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = not quiet)
 
-    out_file_name = os.path.join(output_folder, output)
-    with yaspin(text=f"Writing to {out_file_name}...") as spinner:
+    with yaspin(text=f"Writing to {output_file_path}...") as spinner:
         if quiet:
             spinner.stop()
         serialized_hashes = [serialize_bitarray(x) for x in hashed_data]
         patients_df['clk'] = serialized_hashes
         #TODO: optionally print this out for the user to see
-        patients_df[['row_id', 'source', 'clk']].to_csv(out_file_name, index=False)
-
-
+        patients_df[['row_id', 'source', 'clk']].to_csv(output_file_path, index=False)
 
 def match_CLKs(config):
     """
@@ -162,10 +160,17 @@ def _match_CLKs(
         ):
 
     #TODO: check other lengths
-    input_1 = os.path.join(data_folder, hashes[0])
+    if hashes is None:
+        raise TypeError('A list of one or two hashes must be provided')
+    #TODO: verify it's a list
+    if len(hashes) not in {1,2}:
+        raise ValueError('A list of one or two hashes must be provided')
+
+    linkages_file_path = validated_out_path('linkages', output, output_folder)
+    input_1 = validated_file_path('hashes', hashes[0], data_folder)
     if len(hashes) == 2:
         self_match = False
-        input_2 = os.path.join(data_folder, hashes[1])
+        input_2 = validated_file_path('hashes', hashes[1], data_folder)
     else:
         self_match = True
         input_2 = input_1
@@ -199,8 +204,7 @@ def _match_CLKs(
     #TODO: If sources are 2 collaborating sites, produce a separate output file for each source.
     # That way, each group receives only presence/absence of link
     # This could be toggled in the config file, which I could manually prepare for each site.
-    linkages_file_name = os.path.join(output_folder, output)
-    with open(linkages_file_name, "w") as linkages_file:
+    with open(linkages_file_path, "w") as linkages_file:
         csv_writer = csv.writer(linkages_file)
         csv_writer.writerow([source_1,source_2])
         csv_writer.writerows(relevant_matches)

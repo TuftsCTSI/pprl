@@ -40,8 +40,19 @@ def validated_file_path(descriptor, file_name, file_directory):
     """
     if file_name is None:
         raise TypeError(f'The name of a {descriptor} file must be provided.')
-    patient_file_path = os.path.join(file_directory, file_name)
-    if not os.path.isfile(patient_file_path):
-        raise FileNotFoundError(f'Cannot find {descriptor} file: {patient_file_path}') 
-    return patient_file_path
+    file_path = os.path.join(file_directory, file_name)
+    if not os.path.isfile(file_path):
+        raise FileNotFoundError(f'Cannot find {descriptor} file: {file_path}') 
+    return file_path
+
+def validated_out_path(descriptor, file_name, file_directory):
+    """
+    Assmeble, validate, and return the path for a new export file
+    """
+    if file_name is None:
+        raise TypeError(f'The name of a {descriptor} file must be provided.')
+    file_path = os.path.join(file_directory, file_name)
+    if os.path.isfile(file_path):
+        raise FileNotFoundError(f'The following {descriptor} file already exists: {file_path}') 
+    return file_path
 
