@@ -1,7 +1,7 @@
 # The input CSV file containing patient identifiers
 # You will probably need to provide this file yourself
 # This file should be placed in the "my_files" folder
-records: identifiers.csv
+patients: identifiers.csv
 
 # The plain-text file containing the secret
 # You will probably need to provide this file yourself
@@ -16,3 +16,4 @@ output: CLKs.csv
 # This must be one of the files provided the schema subdirectory
 schema: schema.json
 
+#TODO: add other files, consider which ones will be shared separately and which will be selected based on config

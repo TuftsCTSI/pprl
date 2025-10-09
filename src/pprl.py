@@ -6,7 +6,6 @@ import json
 #import logging
 import os
 import pandas as pd
-import yaml
 
 import clkhash
 from clkhash import clk

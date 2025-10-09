@@ -1,3 +1,4 @@
+#!./venv/bin/python
 import argparse
 import sys
 
@@ -5,9 +6,8 @@ sys.path.append('./src')
 import pprl
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-c', '--config', type=str, default= 'match_CLKs.yml', help='The name of the config file (default is match_CLKs.yml)')
-parser.add_argument('-q', '--quiet', action='store_true', help='(Disables any visual updates and progress bars)')
+parser.add_argument("config_file", nargs = '?', default = 'match_CLKs.yml', help = 'The name of the config file (default is match_CLKs.yml)')
 args = parser.parse_args()
-config_file_name = args.config
 
-pprl.match_CLKs(**vars(args))
+pprl.match_CLKs(args.config_file)
+

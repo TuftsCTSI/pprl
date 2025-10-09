@@ -1,3 +1,4 @@
+#!./venv/bin/python
 import argparse
 import sys
 
@@ -5,17 +6,7 @@ sys.path.append('./src')
 import pprl
 
 parser = argparse.ArgumentParser()
-# optionally leave out
-parser.add_argument('-c', '--config', type=str, default= 'create_CLKs.yml', help='The name of the config file (default is create_CLKs.yml)')
-parser.add_argument('-q', '--quiet', action='store_true', help='(Disables any visual updates and progress bars)')
+parser.add_argument("config_file", nargs = '?', default = 'create_CLKs.yml', help = 'The name of the config file (default is create_CLKs.yml)')
 args = parser.parse_args()
 
-#=
-pprl.create_CLKs(
-    configuration["records"],
-    configuration["schema"],
-    configuration["secret"],
-    configuration["output"],
-    quiet = args.quiet
-)
-=#
+pprl.create_CLKs(args.config_file)

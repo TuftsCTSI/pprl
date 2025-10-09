@@ -1,4 +1,5 @@
 import os
+import yaml
 
 def read_config_file(config, allowed_config_names):
     """
@@ -8,10 +9,15 @@ def read_config_file(config, allowed_config_names):
     observed_config_names = set(configuration.keys())
     unexpected_config_names = observed_config_names - allowed_config_names
     if bool(unexpected_config_names):
-        print("The following variables were not expected in the configuration file:")
-        print(unexpected_config_names)
-        print(" Only the followin variables should be used:")
-        print(allowed_config_names)
+        print("ERROR:")
+        print("    The following variables were not expected in the configuration file:")
+        for name in unexpected_config_names:
+            print(f'    - {name}')
+        print("    Only the following variables should be used:")
+        for name in allowed_config_names:
+            print(f'    - {name}')
+        exit()
+        #raise ValueError
 
     #TODO: test to avoid mixing hashing schema with linking schema?
 
