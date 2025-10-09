@@ -56,6 +56,7 @@ def test_basic_functionality():
             expected_linkages = 'zoo,zoo\n'
             )
 
+#TODO: never had a test for output file already exists, either
 #TODO: remake this test?
 @pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
 def test_wrong_schema():

@@ -62,6 +62,12 @@ def validated_out_path(descriptor, file_name, file_directory):
         raise TypeError(f'The name of a {descriptor} file must be provided.')
     file_path = os.path.join(file_directory, file_name)
     if os.path.isfile(file_path):
-        raise FileNotFoundError(f'The following {descriptor} file already exists: {file_path}') 
+        print(f'''
+ERROR:
+    The following {descriptor} file already exists: {file_path}
+    Rather than overwrite this file, no output will be written!
+''') 
+        exit()
+        #raise FileNotFoundError(f'The following {descriptor} file already exists: {file_path}') 
     return file_path
 
