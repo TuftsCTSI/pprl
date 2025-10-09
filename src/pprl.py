@@ -44,8 +44,8 @@ def create_CLKs(
 
 def _create_CLKs(
     patients = None,
+    secret = None,
     schema = 'schema.json',
-    secret = 'secret.txt',
     output = 'out.csv',
     quiet = False,
     data_folder = os.path.join(os.getcwd(), "my_files"),
