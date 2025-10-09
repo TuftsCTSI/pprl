@@ -1,46 +1,53 @@
 #import csv
+import os
 import pandas as pd
 import sys
+import tempfile
 
 sys.path.append('./src')
 import pprl
 
+current_dir = os.getcwd()
+parent_dir = os.path.dirname(current_dir)
+test_data_dir = os.path.join(os.getcwd(), "tests/data")
+schema_data_dir = os.path.join(os.getcwd(), "tests/schemas")
+
 #TODO: use tempfiles for each test instead
 
 def test_basic_functionality():
-    pprl.create_CLKs("tests/configs/create_CLKs.yml", quiet=True)
-    #pprl.match_CLKs("tests/configs/match_CLKs.yml", quiet=True)
+
+    pprl.create_CLKs("tests/configs/create_CLKs.yml")
     pprl._match_CLKs(
-        "../tests/tmp/CLKs.csv",
-        "../tests/tmp/CLKs.csv",
-        0.9,
-        "../tests/tmp/matches.csv",
-        self_match = True,
+        data_dir = 'tests/data/',
+        hashes = ["CLKs.csv"],
+        threshold=  0.9,
+        output = "abc",
         quiet=True)
 
-    with open('tests/tmp/matches.csv','r') as file:
+    with open('tests/data/abc','r') as file:
         output = file.read()
-        print(output)
         assert output == 'zoo,zoo\n'
 
 def test_basic_ordering():
     pprl._create_CLKs(
-        "../tests/populations/3_test_patients.csv",
-        "../tests/schemas/schema.json",
-        "../tests/secrets/secret.txt",
-        "../tests/tmp/CLKsa1.csv",
+        data_dir = 'tests/data/',
+        patients = "3_test_patients.csv",
+        schema = "schema.json",
+        secret = "secret.txt",
+        output = "CLKsa1.csv",
             quiet=True)
     pprl._create_CLKs(
-        "../tests/populations/rev_3_test_patients.csv",
-        "../tests/schemas/schema.json",
-        "../tests/secrets/secret.txt",
-        "../tests/tmp/CLKsa2.csv",
+        data_dir = 'tests/data/',
+        patients = "rev_3_test_patients.csv",
+        schema = "schema.json",
+        secret = "secret.txt",
+        output = "CLKsa2.csv",
             quiet=True)
     pprl._match_CLKs(
-        "../tests/tmp/CLKsa1.csv",
-        "../tests/tmp/CLKsa2.csv",
-        0.9,
-        "../tests/tmp/matches.csv",
+        data_dir = 'tests/data/',
+        hashes = ['CLKsa1.csv', 'CLKsa2.csv'],
+        threshold = 0.9,
+        output = 'matches.csv',
         quiet=True)
 
     with open('tests/tmp/matches.csv','r') as file:
@@ -49,23 +56,28 @@ def test_basic_ordering():
         assert output == 'zoo,zoo\n0,2\n1,1\n2,0\n'
 
 def test_additional_ordering():
+
     pprl._create_CLKs(
-        "../tests/populations/20_test_matches_a.csv",
-        "../tests/schemas/20_ordering.json",
-        "../tests/secrets/secret.txt",
-        "../tests/tmp/CLKsa3.csv",
+        data_dir = 'tests/data',
+        schema_dir = 'tests/schemas',
+        patients = "20_test_matches_a.csv",
+        schema = "20_ordering.json",
+        secret = "secret.txt",
+        output = 'asd1',
             quiet=True)
     pprl._create_CLKs(
-        "../tests/populations/20_test_matches_b.csv",
-        "../tests/schemas/20_ordering.json",
-        "../tests/secrets/secret.txt",
-        "../tests/tmp/CLKsa4.csv",
+        data_dir = 'tests/data',
+        schema_dir = 'tests/schemas',
+        patients = "20_test_matches_b.csv",
+        schema = "20_ordering.json",
+        secret = "secret.txt",
+        output = 'asd2',
             quiet=True)
     pprl._match_CLKs(
-        "../tests/tmp/CLKsa3.csv",
-        "../tests/tmp/CLKsa4.csv",
-        0.9,
-        "../tests/tmp/qmatches.csv",
+            hashes = ['asd1','asd2'],
+        data_dir = test_data_dir,
+        threshold = 0.9,
+        output = "qmatches.csv", # TODO: tempfile
         quiet=True)
 
     with open('tests/tmp/qmatches.csv','r') as file:

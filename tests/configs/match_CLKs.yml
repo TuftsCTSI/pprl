@@ -1,4 +1,5 @@
-input_1: ../tests/tmp/CLKs.csv
-input_2: ../tests/tmp/CLKs.csv
+hashes: [
+  ../tests/tmp/CLKs.csv
+]
 output: ../tests/tmp/matches.csv
 threshold: 0.9

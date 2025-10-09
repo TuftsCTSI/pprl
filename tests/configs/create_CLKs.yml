@@ -1,4 +1,7 @@
-records: ../tests/populations/3_test_patients.csv
-secret: ../tests/secrets/secret.txt
-output: ../tests/tmp/CLKs.csv
-schema: ../tests/schemas/schema.json
+patients: 3_test_patients.csv
+secret: secret.txt
+output: CLKs.csv
+schema: schema.json
+data_dir: tests/data/
+schema_dir: tests/schemas/
+quiet: true

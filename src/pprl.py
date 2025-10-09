@@ -3,6 +3,7 @@ import bitarray
 import csv
 import io
 import json
+#import logging
 import os
 import pandas as pd
 import yaml
@@ -17,52 +18,57 @@ from yaspin import yaspin
 
 def create_CLKs(
     config,
-    quiet = False
     ):
     """
     Parse a config file and call the underlying CLK generation
     """
 
-    configuration = yaml.safe_load(open(config))
+    configuration = read_config_file(
+            config,
+            {'patients', 'schema', 'secret', 'output', 'quiet', 'data_dir', 'schema_dir'}
+            )
 
-    _create_CLKs(
-        configuration["records"],
-        configuration["schema"],
-        configuration["secret"],
-        configuration["output"],
-        quiet = quiet
-        )
+#    print(f"""
+#        The following files will be read from {data_dir}:
+#          - {data}
+#          - {secret}
+#        The following files will be written to {data_dir}:
+#          - {output}
+#        The following schema will be read from {schema_dir}:
+#          - {schema}
+#        The following options will be applied:
+#          - quiet = {quiet}
+#        """)
+
+    _create_CLKs(**configuration)
 
 def _create_CLKs(
-    data,
-    schema,
-    secret,
-    output,
-    quiet=False
+    patients = None,
+    schema = 'schema.json',
+    secret = 'secret.txt',
+    output = 'out.csv',
+    quiet = False,
+    data_dir = os.path.join(os.getcwd(), "my_files"),
+    schema_dir = os.path.join(os.getcwd(), "schemas"),
     ):
-
-    schema_file_dir = "schemas"
-    user_file_dir = "my_files"
-
-
     #TODO: check for file existence, validity, etc.
 
     with yaspin(text="Reading from files and preprocessing...") as spinner:
         if quiet:
             spinner.stop()
         # Linking schema
-        schema_file_name = os.path.join(schema_file_dir, schema)
+        schema_file_name = os.path.join(schema_dir, schema)
         with open(schema_file_name, 'r') as f:
             schema_dict = json.load(f)
             schema = from_json_dict(schema_dict)
 
         # Secret
-        secret_file_name = os.path.join(user_file_dir, secret)
+        secret_file_name = os.path.join(data_dir, secret)
         with open(secret_file_name, 'r') as secret_file:
             secret = secret_file.read()
 
         # Patient identifiers
-        patients_file_name = os.path.join(user_file_dir, data)
+        patients_file_name = os.path.join(data_dir, patients)
         raw_patients_df = pd.read_csv(patients_file_name,
                 sep=',',
                 dtype = str,
@@ -118,7 +124,7 @@ def _create_CLKs(
 
     hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = not quiet)
 
-    out_file_name = os.path.join(user_file_dir, output)
+    out_file_name = os.path.join(data_dir, output)
     with yaspin(text=f"Writing to {out_file_name}...") as spinner:
         if quiet:
             spinner.stop()
@@ -127,36 +133,69 @@ def _create_CLKs(
         #TODO: optionally print this out for the user to see
         patients_df[['row_id', 'source', 'clk']].to_csv(out_file_name, index=False)
 
-def match_CLKs(
-    config,
-    quiet=False
-    ):
+def read_config_file(config, allowed_config_names):
+    configuration = yaml.safe_load(open(config))
+    observed_config_names = set(configuration.keys())
+    unexpected_config_names = observed_config_names - allowed_config_names
+    if bool(unexpected_config_names):
+        print("The following variables were not expected in the configuration file:")
+        print(unexpected_config_names)
+        print(" Only the followin variables should be used:")
+        print(allowed_config_names)
+
+    #TODO: test to avoid mixing hashing schema with linking schema?
+    
+    unused_config_names = allowed_config_names - observed_config_names 
+    if bool(unexpected_config_names):
+        print("The following variables weren't set in the config file:")
+        print(unused_config_names)
+        print("Default values will be asigned instead.")
+
+    #configuration.setdefault('schema', 'schema.json')
+    #configuration.setdefault('secret', 'secret.txt')
+    #configuration.setdefault('output', 'out.csv')
+    #configuration.setdefault('quiet', True)
+    #configuration.setdefault('data_dir', os.path.join(os.getcwd(), "my_files"))
+    #configuration.setdefault('schema_dir', os.path.join(os.getcwd(), "schemas"))
+
+
+#TODO: warn a user if any unexpected names appear in the dictionary!
+#TODO: warn a user if a default value is used
+
+    return configuration
+
+
+def match_CLKs(config):
     """
     Parse a config file and call the underlying CLK matching
     """
 
-    configuration = yaml.safe_load(open(config))
+    configuration = read_config_file(
+            config,
+            {'hashes', 'threshold', 'output', 'quiet', 'data_dir'}
+    )
 
-    _match_CLKs(
-        configuration["input_1"],
-        configuration["input_2"],
-        configuration["threshold"],
-        configuration["output"],
-        quiet = quiet
-        )
+    _match_CLKs(**configuration)
+
+#TODO: warn a user if any unexpected names appear in the dictionary!
+#TODO: warn a user if a default value is used
 
 def _match_CLKs(
-    input_1,
-    input_2,
-    threshold,
-    output,
-    self_match = False,
-    quiet = False,
+    hashes = None,
+    threshold = None,
+    output = None,
+    quiet = None,
+    data_dir = None,
     ):
 
-    user_file_dir = "my_files"
-    input_1 = os.path.join(user_file_dir, input_1)
-    input_2 = os.path.join(user_file_dir, input_2)
+    #TODO: check other lengths
+    input_1 = os.path.join(data_dir, hashes[0])
+    if len(hashes) == 2:
+        self_match = False
+        input_2 = os.path.join(data_dir, hashes[1])
+    else:
+        self_match = True
+        input_2 = input_1
     df_1 = pd.read_csv(input_1)
     df_2 = pd.read_csv(input_2)
 
@@ -187,26 +226,27 @@ def _match_CLKs(
     #TODO: If sources are 2 collaborating sites, produce a separate output file for each source.
     # That way, each group receives only presence/absence of link
     # This could be toggled in the config file, which I could manually prepare for each site.
-    linkages_file_name = os.path.join(user_file_dir, output)
+    linkages_file_name = os.path.join(data_dir, output)
     with open(linkages_file_name, "w") as linkages_file:
         csv_writer = csv.writer(linkages_file)
         csv_writer.writerow([source_1,source_2])
         csv_writer.writerows(relevant_matches)
 
-def self_match_CLKs(
+def self_match_CLKs(config):
     #TODO: delete this function?
     #TODO: data should be called input, not input_1, and it ought to be positional
     #TODO: consider passing config as separate arguments for this
-    config,
-    quiet=False
-    ):
 
     configuration = yaml.safe_load(open(config))
 
+#TODO: warn a user if any unexpected names appear in the dictionary!
+#TODO: warn a user if a default value is used
     _self_match_CLKs(
-        configuration["input"],
-        configuration["threshold"],
-        configuration["output"],
-        quiet = quiet,
-        self_match = True
+        data = configuration.get('data'),
+        threshold = configuration.get('threshold', 0.9),
+        output = configuration.get('output', 'matches.csv'),
+        quiet = configuration.get('quiet', True),
+        self_match = configuration.get('quiet', True),
+        data_dir = configuration.get('data_dir', os.path.join(pwd(), "my_files")),
+        schema_dir = configuration.get('data_dir', os.path.join(pwd(), "schemas"))
         )
