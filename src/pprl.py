@@ -42,6 +42,15 @@ def create_CLKs(
 
     _create_CLKs(**configuration)
 
+def get_valid_file_path(descriptor, file_name, file_directory):
+    if file_name is None:
+        raise TypeError(f'The name of a {descriptor} file must be provided.')
+    patient_file_path = os.path.join(file_directory, file_name)
+    if not os.path.isfile(patient_file_path):
+        raise FileNotFoundError(f'Cannot find {descriptor} file: {patient_file_path}') 
+    return patient_file_path
+
+
 def _create_CLKs(
         patients = None,
         secret = None,
@@ -53,14 +62,13 @@ def _create_CLKs(
         schema_folder = os.path.join(os.getcwd(), "schemas"),
         ):
 
-    #TODO: check for file existence, validity, etc.
-    if patients is None:
-        raise TypeError('The name of a patient records file must be provided.')
-        
-    patient_file_path = os.path.join(data_folder, patients)
-    if not os.path.isfile(patient_file_path):
-        raise FileNotFoundError(f'Cannot find patient data file: {patient_file_path}') 
+    #TODO: check for file format, validity, etc.
 
+    patient_file_path = get_valid_file_path(
+            'patient records',
+            patients,
+            data_folder
+            )
 
     with yaspin(text="Reading from files and preprocessing...") as spinner:
         if quiet:
