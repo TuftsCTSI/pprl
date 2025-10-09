@@ -46,6 +46,22 @@ def test_basic_functionality():
             expected_linkages = 'zoo,zoo\n'
             )
 
+def test_wrong_schema():
+    basic_error_pattern(
+            AssertionError,
+            patients_1 = "20_test_matches_a.csv",
+            patients_2 = "20_test_matches_a.csv",
+            expected_linkages = 'simple_synthetic,simple_synthetic\n0,0\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n'
+            )
+
+def test_exact_duplicates():
+    basic_test_pattern(
+            schema = "20_ordering.json",
+            patients_1 = "20_test_matches_a.csv",
+            patients_2 = "20_test_matches_a.csv",
+            expected_linkages = 'simple_synthetic,simple_synthetic\n0,0\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n'
+            )
+
 def test_basic_ordering():
     basic_test_pattern(
             patients_1 = "3_test_patients.csv",
