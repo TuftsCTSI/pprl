@@ -107,12 +107,14 @@ def _create_CLKs(
         expected_column_names = ['row_id', 'source', *unignored_feature_names]
         observed_column_names = patients_df.columns.tolist()
 
-        assert observed_column_names == expected_column_names, f" \n\n\
-                The data column names or order don't match what is expected from the schema! \n\
-                Expected: {','.join(str(i) for i in expected_column_names)} \n\
-                Observed: {','.join(str(i) for i in observed_column_names)} \n\
-                If you're sure the schema is correct, update your input file to match the schema columns. \n\
-                "
+        if observed_column_names != expected_column_names:
+            print(f""" \n\nERROR:
+    The data column names or order don't match what is expected from the schema!
+    Expected: {','.join(str(i) for i in expected_column_names)}
+    Observed: {','.join(str(i) for i in observed_column_names)}
+    If you're sure the schema is correct, update your input file to match the schema columns.
+                    """)
+            exit()
 
         # Add and order missing columns
         for f in feature_names:
