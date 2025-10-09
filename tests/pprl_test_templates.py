@@ -1,5 +1,6 @@
 import os
 import sys
+import pytest
 import tempfile
 
 from pprl_test_utilities import *
@@ -62,4 +63,8 @@ def basic_test_pattern(
                 os.path.join(temp_dir, linkages),
                 expected_linkages
                 )
+
+def basic_error_pattern(**kwargs):
+    with pytest.raises(TypeError):
+        basic_test_pattern(kwargs)
 

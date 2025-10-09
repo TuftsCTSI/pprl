@@ -1,5 +1,8 @@
 from pprl_test_templates import *
 
+def test_missing_patients():
+        basic_error_pattern()
+
 def test_basic_functionality():
     basic_test_pattern(
             patients_1 = "3_test_patients.csv",

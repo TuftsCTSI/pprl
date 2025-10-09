@@ -52,7 +52,14 @@ def _create_CLKs(
         output_folder = os.path.join(os.getcwd(), "my_files"),
         schema_folder = os.path.join(os.getcwd(), "schemas"),
         ):
+
     #TODO: check for file existence, validity, etc.
+    if patients is None:
+        raise TypeError('The name of a patient records file must be provided.')
+        
+    #if not isfile(patients):
+        #raise FileNotFoundError(f'Cannot find patient data file: {}', 
+
 
     with yaspin(text="Reading from files and preprocessing...") as spinner:
         if quiet:
