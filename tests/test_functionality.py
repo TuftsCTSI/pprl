@@ -44,60 +44,63 @@ def test_basic_functionality():
             )
 
 def test_basic_ordering():
-    pprl._create_CLKs(
-        data_folder = 'tests/data/',
-        patients = "3_test_patients.csv",
-        schema = "schema.json",
-        secret = "secret.txt",
-        output = "CLKsa1.csv",
+    with tempfile.TemporaryDirectory() as temp_dir:
+        pprl._create_CLKs(
+            data_folder = 'tests/data/',
+            patients = "3_test_patients.csv",
+            schema = "schema.json",
+            secret = "secret.txt",
+            output = "CLKsa1.csv",
+            output_folder = temp_dir,
+                quiet=True)
+        pprl._create_CLKs(
+            data_folder = 'tests/data/',
+            patients = "rev_3_test_patients.csv",
+            schema = "schema.json",
+            secret = "secret.txt",
+            output = "CLKsa2.csv",
+            output_folder = temp_dir,
+                quiet=True)
+        pprl._match_CLKs(
+            data_folder = temp_dir,
+            hashes = ['CLKsa1.csv', 'CLKsa2.csv'],
+            threshold = 0.9,
+            output = 'matches.csv',
+            output_folder = temp_dir,
             quiet=True)
-    pprl._create_CLKs(
-        data_folder = 'tests/data/',
-        patients = "rev_3_test_patients.csv",
-        schema = "schema.json",
-        secret = "secret.txt",
-        output = "CLKsa2.csv",
-            quiet=True)
-    pprl._match_CLKs(
-        data_folder = 'tests/data/',
-        hashes = ['CLKsa1.csv', 'CLKsa2.csv'],
-        threshold = 0.9,
-        output = 'matches.csv',
-        quiet=True)
-
-    with open('tests/data/matches.csv','r') as file:
-        output = file.read()
-        print(output)
-        assert output == 'zoo,zoo\n0,2\n1,1\n2,0\n'
+        assert_file_contents(
+            os.path.join(temp_dir, "matches.csv"),
+            'zoo,zoo\n0,2\n1,1\n2,0\n'
+            )
 
 def test_additional_ordering():
-
-    pprl._create_CLKs(
-        data_folder = 'tests/data',
-        schema_folder = 'tests/schemas',
-        patients = "20_test_matches_a.csv",
-        schema = "20_ordering.json",
-        secret = "secret.txt",
-        output = 'asd1',
+    with tempfile.TemporaryDirectory() as temp_dir:
+        pprl._create_CLKs(
+            data_folder = 'tests/data',
+            schema_folder = 'tests/schemas',
+            patients = "20_test_matches_a.csv",
+            schema = "20_ordering.json",
+            secret = "secret.txt",
+            output_folder = temp_dir,
+            output = 'asd1',
+                quiet=True)
+        pprl._create_CLKs(
+            data_folder = 'tests/data',
+            schema_folder = 'tests/schemas',
+            patients = "20_test_matches_b.csv",
+            schema = "20_ordering.json",
+            secret = "secret.txt",
+            output_folder = temp_dir,
+            output = 'asd2',
+                quiet=True)
+        pprl._match_CLKs(
+                hashes = ['asd1','asd2'],
+            data_folder = temp_dir,
+            threshold = 0.9,
+            output_folder = temp_dir,
+            output = "qmatches.csv", # TODO: tempfile
             quiet=True)
-    pprl._create_CLKs(
-        data_folder = 'tests/data',
-        schema_folder = 'tests/schemas',
-        patients = "20_test_matches_b.csv",
-        schema = "20_ordering.json",
-        secret = "secret.txt",
-        output = 'asd2',
-            quiet=True)
-    pprl._match_CLKs(
-            hashes = ['asd1','asd2'],
-        data_folder = test_data_folder,
-        threshold = 0.9,
-        output = "qmatches.csv", # TODO: tempfile
-        quiet=True)
-    #TODO: use tempfile, or otherwise delete any files created during tests (Pytests can automate?)
-    #TODO: add an aditional outdir, especially for tests
-
-    with open('tests/data/qmatches.csv','r') as file:
-        output = file.read()
-        print(output)
-        assert output == 'simple_synthetic,simple_synthetic\n0,0\n1,2\n2,4\n3,6\n4,8\n5,10\n6,12\n7,14\n8,16\n9,18\n'
+        assert_file_contents(
+            os.path.join(temp_dir, "qmatches.csv"),
+            'simple_synthetic,simple_synthetic\n0,0\n1,2\n2,4\n3,6\n4,8\n5,10\n6,12\n7,14\n8,16\n9,18\n'
+            )
