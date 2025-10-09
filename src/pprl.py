@@ -200,12 +200,15 @@ def _match_CLKs(
         relevant_matches = found_matches
 
     #TODO: If sources are 2 collaborating sites, produce a separate output file for each source.
+    #TODO: consistenly use full file path in all error reporting
+    #TODO: why not manually go through user errors with batch testing, capturing output with tee and verifying?
     # That way, each group receives only presence/absence of link
     # This could be toggled in the config file, which I could manually prepare for each site.
     with open(linkages_file_path, "w") as linkages_file:
         csv_writer = csv.writer(linkages_file)
         csv_writer.writerow([source_1,source_2])
         csv_writer.writerows(relevant_matches)
+    print(f'Output successfully written to {linkages_file_path}')
 
 def read_dataframe_from_CSV(file_path):
         try:
@@ -215,7 +218,7 @@ def read_dataframe_from_CSV(file_path):
                     keep_default_na=False,
                     )
         except pd.errors.EmptyDataError:
-            print(f"\nERROR:\n    The data file is empty: {patient_file_path}\n")
+            print(f"\nERROR:\n    The data file is empty: {file_path}\n")
             exit()
         #except pd.errors.ParserError:
             #print(f"\nERROR:\n    The data file couldn't be read: {patient_file_path}\n")
