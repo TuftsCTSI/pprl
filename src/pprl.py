@@ -4,9 +4,7 @@ import csv
 import io
 import json
 #import logging
-import os
 import pandas as pd
-import yaml
 
 import clkhash
 from clkhash import clk
@@ -15,6 +13,8 @@ from clkhash.serialization import deserialize_bitarray, serialize_bitarray
 
 from anyascii import anyascii
 from yaspin import yaspin
+
+from pprl_utilities import *
 
 def create_CLKs(
         config,
@@ -41,15 +41,6 @@ def create_CLKs(
 #        """)
 
     _create_CLKs(**configuration)
-
-def validated_file_path(descriptor, file_name, file_directory):
-    if file_name is None:
-        raise TypeError(f'The name of a {descriptor} file must be provided.')
-    patient_file_path = os.path.join(file_directory, file_name)
-    if not os.path.isfile(patient_file_path):
-        raise FileNotFoundError(f'Cannot find {descriptor} file: {patient_file_path}') 
-    return patient_file_path
-
 
 def _create_CLKs(
         patients = None,
@@ -145,36 +136,6 @@ def _create_CLKs(
         #TODO: optionally print this out for the user to see
         patients_df[['row_id', 'source', 'clk']].to_csv(out_file_name, index=False)
 
-def read_config_file(config, allowed_config_names):
-    configuration = yaml.safe_load(open(config))
-    observed_config_names = set(configuration.keys())
-    unexpected_config_names = observed_config_names - allowed_config_names
-    if bool(unexpected_config_names):
-        print("The following variables were not expected in the configuration file:")
-        print(unexpected_config_names)
-        print(" Only the followin variables should be used:")
-        print(allowed_config_names)
-
-    #TODO: test to avoid mixing hashing schema with linking schema?
-
-    unused_config_names = allowed_config_names - observed_config_names 
-    if bool(unexpected_config_names):
-        print("The following variables weren't set in the config file:")
-        print(unused_config_names)
-        print("Default values will be asigned instead.")
-
-    #configuration.setdefault('schema', 'schema.json')
-    #configuration.setdefault('secret', 'secret.txt')
-    #configuration.setdefault('output', 'out.csv')
-    #configuration.setdefault('quiet', True)
-    #configuration.setdefault('data_folder', os.path.join(os.getcwd(), "my_files"))
-    #configuration.setdefault('schema_folder', os.path.join(os.getcwd(), "schemas"))
-
-
-#TODO: warn a user if any unexpected names appear in the dictionary!
-#TODO: warn a user if a default value is used
-
-    return configuration
 
 
 def match_CLKs(config):
@@ -242,21 +203,3 @@ def _match_CLKs(
         csv_writer.writerow([source_1,source_2])
         csv_writer.writerows(relevant_matches)
 
-def self_match_CLKs(config):
-    #TODO: delete this function?
-    #TODO: data should be called input, not input_1, and it ought to be positional
-    #TODO: consider passing config as separate arguments for this
-
-    configuration = yaml.safe_load(open(config))
-
-#TODO: warn a user if any unexpected names appear in the dictionary!
-#TODO: warn a user if a default value is used
-    _self_match_CLKs(
-            data = configuration.get('data'),
-            threshold = configuration.get('threshold', 0.9),
-            output = configuration.get('output', 'matches.csv'),
-            quiet = configuration.get('quiet', True),
-            self_match = configuration.get('quiet', True),
-            data_folder = configuration.get('data_folder', os.path.join(pwd(), "my_files")),
-            schema_folder = configuration.get('schema_folder', os.path.join(pwd(), "schemas"))
-            )
