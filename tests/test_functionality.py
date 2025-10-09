@@ -12,6 +12,34 @@ def test_nonexistent_patient_file_provided():
                 patients_1 = "NONEXISTENT_FILE"
                 )
 
+def test_nonexistent_schema_file_provided():
+        basic_error_pattern(
+                FileNotFoundError,
+                patients_1 = "3_test_patients.csv",
+                schema = "NONEXISTENT_FILE"
+                )
+
+def test_hashes_export_already_exists():
+        basic_error_pattern(
+                AssertionError,
+                patients_1 = "3_test_patients.csv",
+                hashes_1 = "3_test_patients"
+                )
+
+def test_linkages_export_already_exists():
+        basic_error_pattern(
+                AssertionError,
+                patients_1 = "3_test_patients.csv",
+                linkages = "3_test_patients"
+                )
+
+def test_nonexistent_secret_file_provided():
+        basic_error_pattern(
+                FileNotFoundError,
+                patients_1 = "3_test_patients.csv",
+                secret = "NONEXISTENT_FILE"
+                )
+
 def test_basic_functionality():
     basic_test_pattern(
             patients_1 = "3_test_patients.csv",
