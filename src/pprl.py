@@ -73,19 +73,7 @@ def _create_CLKs(
         with open(secret_file_path, 'r') as secret_file:
             secret = secret_file.read()
 
-        # Patient identifiers
-        try:
-            raw_patients_df = pd.read_csv(patient_file_path,
-                    sep=',',
-                    dtype = str,
-                    keep_default_na=False,
-                    nrows = 1e4
-                    )
-        except pd.errors.EmptyDataError:
-            print(f"\nERROR:\n    The data file is empty: {patient_file_path}\n")
-            exit()
-        #except pd.errors.ParserError:
-            #print(f"\nERROR:\n    The data file couldn't be read: {patient_file_path}\n")
+        raw_patients_df = read_dataframe_from_CSV(patient_file_path)
 
         row_ids = raw_patients_df['row_id'].copy()
         source = raw_patients_df['source'].copy()
@@ -182,8 +170,10 @@ def _match_CLKs(
     else:
         self_match = True
         input_2 = input_1
-    df_1 = pd.read_csv(input_1)
-    df_2 = pd.read_csv(input_2)
+
+    #TODO: Add some error checks
+    df_1 = read_dataframe_from_CSV(input_1)
+    df_2 = read_dataframe_from_CSV(input_2)
 
     hashed_data_1 = [deserialize_bitarray(x) for x in df_1['clk']]
     hashed_data_2 = [deserialize_bitarray(x) for x in df_2['clk']]
@@ -217,3 +207,15 @@ def _match_CLKs(
         csv_writer.writerow([source_1,source_2])
         csv_writer.writerows(relevant_matches)
 
+def read_dataframe_from_CSV(file_path):
+        try:
+            return pd.read_csv(file_path,
+                    sep=',',
+                    dtype = str,
+                    keep_default_na=False,
+                    )
+        except pd.errors.EmptyDataError:
+            print(f"\nERROR:\n    The data file is empty: {patient_file_path}\n")
+            exit()
+        #except pd.errors.ParserError:
+            #print(f"\nERROR:\n    The data file couldn't be read: {patient_file_path}\n")
