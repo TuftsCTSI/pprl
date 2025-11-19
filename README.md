@@ -2,34 +2,29 @@
 Privacy-preserving record linkage for Tufts CTSI and collaborators
 
 ## Setup
-1. Ensure that you have Python with pip installed.
-1. Clone the repo: `git clone https://github.com/TuftsCTSI/pprl`
-1. Open the new directory: `cd pprl`
-1. Run the setup script: `./setup.sh`
-1. Verify your setup by running the test suite: `./runtests.sh`
+1. Ensure that you have python with pip installed.
+2. Clone the repo: `git clone https://github.com/TuftsCTSI/pprl`
+3. Open the new directory: `cd pprl`
+4. Run the setup script: `./setup.sh`
+- Alternatively: simply execute `uv sync` if [uv](astral.sh) is installed
+5. Activate the virtual environment with: `source .venv/bin/activate`
+6. Verify your setup by running the test suite: `pprl test`
 
 ## Usage
 
 ### Create cryptographic linkage keys
 1. Add the patient identifiers CSV file to `user_files`.
-
-1. Add the secret file to `user_files`.
-
-1. Update `create_CLKs.yml`
-
-1. Run `./create_CLKs.py`. The linkages CSV will be added to `user_files`.
-
-1. Distribute the linkages.
-
-1. Delete any sensitive files from `user_files`.
+2. Add the secret file to `user_files`.
+3. Update `create_CLKs.yml`
+4. activate the virtual environment with: `source .venv/bin/activate`
+5. Run `pprl create`. The linkages CSV will be added to `user_files`.
+6. Distribute the linkages.
+7. Delete any sensitive files from `user_files`.
 
 ### Create cryptographic linkage keys
 1. Add the patient identifiers CSV files to `user_files`.
-
-1. Update `match_CLKs.yml`
-
-1. Run `./match_CLKs.py`
-
-1. Distribute the matches.
-
-1. Delete any sensitive files from `user_files`.
+2. Update `match_CLKs.yml`
+3. activate the virtual environment with: `source .venv/bin/activate`
+4. Run `pprl match`
+5. Distribute the matches.
+6. Delete any sensitive files from `user_files`.
