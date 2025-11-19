@@ -38,7 +38,7 @@ def basic_test_pattern(
                 secret = secret,
                 output = hashes_1,
                 output_folder = temp_dir,
-                quiet=True)
+                verbose=True)
         if patients_2 is None:
             hashes = [hashes_1]
         else:
@@ -50,7 +50,7 @@ def basic_test_pattern(
                     secret = secret,
                     output = hashes_2,
                     output_folder = temp_dir,
-                    quiet=True)
+                    verbose=True)
             hashes = [hashes_1, hashes_2]
         pprl._match_CLKs(
                 data_folder = temp_dir,
@@ -58,7 +58,7 @@ def basic_test_pattern(
                 threshold = threshold,
                 output = linkages,
                 output_folder = temp_dir,
-                quiet=True)
+                verbose=True)
         assert_file_contents(
                 os.path.join(temp_dir, linkages),
                 expected_linkages
