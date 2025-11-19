@@ -15,6 +15,12 @@ def register_subcommand(subparsers):
         "test",
         help="Run the test suite via pytest."
     )
+    test_parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Enable verbose logging. (DEBUG)"
+    )
     test_parser.set_defaults(func=run_test)
 
 def run_test(args):
@@ -22,7 +28,7 @@ def run_test(args):
     CLI handler for running tests via pytest
     """
     logger.info("Running pytest.")
-    rc = pytest.main([])
+    rc = pytest.main(["-v" if args.verbose else ""])
 
     if rc == 0:
         logger.info("Tests passed.")
