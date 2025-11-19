@@ -26,7 +26,7 @@
       "ignored": true
     },
     {
-      "identifier": "name",
+      "identifier": "first",
       "format": {
         "type": "string",
         "encoding": "utf-8",
@@ -41,6 +41,41 @@
             "bitsPerFeature": 500
         },
         "hash": {"type": "doubleHash"}
+      }
+    },
+    {
+      "identifier": "last",
+      "format": {
+        "type": "string",
+        "encoding": "utf-8",
+        "case": "upper"
+      },
+      "hashing": {
+        "comparison": {
+          "type": "ngram",
+          "n": 2
+        },
+        "strategy": {
+            "bitsPerFeature": 500
+        },
+        "hash": {"type": "doubleHash"}
+      }
+    },
+    {
+      "identifier": "sex",
+      "format": {
+        "type": "string",
+        "encoding": "utf-8",
+        "case": "upper"
+      },
+      "hashing": {
+        "comparison": {
+          "type": "exact",
+	  "values": ["male", "female"]
+        },
+        "strategy": {
+            "bitsPerFeature": 200
+        }
       }
     },
     {
@@ -113,10 +148,6 @@
         },
         "hash": {"type": "doubleHash"}
       }
-    },
-    {
-      "identifier": "sex",
-      "ignored": true
     },
     {
       "identifier": "phone",

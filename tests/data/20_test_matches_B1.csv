@@ -1,0 +1,21 @@
+﻿row_id,source,first,last,sex,city,state,zip,dob
+1,simple_synthetic_B,Charles,White,male,Lakemont,SD,57431,1959-08-24
+2,simple_synthetic_B,Maverick,Hall,male,Cedar Glen,MN,55873,1985-10-07
+3,simple_synthetic_B,Luna,Davis,female,Briarfield,MD,21748,1966-01-12
+4,simple_synthetic_B,Daniel,Miller,male,Mossy Ridge,OR,97429,1961-01-28
+5,simple_synthetic_B,Maria,Harris,female,Pine Hollow,WV,26592,1965-09-30
+6,simple_synthetic_B,Beau,Torres,male,Silver Flats,NV,89462,1996-10-03
+7,simple_synthetic_B,Adrian,Evans,male,Arroyo Mesa,NM,87924,1998-11-11
+8,simple_synthetic_B,Leah,Johnson,female,Palmetto Shores,FL,32847,1991-02-07
+9,simple_synthetic_B,Caleb,Davis,male,Cedarhaven,DE,19947,1996-08-25
+10,simple_synthetic_B,Madelyn,Young,female,Rainshadow Bay,WA,98562,1950-08-27
+11,simple_synthetic_B,Theodore,Smith,male,Red Canyon,AZ,85378,1994-10-03
+12,simple_synthetic_B,Jackson,Johnson,male,Oak Bluff,MO,64072,1996-05-22
+13,simple_synthetic_B,Hannah,Martin,female,Silver Flats,NV,89462,1977-08-23
+14,simple_synthetic_B,Addison,Parker,female,Bayou Crossing,LA,70894,1990-10-08
+15,simple_synthetic_B,Elena,Campbell,female,Maple Ridge,KY,41239,1972-12-14
+16,simple_synthetic_B,Valentina,Davis,female,Willow Trace,TN,37841,1991-01-14
+17,simple_synthetic_B,Kennedy,Jones,female,Kea’aloa,HI,96749,1987-01-12
+18,simple_synthetic_B,Leilani,Ward,female,Dogwood Springs,NC,27586,1967-10-05
+19,simple_synthetic_B,August,Ramos,male,Frostvale,NH,3586,1953-05-17
+20,simple_synthetic_B,Eden,Torres,female,Fox Run,VA,23294,1978-05-09

@@ -2,9 +2,14 @@
 my_files/
 
 # Build files
+.venv/
 venv/
 pprl.egg-info/
 __pycache__
+logs/
 
 # Test files
 tests/tmp/
+
+# Ignore MacOS specific files
+.DS_Store

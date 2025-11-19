@@ -6,7 +6,7 @@ import tempfile
 from pprl_test_utilities import *
 
 sys.path.append('./src')
-import pprl
+from pprl import pprl
 
 def basic_test_pattern(
         patients_1 = None,
