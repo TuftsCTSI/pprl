@@ -1,7 +1,8 @@
 import filecmp
+import pytest
 import os
 
-from pprl_test_templates import *
+from pprl.tests.templates import basic_error_pattern, basic_test_pattern
 
 def test_no_patient_file_provided():
         basic_error_pattern(TypeError)
