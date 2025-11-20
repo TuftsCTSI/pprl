@@ -1,12 +1,13 @@
 # User's files
 my_files/
+logs/
 
 # Build files
 .venv/
 venv/
 pprl.egg-info/
 __pycache__
-logs/
+build/
 
 # Test files
 tests/tmp/
