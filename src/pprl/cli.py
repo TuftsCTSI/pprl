@@ -9,14 +9,10 @@ import logging
 from pathlib import Path
 from datetime import datetime as dt
 
-curr_dt = dt.strftime(dt.now(), '%H%M%S')
-
 from pprl.commands import create, match, test
 
-### This is required because anonlink is using an outdated version of setuptools
-import warnings
-warnings.filterwarnings('ignore', category=UserWarning, module='pkg_resources')
-###
+curr_dt = dt.strftime(dt.now(), '%H%M%S')
+
 
 # we setup argparsing in each of these via register_subcommand()
 COMMAND_MODULES = [
