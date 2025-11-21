@@ -1,5 +1,5 @@
 name: validate-primary-schema
-run-name: Check the primary Anonlink schema for typical JSON format errors 
+run-name: Validate primary schema
 on:
   push:
     paths:

@@ -1,5 +1,5 @@
 name: run-pytest-suite
-run-name: Run full testset
+run-name: Run Pytest suite
   
 on: [push]  
   
