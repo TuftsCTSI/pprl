@@ -2,12 +2,11 @@
 Privacy-preserving record linkage for Tufts CTSI and collaborators
 
 ## Setup
-1. Ensure that you have python with pip installed.
-2. Clone the repo: `git clone https://github.com/TuftsCTSI/pprl`
-3. Open the new directory: `cd pprl`
-4. Run the setup script: `./setup.sh`
-- Alternatively: simply execute `uv sync` if [uv](astral.sh) is installed
-5. Activate the virtual environment with: `source .venv/bin/activate`
+1. Ensure that you have Python installed.
+2. [Install uv](https://github.com/astral-sh/uv?tab=readme-ov-file#installation), a Python package manager.
+3. Clone this PPRL repository: `git clone https://github.com/TuftsCTSI/pprl`
+4. Open the newly created folder: `cd pprl`
+5. Install dependencies with `uv sync`.
 6. Verify your setup by running the test suite: `pprl test`
 
 ## Usage
