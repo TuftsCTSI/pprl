@@ -1,0 +1,15 @@
+name: validate-primary-schema
+run-name: Check the primary Anonlink schema for typical JSON format errors 
+on:
+  push:
+    paths:
+      - 'schemas/schema.json'
+  pull_request:
+    paths:
+      - 'schemas/schema.json'
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: python -mjson.tool schemas/schema.json > /dev/null
