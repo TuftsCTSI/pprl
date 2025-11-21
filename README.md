@@ -7,7 +7,9 @@ Privacy-preserving record linkage for Tufts CTSI and collaborators
 3. Clone this PPRL repository: `git clone https://github.com/TuftsCTSI/pprl`
 4. Open the newly created folder: `cd pprl`
 5. Install dependencies with `uv sync`.
-6. Verify your setup by running the test suite: `pprl test`
+6. Run `source .venv/bin/activate`.
+7. Verify your setup by running the test suite: `pprl test`
+8. Close or restart your terminal.
 
 ## Usage
 
