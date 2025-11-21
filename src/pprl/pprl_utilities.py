@@ -56,8 +56,8 @@ def validated_file_path(descriptor, file_name, file_directory):
     file_path = os.path.join(file_directory, file_name)
     if not os.path.isfile(file_path):
         logger.error("Cannot find %s file: %s", descriptor, file_path)
+        raise FileNotFoundError(f'Cannot find {descriptor} file: {file_path}')
         exit(1)
-        #raise FileNotFoundError(f'Cannot find {descriptor} file: {file_path}')
     logger.debug("Valid: %s", file_path)
     return file_path
 

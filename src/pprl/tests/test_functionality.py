@@ -1,4 +1,5 @@
 import filecmp
+import json
 import pytest
 import os
 
@@ -49,6 +50,25 @@ def test_nonexistent_secret_file_provided():
                 FileNotFoundError,
                 patients_1 = "3_test_patients.csv",
                 secret = "NONEXISTENT_FILE"
+                )
+
+def test_nonexistent_schema():
+    basic_error_pattern(
+            FileNotFoundError,
+            schema = "NONEXISTENT_FILE.json",
+            patients_1 = "20_test_matches_a.csv",
+            patients_2 = "20_test_matches_a.csv",
+            expected_linkages = 'simple_synthetic,simple_synthetic\n0,0\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n'
+            )
+
+def test_bad_format_schema():
+    for i in range(1,6):
+        basic_error_pattern(
+                json.JSONDecodeError,
+                schema = f"bad_format_{i}.json",
+                patients_1 = "20_test_matches_a.csv",
+                patients_2 = "20_test_matches_a.csv",
+                expected_linkages = 'simple_synthetic,simple_synthetic\n0,0\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n'
                 )
 
 def test_basic_functionality():
