@@ -4,9 +4,8 @@ on:
   push:
     paths:
       - 'schemas/schema.json'
-  pull_request:
-    paths:
-      - 'schemas/schema.json'
+    branches:
+      - dev
 jobs:
   validate-json:
     runs-on: ubuntu-latest
