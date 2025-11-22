@@ -10,11 +10,12 @@ authors = [
 ]
 description = "Privacy-preserving record linkage for Tufts CTSI and collaborators"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 dependencies = [
   "anonlink>=0.15.3",
   "anyascii>=0.3.3",
   "clkhash>=0.18.3",
+  "Faker>=38.2.0",
   "pandas>=2.2.3",
   "pytest>=8.4.2",
   "PyYAML>=6.0.0",
