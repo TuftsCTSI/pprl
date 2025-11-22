@@ -263,7 +263,7 @@ def _match_CLKs(
             )
     logger.info("Generating solution...")
     solution = anonlink.solving.greedy_solve(results_candidate_pairs)
-    found_matches = sorted(list([id_1, id_2] for ((_, id_1), (_, id_2)) in solution))
+    found_matches = sorted(list([df_1['row_id'][id_1], df_2['row_id'][id_2]] for ((_, id_1), (_, id_2)) in solution))
     logger.info("Found %s matches", len(found_matches))
     if self_match:
         # When linking a dataset against itself, don't link arecord to itself
@@ -319,9 +319,10 @@ def read_dataframe_from_CSV(file_path):
         return delimiter
 
     try:
+        from collections import defaultdict
         return pd.read_csv(file_path,
                 sep = get_delimiter(file_path),
-                dtype = str,
+                dtype = defaultdict(lambda: str, row_id="int",),
                 keep_default_na=False,
                 )
     except pd.errors.EmptyDataError:
