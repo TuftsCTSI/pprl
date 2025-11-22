@@ -110,3 +110,19 @@ def test_additional_ordering():
             patients_2 = "20_test_matches_b.csv",
             expected_linkages = 'simple_synthetic,simple_synthetic\n0,0\n1,2\n2,4\n3,6\n4,8\n5,10\n6,12\n7,14\n8,16\n9,18\n',
             )
+
+def test_20_patients():
+    basic_test_pattern(
+            schema = "schema.json",
+            patients_1 = "20-patients-original.tsv",
+            patients_2 = "20-patients-original.tsv",
+            expected_linkages = 'original,original\n0,0\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n'
+            )
+
+def test_20_patients_capitalization():
+    basic_test_pattern(
+            schema = "schema.json",
+            patients_1 = "20-patients-original.tsv",
+            patients_2 = "20-patients-capitalization.tsv",
+            expected_linkages = 'original,original\n0,0\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n'
+            )
