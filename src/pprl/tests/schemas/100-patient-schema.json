@@ -74,7 +74,7 @@
           "n": 2
         },
         "strategy": {
-            "bitsPerFeature": 200
+            "bitsPerFeature": 50
         },
         "hash": {"type": "doubleHash"}
       }
@@ -92,7 +92,7 @@
 	  "values": ["MA", "CT", "NH", "RI"]
         },
         "strategy": {
-            "bitsPerFeature": 200
+            "bitsPerFeature": 50
         }
       }
     },
@@ -110,7 +110,7 @@
           "positional": true
         },
         "strategy": {
-            "bitsPerFeature": 200
+            "bitsPerFeature": 50
         }
       }
     },
@@ -127,7 +127,7 @@
           "positional": true
         },
         "strategy": {
-          "bitsPerFeature": 300
+          "bitsPerFeature": 1000
         },
         "hash": {"type": "doubleHash"}
       }

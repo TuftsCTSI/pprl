@@ -15,7 +15,7 @@ def basic_test_pattern(
         linkages = "linkages.csv",
         schema = "schema.json",
         secret = "secret.txt",
-        threshold = 0.9,
+        threshold = 0.99,
         data_folder = None,
         schema_folder = None,
         ):
