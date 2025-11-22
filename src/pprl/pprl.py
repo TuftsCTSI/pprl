@@ -308,9 +308,19 @@ def _match_CLKs(
 
 def read_dataframe_from_CSV(file_path):
     logger.debug("Creating DataFrame from: %s", file_path)
+    
+    def get_delimiter(file_path, bytes = 4096):
+        # Source - https://stackoverflow.com/a/69796836
+        # Posted by pietz
+        # Retrieved 2025-11-21, License - CC BY-SA 4.0
+        sniffer = csv.Sniffer()
+        data = open(file_path, "r").read(bytes)
+        delimiter = sniffer.sniff(data).delimiter
+        return delimiter
+
     try:
         return pd.read_csv(file_path,
-                sep=',',
+                sep = get_delimiter(file_path),
                 dtype = str,
                 keep_default_na=False,
                 )
