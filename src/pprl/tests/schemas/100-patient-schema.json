@@ -38,7 +38,7 @@
           "n": 2
         },
         "strategy": {
-            "bitsPerFeature": 500
+            "bitsPerFeature": 200
         },
         "hash": {"type": "doubleHash"}
       }
@@ -56,7 +56,7 @@
           "n": 2
         },
         "strategy": {
-            "bitsPerFeature": 500
+            "bitsPerFeature": 200
         },
         "hash": {"type": "doubleHash"}
       }
@@ -71,10 +71,10 @@
       "hashing": {
         "comparison": {
           "type": "ngram",
-          "n": 2
+          "n": 3
         },
         "strategy": {
-            "bitsPerFeature": 50
+            "bitsPerFeature": 10
         },
         "hash": {"type": "doubleHash"}
       }
@@ -92,7 +92,7 @@
 	  "values": ["MA", "CT", "NH", "RI"]
         },
         "strategy": {
-            "bitsPerFeature": 50
+            "bitsPerFeature": 10
         }
       }
     },
@@ -110,7 +110,7 @@
           "positional": true
         },
         "strategy": {
-            "bitsPerFeature": 50
+            "bitsPerFeature": 20
         }
       }
     },
@@ -122,12 +122,10 @@
       },
       "hashing": {
         "comparison": {
-          "type": "ngram",
-          "n": 1,
-          "positional": true
+          "type": "exact"
         },
         "strategy": {
-          "bitsPerFeature": 1000
+          "bitsPerFeature": 400
         },
         "hash": {"type": "doubleHash"}
       }
