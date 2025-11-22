@@ -1,32 +1,35 @@
 {
   "version": 3,
   "clkConfig": {
-    "l": 1024,
+    "l": 512,
     "kdf": {
       "type": "HKDF",
-      "hash": "SHA256",
-      "info": "",
+      "hash": "SHA512",
+      "salt": "================================================================================================================================",
+      "info": "================================",
       "keySize": 64
-    }
+    },
+    "xorFolds": 2
   },
   "features": [
     {
       "identifier": "",
-      "description": "The ID column used internally by pandas",
+      "description": "This is a hidden ID column that is used internally only by Python's pandas library. It is not part of the data file, and it really should be ignored.",
       "ignored": true
     },
     {
       "identifier": "source",
-      "description": "Short name that uniquely identifies the source of the records",
+      "description": "You should write this value yourself and assign it to each row of the data file.. It should be a short name that uniquely identifies the source of the records. Its value must be the same for every row in the file. A good goice could be an abbreviation for the name of the health network that keeps these patient records.",
       "ignored": true
     },
     {
       "identifier": "row_id",
-      "description": "User-assigned value that uniquely identifies each record",
+      "description": "You should prepare these IDs yourself. These must uniquely identify each record in the dataset, so no 2 records should share a value. These should also be completely unique to this datafile, not an internal patient identifier used anywhere else.",
       "ignored": true
     },
     {
       "identifier": "first",
+      "description": "The patient's first name, as indicated in the EHR",
       "format": {
         "type": "string",
         "encoding": "utf-8",
@@ -40,11 +43,12 @@
         "strategy": {
             "bitsPerFeature": 200
         },
-        "hash": {"type": "doubleHash"}
+        "hash": {"type": "blakeHash"}
       }
     },
     {
       "identifier": "last",
+      "description": "The patient's last name, as indicated in the EHR",
       "format": {
         "type": "string",
         "encoding": "utf-8",
@@ -58,11 +62,12 @@
         "strategy": {
             "bitsPerFeature": 200
         },
-        "hash": {"type": "doubleHash"}
+        "hash": {"type": "blakeHash"}
       }
     },
     {
       "identifier": "city",
+      "description": "The patient's city of residence, as indicated in the EHR",
       "format": {
         "type": "string",
         "encoding": "utf-8",
@@ -76,11 +81,12 @@
         "strategy": {
             "bitsPerFeature": 10
         },
-        "hash": {"type": "doubleHash"}
+        "hash": {"type": "blakeHash"}
       }
     },
     {
       "identifier": "state",
+      "description": "The patient's state of residence (2 letter abbreviation), as indicated in the EHR",
       "format": {
         "type": "string",
         "encoding": "utf-8",
@@ -93,11 +99,13 @@
         },
         "strategy": {
             "bitsPerFeature": 10
-        }
+        },
+        "hash": {"type": "blakeHash"}
       }
     },
     {
       "identifier": "zip",
+      "description": "The 5-digit ZIP code of the patient's residence, as indicated in the EHR",
       "format": {
         "type": "string",
         "encoding": "utf-8",
@@ -111,11 +119,13 @@
         },
         "strategy": {
             "bitsPerFeature": 20
-        }
+        },
+        "hash": {"type": "blakeHash"}
       }
     },
     {
       "identifier": "dob",
+      "description": "The patient's date of birth, as indicated in the EHR. This must be in ISO format (for example, 1999-12-31).",
       "format": {
         "type": "date",
         "format": "%Y-%m-%d"
@@ -127,7 +137,7 @@
         "strategy": {
           "bitsPerFeature": 400
         },
-        "hash": {"type": "doubleHash"}
+        "hash": {"type": "blakeHash"}
       }
     }
   ]
