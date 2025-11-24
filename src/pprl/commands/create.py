@@ -23,7 +23,7 @@ def register_subcommand(subparsers):
         help="Enable verbose logging. (DEBUG)"
     )
     create_parser.add_argument(
-        "config", nargs="?", default="create_CLKs.yml",
+        "config", nargs="?", default = "./my_files/create_CLKs.yml",
         help="Name of the config file for hash creation. [Default: create_CLKs.yml]"
     )
     create_parser.set_defaults(func=run_create)

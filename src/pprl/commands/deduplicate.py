@@ -22,7 +22,7 @@ def register_subcommand(subparsers):
         help="Enable verbose logging. (DEBUG)"
     )
     deduplicate_parser.add_argument(
-        "config", nargs="?", default="deduplicate.yml",
+        "config", nargs="?", default="./my_files/deduplicate.yml",
         help="Name of the config file for deduplicating records. [Default: deduplicate.yml]"
     )
     deduplicate_parser.set_defaults(func=run_deduplicate)

@@ -22,7 +22,7 @@ def register_subcommand(subparsers):
         help="Enable verbose logging. (DEBUG)"
     )
     match_parser.add_argument(
-        "config", nargs="?", default="match_CLKs.yml",
+        "config", nargs="?", default="./my_files/match_CLKs.yml",
         help="Name of the config file for matching records. [Default: match_CLKs.yml]"
     )
     match_parser.set_defaults(func=run_match)
