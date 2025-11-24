@@ -13,6 +13,11 @@ Privacy-preserving record linkage for Tufts CTSI and collaborators
 
 ## Usage
 
+1. Add all configuration files to the `my_files` subdirectory.
+2. Depending on your role, you might have generated an input file. This should also be placed in `my_files`.
+3. Run the proper `pprl` command from the main `pprl` directory.
+4. Delete any sensitive files once they are no longer required.
+
 ### Create cryptographic linkage keys
 1. Add the patient identifiers CSV file to `user_files`.
 2. Add the secret file to `user_files`.
