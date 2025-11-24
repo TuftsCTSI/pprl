@@ -1,3 +1,0 @@
-patients: identifiers.csv
-linkages: matches.csv
-output: filtered_identifiers.csv
