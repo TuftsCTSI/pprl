@@ -358,9 +358,8 @@ def _deduplicate(
                 keep_default_na=False,
                 )
 
-    # Assuming this is from a self linkage
-    #TODO: check that column name matches source
-    duplicate_rows = linkages_df.iloc[:, 1].unique()
+    source = patients_df['source'].iloc[0]
+    duplicate_rows = linkages_df[source].unique()
     filtered_patients_df = patients_df[~patients_df['row_id'].isin(duplicate_rows)]
 
     logger.info("Writing filtered input to file: %s", output_file_path)
