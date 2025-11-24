@@ -393,3 +393,42 @@ def read_dataframe_from_CSV(file_path):
         exit(1)
     #except pd.errors.ParserError:
         #print(f"\nERROR:\n    The data file couldn't be read: {patient_file_path}\n")
+
+#import csv
+#from faker import Faker
+#from faker.providers import DynamicProvider
+
+def write_data_file(file_name, source, n):
+
+    # We'll limit states to our geographical region.
+    # Note that ZIP and City are ficitonal and independent.
+    custom_state_provider = DynamicProvider(
+         provider_name="custom_state",
+         elements=["CT", "MA", "RI", "NH"],
+    )
+
+    fake = Faker()
+    fake.add_provider(custom_state_provider)
+    Faker.seed(2026)
+
+    with open(file_name, mode = 'w') as file:
+        writer = csv.writer(file)
+        
+        writer.writerow(['row_id', 'source', 'first', 'last', 'city', 'state', 'zip', 'dob'])
+        for i in range(1,n+1):
+            writer.writerow([
+                i, # These can be customized
+                source, # This is a constant
+                fake.first_name(),
+                fake.last_name(),
+                # Note that city, state, and ZIP are independent (addresses aren't coherent)
+                fake.city(),
+                fake.custom_state(),
+                fake.zipcode(),
+                fake.date_of_birth().strftime("%Y-%m-%d")
+                ])
+            
+#write_data_file('site_1_unique.csv', 'site_1', 980)
+#write_data_file('site_2_unique.csv', 'site_2', 980)
+#write_data_file('shared.csv', '', 20)
+#write_data_file('100k.csv', 'qq', 100_000)
