@@ -197,6 +197,7 @@ def match_CLKs(args):
     rc = _match_CLKs(**configuration)
     return rc
 
+#TODO: change default threshold to 0.975 throughout codebase
 def _match_CLKs(
         hashes = None,
         threshold = 0.9,
@@ -226,6 +227,9 @@ def _match_CLKs(
         logger.debug("Only one hash detected. Using self_match = True")
         self_match = True
         input_2 = input_1
+    #TODO: add checks for self_match
+    #TODO: self check should probably be its own method, not automatically inferred
+
 
     #TODO: Add some error checks
     df_1 = read_dataframe_from_CSV(input_1)
@@ -252,29 +256,31 @@ def _match_CLKs(
     s2_output = f"{Path(output).stem}_{source_2}.txt"
     s2_file_path = validated_out_path('linkages', s2_output, output_folder)
 
-    ##
-    ##
-
     logger.info("Linking pairs between sources...")
     results_candidate_pairs = anonlink.candidate_generation.find_candidate_pairs(
             [hashed_data_1, hashed_data_2],
             anonlink.similarities.dice_coefficient,
             threshold
             )
-    logger.info("Generating solution...")
-    solution = anonlink.solving.greedy_solve(results_candidate_pairs)
-    found_matches = sorted(list([df_1['row_id'][id_1], df_2['row_id'][id_2]] for ((_, id_1), (_, id_2)) in solution))
-    logger.info("Found %s matches", len(found_matches))
+
+    # Rather than finding a single best fit, pull out all potential matches
+    #logger.info("Generating solution...")
+    #solution = anonlink.solving.greedy_solve(results_candidate_pairs)
+    _, _, (left, right) = results_candidate_pairs
+    matching_rows = sorted([(x,y) for x,y in zip(left, right)])
+    logger.info("Found %s total matching rows", len(matching_rows))
     if self_match:
-        # When linking a dataset against itself, don't link arecord to itself
-        #TODO: this should be handled BEFORE solving...
+        # When linking a dataset against itself, don't link a record to itself
         #TODO: Would we filter for x[0] < x[1]? I assume all mappings are reversible, but that should be a separate test.
         #TODO: already complete? based on self_match, filter out row N matches row N
         # We exclude rows matched to themselves, and we report only unique mappings
         # No (4,4) or both (2,5) and (5,2)
-        relevant_matches = [x for x in found_matches if x[0] < x[1]]
+        relevant_matches = [x for x in matching_rows if x[0] < x[1]]
     else:
-        relevant_matches = found_matches
+        relevant_matches = matching_rows
+    logger.info("Found %s relevant (non-spurious) matches", len(relevant_matches))
+
+    row_IDs_of_matches = list([df_1['row_id'][row_n_in_1], df_2['row_id'][row_n_in_2]] for (row_n_in_1, row_n_in_2) in relevant_matches)
 
     #TODO: consistenly use full file path in all error reporting
     #TODO: why not manually go through user errors with batch testing, capturing output with tee and verifying?
@@ -288,7 +294,7 @@ def _match_CLKs(
     with open(linkages_file_path, "w") as linkages_file:
         csv_writer = csv.writer(linkages_file)
         csv_writer.writerow([source_1,source_2])
-        csv_writer.writerows(relevant_matches)
+        csv_writer.writerows(row_IDs_of_matches)
     logger.info("Output successfully written: %s", linkages_file_path)
 
     if not self_match:
@@ -304,7 +310,64 @@ def _match_CLKs(
             linkages_file.write(source_2)
             linkages_file.writelines(f"{match[1]}\n" for match in relevant_matches )
         logger.info("Output successfully written: %s", s2_file_path)
+
+
     return 0
+
+#TODO: Add tests for this
+def filter_by_linkages(args):
+    """
+    Filter out duplicates from a patient identifier file 
+    """
+    logger.debug("filter_by_linkages called with %s", args.config)
+
+    configuration = read_config_file(
+            args.config,
+            {'patients', 'linkages', 'output', 'data_folder', 'output_folder'}
+            )
+
+    configuration['verbose'] = args.verbose
+
+    logger.info("Calling  _filter_by_linkages with configuration kwargs:")
+    for key, value in configuration.items():
+        logger.info(" %s = %r", key, value)
+
+    rc = _filter_by_linkages(**configuration)
+    return rc
+
+def _filter_by_linkages(
+        patients = None,
+        linkages = None,
+        output = 'filtered_input.csv',
+        verbose = False,
+        data_folder = os.path.join(os.getcwd(), "my_files"),
+        output_folder = os.path.join(os.getcwd(), "my_files"),
+        ):
+    logger.debug("Beginning execution within _filter_by_linkages")
+
+    logger.debug("Validating input filepaths:")
+    patient_file_path = validated_file_path('patient records', patients, data_folder)
+    linkage_file_path = validated_file_path('linkages', linkages, data_folder)
+
+    logger.debug("Validating output filepaths:")
+    output_file_path = validated_out_path('output_folder', output, output_folder)
+
+    patients_df = read_dataframe_from_CSV(patient_file_path)
+    linkages_df = pd.read_csv(linkage_file_path,
+                sep = ',',
+                keep_default_na=False,
+                )
+
+    # Assuming this is from a self linkage
+    #TODO: check that column name matches source
+    duplicate_rows = linkages_df.iloc[:, 1].unique()
+    filtered_patients_df = patients_df[~patients_df['row_id'].isin(duplicate_rows)]
+
+    logger.info("Writing filtered input to file: %s", output_file_path)
+    filtered_patients_df.to_csv(output_file_path, index=False)
+
+    return 0
+
 
 def read_dataframe_from_CSV(file_path):
     logger.debug("Creating DataFrame from: %s", file_path)
