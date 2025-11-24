@@ -315,11 +315,11 @@ def _match_CLKs(
     return 0
 
 #TODO: Add tests for this
-def filter_by_linkages(args):
+def deduplicate(args):
     """
     Filter out duplicates from a patient identifier file 
     """
-    logger.debug("filter_by_linkages called with %s", args.config)
+    logger.debug("deduplicate called with %s", args.config)
 
     configuration = read_config_file(
             args.config,
@@ -328,22 +328,22 @@ def filter_by_linkages(args):
 
     configuration['verbose'] = args.verbose
 
-    logger.info("Calling  _filter_by_linkages with configuration kwargs:")
+    logger.info("Calling  _deduplicate with configuration kwargs:")
     for key, value in configuration.items():
         logger.info(" %s = %r", key, value)
 
-    rc = _filter_by_linkages(**configuration)
+    rc = _deduplicate(**configuration)
     return rc
 
-def _filter_by_linkages(
+def _deduplicate(
         patients = None,
         linkages = None,
-        output = 'filtered_input.csv',
+        output = 'deduplicate.csv',
         verbose = False,
         data_folder = os.path.join(os.getcwd(), "my_files"),
         output_folder = os.path.join(os.getcwd(), "my_files"),
         ):
-    logger.debug("Beginning execution within _filter_by_linkages")
+    logger.debug("Beginning execution within _deduplicate")
 
     logger.debug("Validating input filepaths:")
     patient_file_path = validated_file_path('patient records', patients, data_folder)
