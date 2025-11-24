@@ -9,4 +9,4 @@ hashes:
 # This file will be created automatically in the "my_files" folder
 output: matches.csv
 
-threshold: 0.9
+threshold: 0.975

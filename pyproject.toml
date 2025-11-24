@@ -1,25 +1,42 @@
+[build-system]
+requires = ["setuptools < 81", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "pprl"
-version = "0.0.1"
+version = "0.1.0"
 authors = [
   { name="TuftsCTSI" },
 ]
 description = "Privacy-preserving record linkage for Tufts CTSI and collaborators"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 dependencies = [
   "anonlink>=0.15.3",
   "anyascii>=0.3.3",
   "clkhash>=0.18.3",
+  "Faker>=38.2.0",
   "pandas>=2.2.3",
   "pytest>=8.4.2",
   "PyYAML>=6.0.0",
   "recordlinkage>=0.16",
-  "yaspin>=3.2.0"
+  "setuptools<81",
+  "yaspin>=3.2.0",
 ]
 license = "MIT"
 license-files = ["LICENSE"]
 
-[tool.setuptools]
-py-modules = []
+[project.scripts]
+pprl = "pprl.cli:main"
 
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pprl*"]
+
+[tool.setuptools.package-data]
+tool = [
+  "tests/**/*",
+]
