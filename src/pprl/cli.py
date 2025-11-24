@@ -9,7 +9,7 @@ import logging
 from pathlib import Path
 from datetime import datetime as dt
 
-from pprl.commands import create, match, test
+from pprl.commands import create, match, test, filter
 
 curr_dt = dt.strftime(dt.now(), '%H%M%S')
 
@@ -17,6 +17,7 @@ curr_dt = dt.strftime(dt.now(), '%H%M%S')
 # we setup argparsing in each of these via register_subcommand()
 COMMAND_MODULES = [
     create,
+    filter,
     match,
     test,
 ]
@@ -49,6 +50,7 @@ def main(argv = None):
         pprl test -> execute pytest.
         pprl create -> run create_CLKs()
         pprl match -> run match_CLKs()
+        pprl filter -> Filter the patient identifier file for self-linkages
 
         global args:
             -v/--verbose: set logging level to DEBUG
@@ -64,7 +66,7 @@ def main(argv = None):
     subparsers = parser.add_subparsers(
         dest="command",
         metavar="command",
-        help="Specify which subcommand to execute: [test, create, match]"
+        help="Specify which subcommand to execute: [test, create, match, filter]"
     )
 
     # have each command module register itself
