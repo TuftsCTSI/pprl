@@ -9,14 +9,16 @@ Privacy-preserving record linkage for Tufts CTSI and collaborators
 5. Install dependencies with `uv sync`.
 6. Run `source .venv/bin/activate`.
 7. Verify your setup by running the test suite: `pprl test`
-8. Close or restart your terminal.
+8. Close or restart the terminal (or proceed to the Usage section).
 
 ## Usage
 
 1. Add all configuration files to the `my_files` subdirectory.
 2. Depending on your role, you might have generated an input file. This should also be placed in `my_files`.
-3. Run the proper `pprl` command from the main `pprl` directory.
-4. Delete any sensitive files once they are no longer required.
+3. Run `source .venv/bin/activate`, if you haven't already.
+4. Run the proper `pprl` command from the main `pprl` directory.
+5. Delete any sensitive files once they are no longer required.
+6. Close or restart the terminal.
 
 ### Create cryptographic linkage keys
 1. Add the patient identifiers CSV file to `user_files`.
