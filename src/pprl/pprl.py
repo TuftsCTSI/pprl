@@ -55,7 +55,7 @@ def _create_CLKs(
         verbose = False,
         data_folder = os.path.join(os.getcwd(), "my_files"),
         output_folder = os.path.join(os.getcwd(), "my_files"),
-        schema_folder = os.path.join(os.getcwd(), "schemas"),
+        schema_folder = os.path.join(os.getcwd(), "my_files"),
         ):
     logger.debug("Beginning execution within _create_CLKs")
 
