@@ -1,7 +1,6 @@
 # pprl.py
 
 ### This is required because anonlink is using an outdated version of setuptools
-from textwrap import indent
 import warnings
 warnings.filterwarnings('ignore', message='.*pkg_resources.*')
 ###
