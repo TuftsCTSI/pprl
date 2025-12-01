@@ -3,14 +3,15 @@ import pytest
 import tempfile
 from pathlib import Path
 from pprl.tests.utilities import (
-    assert_file_comparison,
-    assert_file_contents,
-    ranges_as_csv,
-    )
+        assert_file_comparison,
+        assert_file_contents,
+        ranges_as_csv,
+        )
 
 from pprl import pprl
 
 def basic_test_pattern(
+        capsys,
         patients_1 = None,
         patients_2 = None,
         expected_linkages = None,
@@ -41,7 +42,7 @@ def basic_test_pattern(
                 output = hashes_1,
                 output_folder = temp_dir,
                 verbose=True
-        )
+                )
         if patients_2 is None:
             hashes = [hashes_1]
         else:
@@ -54,7 +55,7 @@ def basic_test_pattern(
                     output = hashes_2,
                     output_folder = temp_dir,
                     verbose=True
-            )
+                    )
             hashes = [hashes_1, hashes_2]
 
         expected_linkages_as_csv = ranges_as_csv(expected_linkages)
@@ -71,7 +72,7 @@ def basic_test_pattern(
                 expected_linkages_as_csv
                 )
 
-def basic_error_pattern(error_type, **kwargs):
+def basic_error_pattern(capsys, error_type, **kwargs):
     with pytest.raises(error_type):
-        basic_test_pattern(**kwargs)
+        basic_test_pattern(capsys, **kwargs)
 
