@@ -22,6 +22,10 @@ from clkhash.serialization import deserialize_bitarray, serialize_bitarray
 from anyascii import anyascii
 from yaspin import yaspin
 
+#import faker
+from faker import Faker
+from faker.providers import DynamicProvider
+
 from .pprl_utilities import *
 
 logger = logging.getLogger(__name__)
@@ -393,11 +397,41 @@ def read_dataframe_from_CSV(file_path):
     #except pd.errors.ParserError:
         #print(f"\nERROR:\n    The data file couldn't be read: {patient_file_path}\n")
 
-#import csv
-#from faker import Faker
-#from faker.providers import DynamicProvider
+def synthesize_identifiers(args):
+    """
+    Generate a synthetic patient identifier file 
+    """
+    logger.debug("synthesize_identifiers called with %s", args.config)
 
-def write_data_file(file_name, source, n):
+    configuration = read_config_file(
+            args.config,
+            {'n', 'source', 'output', 'seed', 'output_folder'}
+            )
+
+    configuration['verbose'] = args.verbose
+
+    logger.info("Calling  _synthesize_identifiers with configuration kwargs:")
+    for key, value in configuration.items():
+        logger.info(" %s = %r", key, value)
+
+    rc = _synthesize_identifiers(**configuration)
+    return rc
+
+def _synthesize_identifiers(
+        n = 100,
+        source = None,
+        output = 'synthetic_identifiers.csv',
+        seed = None,
+        verbose = False,
+        output_folder = os.path.join(os.getcwd(), "my_files"),
+        ):
+    logger.debug("Beginning execution within _synthesize_identifiers")
+
+    logger.debug("Validating output filepaths:")
+    output_file_path = validated_out_path('output_folder', output, output_folder)
+
+    #TODO: if it ever becomes a priority, set up custom frequencies for each field
+    #TODO: consider using a more sophisticated tool for reaslistic data
 
     # We'll limit states to our geographical region.
     # Note that ZIP and City are ficitonal and independent.
@@ -410,7 +444,9 @@ def write_data_file(file_name, source, n):
     fake.add_provider(custom_state_provider)
     Faker.seed(2026)
 
-    with open(file_name, mode = 'w') as file:
+    logger.info("Writing output to file: %s", output_file_path)
+
+    with open(output_file_path, mode = 'w') as file:
         writer = csv.writer(file)
         
         writer.writerow(['row_id', 'source', 'first', 'last', 'city', 'state', 'zip', 'dob'])
@@ -426,8 +462,5 @@ def write_data_file(file_name, source, n):
                 fake.zipcode(),
                 fake.date_of_birth().strftime("%Y-%m-%d")
                 ])
-            
-#write_data_file('site_1_unique.csv', 'site_1', 980)
-#write_data_file('site_2_unique.csv', 'site_2', 980)
-#write_data_file('shared.csv', '', 20)
-#write_data_file('100k.csv', 'qq', 100_000)
+
+    return 0

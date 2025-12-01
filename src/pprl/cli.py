@@ -9,7 +9,7 @@ import logging
 from pathlib import Path
 from datetime import datetime as dt
 
-from pprl.commands import create, match, test, deduplicate
+from pprl.commands import create, match, synth, test, deduplicate
 
 curr_dt = dt.strftime(dt.now(), '%H%M%S')
 
@@ -17,6 +17,7 @@ curr_dt = dt.strftime(dt.now(), '%H%M%S')
 # we setup argparsing in each of these via register_subcommand()
 COMMAND_MODULES = [
     test,
+    synth,
     create,
     match,
     deduplicate,
@@ -48,6 +49,7 @@ def main(argv = None):
     """Define a single entrypoint from which subcommands can be specified.
         pprl -> return usage.
         pprl test -> execute pytest.
+        pprl synth -> create synthetic patient data
         pprl create -> run create_CLKs()
         pprl match -> run match_CLKs()
         pprl deduplicate -> Filter the patient identifier file for self-linkages
