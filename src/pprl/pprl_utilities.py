@@ -101,9 +101,9 @@ def validate_input_fields(df):
     ## Config:
         ```
             sanitizer_config = {
-                "first": _sanitize_strings,
-                "last": _sanitize_strings,
-                "city": _sanitize_strings,
+                "first": _sanitize_string,
+                "last": _sanitize_string,
+                "city": _sanitize_string,
                 "state": _sanitize_string,
                 "zip": _sanitize_zip,
                 "dob": _sanitize_date,
