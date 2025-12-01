@@ -117,7 +117,7 @@ def validate_input_fields(df):
         """
         raw_str = str(value).strip()
         # check for missing vals. if we've got nothing, return whatever that nothing is, and flag it.
-        if not raw_str or raw_str.lower() in ('nan', 'none', 'nat', '999'):
+        if not raw_str or raw_str.lower() in ('nan', 'none', '999'):
             return (value , False)
         # If we've got something here, capitalize everything, keep only internal spaces, dashes, apostraphs, and periods, drop all other characters. (if we need to add more, this is trivial)
         clean_value = ''.join(c for c in raw_str if c.isalnum() or c in (' ', '-', "'", '.')).upper()

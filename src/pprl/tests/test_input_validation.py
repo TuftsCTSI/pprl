@@ -121,8 +121,8 @@ class TestValidateInputFields:
 
         valid, invalid = validate_input_fields(df)
 
-        assert len(valid) == 0
-        assert len(invalid) == 5
+        assert len(valid) == 1
+        assert len(invalid) == 4
 
     def test_string_only_special_chars_invalid(self):
         """Test that strings with only special characters are invalid."""
