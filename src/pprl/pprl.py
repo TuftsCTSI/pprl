@@ -1,6 +1,7 @@
 # pprl.py
 
 ### This is required because anonlink is using an outdated version of setuptools
+from textwrap import indent
 import warnings
 warnings.filterwarnings('ignore', message='.*pkg_resources.*')
 ###
@@ -73,6 +74,8 @@ def _create_CLKs(
     logger.debug("Validating output filepaths:")
     output_file_path = validated_out_path('hash', output, output_folder)
 
+    output_invalid_records_path = validated_out_path('invalid records', 'invalid_records.csv', output_folder)
+
     with yaspin(text="Reading from files and preprocessing...") as spinner:
         if not verbose:
             spinner.stop()
@@ -89,13 +92,16 @@ def _create_CLKs(
 
         # Create DataFrame from the input csv
         raw_patients_df = read_dataframe_from_CSV(patient_file_path)
+        num_records = len(raw_patients_df)
+        logger.info("TOTAL RECORDS: %s", num_records)
 
         # Pull row_ids and source then drop from dataframe prior to normalizing
         row_ids = raw_patients_df['row_id'].copy()
         source = raw_patients_df['source'].copy()
         data_fields = raw_patients_df.drop(['row_id', 'source'], axis=1)
+
         # TODO: deal with this separately to catch bad fields/corrupted formatting
-        logger.debug("Standardizing values... Converting to ascii and capitalizing all characters.")
+        logger.debug("Converting all values to ascii and capitalizing all strings.")
         patients_df = (
                 data_fields
                 .map(anyascii)
@@ -104,6 +110,19 @@ def _create_CLKs(
         # add em back
         patients_df.insert(0, 'source', source)
         patients_df.insert(0, 'row_id', row_ids)
+
+        ## Perhaps place this in a breakout subcommand that we can call before execution?
+        logger.debug("Validating fields and ensuring standard formatting.")
+        patients_df, invalid_records = validate_input_fields(patients_df)
+
+        num_valid_records = len(patients_df)
+        num_invalid_records = len(invalid_records)
+        logger.info("VALID RECORDS:   %s", num_valid_records)
+        logger.info("INVALID RECORDS: %s", num_invalid_records)
+        if num_invalid_records > 0:
+            logger.warning("%s INVALID RECORDS DETECTED.", num_invalid_records)
+            logger.warning("Writing invalid records to file: %s", output_invalid_records_path)
+            invalid_records.to_csv(output_invalid_records_path, index=False)
 
         # Anonlink requires the records CSV and the schema to have the same columns.
         # However, I'd like to test various schemas against the same CSV.
@@ -236,6 +255,8 @@ def _match_CLKs(
 
 
     #TODO: Add some error checks
+
+    logger.debug("Creating dataframes from input csv files.")
     df_1 = read_dataframe_from_CSV(input_1)
     df_2 = read_dataframe_from_CSV(input_2)
 
@@ -321,7 +342,7 @@ def _match_CLKs(
 #TODO: Add tests for this
 def deduplicate(args):
     """
-    Filter out duplicates from a patient identifier file 
+    Filter out duplicates from a patient identifier file
     """
     logger.debug("deduplicate called with %s", args.config)
 
@@ -374,7 +395,7 @@ def _deduplicate(
 
 def read_dataframe_from_CSV(file_path):
     logger.debug("Creating DataFrame from: %s", file_path)
-    
+
     def get_delimiter(file_path, bytes = 4096):
         # Source - https://stackoverflow.com/a/69796836
         # Posted by pietz
@@ -399,7 +420,7 @@ def read_dataframe_from_CSV(file_path):
 
 def synthesize_identifiers(args):
     """
-    Generate a synthetic patient identifier file 
+    Generate a synthetic patient identifier file
     """
     logger.debug("synthesize_identifiers called with %s", args.config)
 
@@ -448,7 +469,7 @@ def _synthesize_identifiers(
 
     with open(output_file_path, mode = 'w') as file:
         writer = csv.writer(file)
-        
+
         writer.writerow(['row_id', 'source', 'first', 'last', 'city', 'state', 'zip', 'dob'])
         for i in range(1,n+1):
             writer.writerow([
