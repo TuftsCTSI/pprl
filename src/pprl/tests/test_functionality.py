@@ -57,8 +57,7 @@ def test_nonexistent_schema():
             FileNotFoundError,
             schema = "NONEXISTENT_FILE.json",
             patients_1 = "20_test_matches_a.csv",
-            #patients_2 = "20_test_matches_a.csv",
-            expected_linkages = 'simple_synthetic,simple_synthetic\n0,0\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n'
+            expected_linkages = ('simple_synthetic', '0-19', 'simple_synthetic', '0-19'),
             )
 
 def test_bad_format_schema():
@@ -67,14 +66,13 @@ def test_bad_format_schema():
                 json.JSONDecodeError,
                 schema = f"bad_format_{i}.json",
                 patients_1 = "20_test_matches_a.csv",
-                #patients_2 = "20_test_matches_a.csv",
-                expected_linkages = 'simple_synthetic,simple_synthetic\n0,0\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n'
+                expected_linkages = ('simple_synthetic', '0-19', 'simple_synthetic', '0-19'),
                 )
 
 def test_basic_functionality():
     basic_test_pattern(
             patients_1 = "3_test_patients.csv",
-            expected_linkages = 'zoo,zoo\n'
+            expected_linkages = ('zoo', '', 'zoo', ''),
             )
 
 #TODO: never had a test for output file already exists, either
@@ -84,8 +82,7 @@ def test_wrong_schema():
     basic_error_pattern(
             AssertionError,
             patients_1 = "20_test_matches_a.csv",
-            #patients_2 = "20_test_matches_a.csv",
-            expected_linkages = 'simple_synthetic,simple_synthetic\n0,0\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n'
+            expected_linkages = ('simple_synthetic', '0-19', 'simple_synthetic', '0-19'),
             )
 
 def test_exact_duplicates():
@@ -93,14 +90,14 @@ def test_exact_duplicates():
             schema = "20_ordering.json",
             patients_1 = "20_test_matches_a.csv",
             patients_2 = "20_test_matches_a.csv",
-            expected_linkages = 'simple_synthetic,simple_synthetic\n0,0\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n'
+            expected_linkages = ('simple_synthetic', '0-19', 'simple_synthetic', '0-19'),
             )
 
 def test_basic_ordering():
     basic_test_pattern(
             patients_1 = "3_test_patients.csv",
             patients_2 = "rev_3_test_patients.csv",
-            expected_linkages = 'zoo,zoo\n1,3\n2,2\n3,1\n'
+            expected_linkages = ('zoo', '1-3', 'zoo', '3-1'),
             )
 
 def test_additional_ordering():
@@ -108,7 +105,7 @@ def test_additional_ordering():
             schema = "20_ordering.json",
             patients_1 = "20_test_matches_a.csv",
             patients_2 = "20_test_matches_b.csv",
-            expected_linkages = 'simple_synthetic,simple_synthetic\n0,0\n1,2\n2,4\n3,6\n4,8\n5,10\n6,12\n7,14\n8,16\n9,18\n',
+            expected_linkages = ('simple_synthetic', '0-9', 'simple_synthetic', '0,2,4,6,8,10,12,14,16,18'),
             )
 
 def test_100_patients():
@@ -116,7 +113,7 @@ def test_100_patients():
             schema = "100-patient-schema.json",
             patients_1 = "100-patients-original.csv",
             patients_2 = "100-patients-original.csv",
-            expected_linkages = '100,100\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n20,20\n21,21\n22,22\n23,23\n24,24\n25,25\n26,26\n27,27\n28,28\n29,29\n30,30\n31,31\n32,32\n33,33\n34,34\n35,35\n36,36\n37,37\n38,38\n39,39\n40,40\n41,41\n42,42\n43,43\n44,44\n45,45\n46,46\n47,47\n48,48\n49,49\n50,50\n51,51\n52,52\n53,53\n54,54\n55,55\n56,56\n57,57\n58,58\n59,59\n60,60\n61,61\n62,62\n63,63\n64,64\n65,65\n66,66\n67,67\n68,68\n69,69\n70,70\n71,71\n72,72\n73,73\n74,74\n75,75\n76,76\n77,77\n78,78\n79,79\n80,80\n81,81\n82,82\n83,83\n84,84\n85,85\n86,86\n87,87\n88,88\n89,89\n90,90\n91,91\n92,92\n93,93\n94,94\n95,95\n96,96\n97,97\n98,98\n99,99\n100,100\n',
+            expected_linkages = ('100', '1-100', '100', '1-100'),
             )
 
 def test_100_patients_capitalization():
@@ -124,7 +121,7 @@ def test_100_patients_capitalization():
             schema = "100-patient-schema.json",
             patients_1 = "100-patients-original.csv",
             patients_2 = "100-patients-capitalization.csv",
-            expected_linkages = '100,100\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n20,20\n21,21\n22,22\n23,23\n24,24\n25,25\n26,26\n27,27\n28,28\n29,29\n30,30\n31,31\n32,32\n33,33\n34,34\n35,35\n36,36\n37,37\n38,38\n39,39\n40,40\n41,41\n42,42\n43,43\n44,44\n45,45\n46,46\n47,47\n48,48\n49,49\n50,50\n51,51\n52,52\n53,53\n54,54\n55,55\n56,56\n57,57\n58,58\n59,59\n60,60\n61,61\n62,62\n63,63\n64,64\n65,65\n66,66\n67,67\n68,68\n69,69\n70,70\n71,71\n72,72\n73,73\n74,74\n75,75\n76,76\n77,77\n78,78\n79,79\n80,80\n81,81\n82,82\n83,83\n84,84\n85,85\n86,86\n87,87\n88,88\n89,89\n90,90\n91,91\n92,92\n93,93\n94,94\n95,95\n96,96\n97,97\n98,98\n99,99\n100,100\n',
+            expected_linkages = ('100', '1-100', '100', '1-100'),
             )
 
 def test_100_patients_missing_data():
@@ -132,7 +129,7 @@ def test_100_patients_missing_data():
             schema = "100-patient-schema.json",
             patients_1 = "100-patients-original.csv",
             patients_2 = "100-patients-missing-data.csv",
-            expected_linkages = '100,100\n41,41\n42,42\n43,43\n44,44\n45,45\n46,46\n47,47\n48,48\n49,49\n50,50\n51,51\n52,52\n53,53\n54,54\n55,55\n56,56\n57,57\n58,58\n59,59\n60,60\n61,61\n62,62\n63,63\n64,64\n65,65\n66,66\n67,67\n68,68\n69,69\n70,70\n71,71\n72,72\n73,73\n74,74\n75,75\n76,76\n77,77\n78,78\n79,79\n80,80\n81,81\n82,82\n83,83\n84,84\n85,85\n86,86\n87,87\n88,88\n89,89\n90,90\n91,91\n92,92\n93,93\n94,94\n95,95\n96,96\n97,97\n98,98\n99,99\n100,100\n',
+            expected_linkages = ('100', '41-100', '100', '41-100'),
             )
 
 @pytest.mark.skip(reason="I can't find a setting that causes both this and the 100 patient missing data test to pass. I think it's more important to reject linking with missing fields than to permit all off-by-1 possibilities, though maybe it's sufficient to ust require all fields to be filled.")
@@ -141,6 +138,6 @@ def test_100_patients_off_by_1():
             schema = "100-patient-schema.json",
             patients_1 = "100-patients-original.csv",
             patients_2 = "100-patients-off-by-1.csv",
-            expected_linkages = '100,100\n1,1\n2,2\n3,3\n4,4\n5,5\n6,6\n7,7\n8,8\n9,9\n10,10\n11,11\n12,12\n13,13\n14,14\n15,15\n16,16\n17,17\n18,18\n19,19\n20,20\n21,21\n22,22\n23,23\n24,24\n25,25\n26,26\n27,27\n28,28\n29,29\n30,30\n31,31\n32,32\n33,33\n34,34\n35,35\n36,36\n37,37\n38,38\n39,39\n40,40\n41,41\n42,42\n43,43\n44,44\n45,45\n46,46\n47,47\n48,48\n49,49\n50,50\n51,51\n52,52\n53,53\n54,54\n55,55\n56,56\n57,57\n58,58\n59,59\n60,60\n61,61\n62,62\n63,63\n64,64\n65,65\n66,66\n67,67\n68,68\n69,69\n70,70\n71,71\n72,72\n73,73\n74,74\n75,75\n',
+            expected_linkages = ('100', '1-75', '100', '1-75'),
             )
 

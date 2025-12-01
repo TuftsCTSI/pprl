@@ -2,7 +2,11 @@ import os
 import pytest
 import tempfile
 from pathlib import Path
-from pprl.tests.utilities import assert_file_comparison, assert_file_contents
+from pprl.tests.utilities import (
+    assert_file_comparison,
+    assert_file_contents,
+    ranges_as_csv,
+    )
 
 from pprl import pprl
 
@@ -52,6 +56,9 @@ def basic_test_pattern(
                     verbose=True
             )
             hashes = [hashes_1, hashes_2]
+
+        expected_linkages_as_csv = ranges_as_csv(expected_linkages)
+
         pprl._match_CLKs(
                 data_folder = temp_dir,
                 hashes = hashes,
@@ -61,7 +68,7 @@ def basic_test_pattern(
                 verbose=True)
         assert_file_contents(
                 os.path.join(temp_dir, linkages),
-                expected_linkages
+                expected_linkages_as_csv
                 )
 
 def basic_error_pattern(error_type, **kwargs):
