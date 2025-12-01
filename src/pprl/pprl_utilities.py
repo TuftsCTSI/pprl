@@ -104,6 +104,7 @@ def validate_input_fields(df):
                 "first": _sanitize_strings,
                 "last": _sanitize_strings,
                 "city": _sanitize_strings,
+                "state": _sanitize_string,
                 "zip": _sanitize_zip,
                 "dob": _sanitize_date,
         }
