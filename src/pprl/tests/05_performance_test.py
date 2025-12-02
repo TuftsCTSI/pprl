@@ -10,6 +10,7 @@ import json
 import pytest
 import os
 
-class TestPrivacy:
+class TestPerformance:
+    """Test whether linkage can be accomplished at scale"""
     def test_PLACEHOLDER(capsys):
         """<This placeholder test should be replaced with a complete test set!>"""

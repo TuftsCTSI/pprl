@@ -11,5 +11,6 @@ import pytest
 import os
 
 class TestPrivacy:
+    """Test if any outputs contain patient data"""
     def test_PLACEHOLDER(capsys):
         """<This placeholder test should be replaced with a complete test set!>"""

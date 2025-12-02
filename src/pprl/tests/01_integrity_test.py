@@ -12,6 +12,7 @@ import os
 from pprl.tests.templates import basic_test_pattern
 
 class TestIntegrity:
+    """Test that all outputs match our expectations"""
     def test_basic_functionality(capsys):
         """The hashing and linking pipeline should properly handle a rudimentary dataset."""
         basic_test_pattern(capsys,

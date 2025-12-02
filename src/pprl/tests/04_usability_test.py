@@ -1,7 +1,8 @@
 """
 Test set for Objective 4: Usability
 
-The IRB approves the study design as a team, and we develop a secure process as a team. We should do everything we can to eliminate the possibility of user errors that deviate from this design.
+The IRB approves the study design as a team, and we develop a secure process as a team.
+We should do everything we can to eliminate the possibility of user errors that deviate from this design.
 """
 
 import filecmp
@@ -12,6 +13,7 @@ import os
 from pprl.tests.templates import basic_error_pattern
 
 class TestUsability:
+    """Test that proper procedure is clear and that unintended behavious cannot occur"""
     def test_no_patient_file_provided(capsys):
         """The hashing script should throw an error if no patient identifiers input file is provided."""
         basic_error_pattern(
