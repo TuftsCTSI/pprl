@@ -246,7 +246,7 @@ def _match_CLKs(
         logger.debug("Validating input path: input_2")
         input_2 = validated_file_path('hashes', hashes[1], data_folder)
     else:
-        logger.debug("Only one hash detected. Using self_match = True")
+        logger.info("Only one hash detected. Using self_match = True")
         self_match = True
         input_2 = input_1
     #TODO: add checks for self_match
@@ -293,16 +293,19 @@ def _match_CLKs(
     _, _, (left, right) = results_candidate_pairs
     matching_rows = sorted([(x,y) for x,y in zip(left, right)])
     logger.info("Found %s total matching rows", len(matching_rows))
+
     if self_match:
+        #TODO: filter these out before matching, rather than match then remove?
         # When linking a dataset against itself, don't link a record to itself
         #TODO: Would we filter for x[0] < x[1]? I assume all mappings are reversible, but that should be a separate test.
         #TODO: already complete? based on self_match, filter out row N matches row N
         # We exclude rows matched to themselves, and we report only unique mappings
         # No (4,4) or both (2,5) and (5,2)
+        logger.info("Since we matched a dataset against itself, we should ignore matches with the same row number")
         relevant_matches = [x for x in matching_rows if x[0] < x[1]]
+        logger.info("There are %s matches between different records", len(relevant_matches))
     else:
         relevant_matches = matching_rows
-    logger.info("Found %s relevant (non-spurious) matches", len(relevant_matches))
 
     row_IDs_of_matches = list([df_1['row_id'][row_n_in_1], df_2['row_id'][row_n_in_2]] for (row_n_in_1, row_n_in_2) in relevant_matches)
 
