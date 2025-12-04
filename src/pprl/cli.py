@@ -9,7 +9,7 @@ import logging
 from pathlib import Path
 from datetime import datetime as dt
 
-from pprl.commands import create, match, synth, test, deduplicate
+from pprl.commands import create, match, synth, test, dedup
 
 curr_dt = dt.strftime(dt.now(), '%H%M%S')
 
@@ -20,7 +20,7 @@ COMMAND_MODULES = [
     synth,
     create,
     match,
-    deduplicate,
+    dedup,
 ]
 
 def setup_logging(command, verbose = False):
@@ -52,7 +52,7 @@ def main(argv = None):
         pprl synth -> create synthetic patient data
         pprl create -> run create_CLKs()
         pprl match -> run match_CLKs()
-        pprl deduplicate -> Filter the patient identifier file for self-linkages
+        pprl dedup -> Filter the patient identifier file for self-linkages
 
         global args:
             -v/--verbose: set logging level to DEBUG
@@ -68,7 +68,7 @@ def main(argv = None):
     subparsers = parser.add_subparsers(
         dest="command",
         metavar="command",
-        help="Specify which subcommand to execute: [test, create, match, deduplicate]"
+        help="Specify which subcommand to execute: [test, create, match, dedup]"
     )
 
     # have each command module register itself
