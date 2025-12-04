@@ -82,7 +82,7 @@
       "identifier": "dob",
       "format": {
         "type": "date",
-        "format": "%m/%d/%y"
+        "format": "%Y-%m-%d"
       },
       "hashing": {
         "comparison": {
