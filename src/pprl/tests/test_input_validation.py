@@ -2,7 +2,7 @@ import pandas as pd
 import pytest
 from pprl.pprl_utilities import validate_input_fields
 
-class TestValidateInputFields:
+class TestValidInput:
     """Direct unit tests for the validate_input_fields function."""
 
     def test_all_valid_records(self):

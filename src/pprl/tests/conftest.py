@@ -6,15 +6,23 @@ This and other relevant information is included along with test results.
 """
 import pytest
 
+import colorama
+from colorama import Fore, Back, Style
+
+colorama.init()
+
 def pytest_sessionstart(session):
     """Print a header line before running any tests"""
-    print_test_report_line(
+    print_test_header_line(
             "OBJECTIVE",
-            "TEST",
-            "SCOPE",
+            "DESIGN SPECIFICATION",
+            "TEST NAME",
             "RESULT",
-            "TIME (s)",
+            "(s)",
             )
+
+def pytest_sessionfinish(session):
+    colorama.deinit()
 
 @pytest.hookimpl(tryfirst = True, hookwrapper = True)
 def pytest_runtest_makereport(item, call):
@@ -27,24 +35,30 @@ def pytest_runtest_makereport(item, call):
     # Wait to read values from the results
     outcome = yield
     report = outcome.get_result()
-    # TODO: use ✅ or ❌
-    #result = "\U00002705" if report.outcome == "passed" else "\U0001F600",
-    # Might be worth using a separate library
-    result = report.outcome
+    if report.outcome == "passed":
+        result = Fore.GREEN + 'passed' + Style.RESET_ALL
+    else:
+        result = Style.BRIGHT + Fore.RED + 'FAILED' + Style.RESET_ALL
+
     duration = f"{report.duration:7.2f}"
     name = item.name.removeprefix("test_")
 
     if report.when == "call":
         print_test_report_line(
                 objective,
-                name,
                 description,
+                Style.DIM + name + Style.RESET_ALL,
                 result,
                 duration,
                 )
 
 #TODO: warn if a value is too long
+def print_test_header_line(a,b,c,d,e):
+    """Control the specific formatting for each line of the test report"""
+    X, Y = Style.BRIGHT, Style.RESET_ALL
+    print(f"{X}{a.rjust(11)}{Y} | {X}{b.ljust(90)}{Y} | {X}{c.ljust(37)}{Y} | {X}{d.rjust(6)}{Y} | {X}{e.rjust(8)}{Y}")
+
 def print_test_report_line(a,b,c,d,e):
     """Control the specific formatting for each line of the test report"""
-    print(f"{a.rjust(11)} | {b.ljust(30)} | {c.ljust(90)} | {d.rjust(6)} | {e.rjust(8)}")
+    print(f"{a.rjust(11)} | {b.ljust(90)} | {c.ljust(45)} | {d.rjust(6)} | {e.rjust(8)}")
 

@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12"
 
 [[package]]
@@ -434,12 +434,13 @@ wheels = [
 
 [[package]]
 name = "pprl"
-version = "0.3.0"
+version = "1.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "anonlink" },
     { name = "anyascii" },
     { name = "clkhash" },
+    { name = "colorama" },
     { name = "faker" },
     { name = "pandas" },
     { name = "pytest" },
@@ -454,6 +455,7 @@ requires-dist = [
     { name = "anonlink", specifier = ">=0.15.3" },
     { name = "anyascii", specifier = ">=0.3.3" },
     { name = "clkhash", specifier = ">=0.18.3" },
+    { name = "colorama", specifier = ">=0.4.6" },
     { name = "faker", specifier = ">=38.2.0" },
     { name = "pandas", specifier = ">=2.2.3" },
     { name = "pytest", specifier = ">=8.4.2" },
