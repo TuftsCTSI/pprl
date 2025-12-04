@@ -13,7 +13,7 @@ def register_subcommand(subparsers):
     # set up synth() command
     synth_parser = subparsers.add_parser(
         "synth",
-        help="Filter out self-linkages from a patient identifiers input file"
+        help="Generate a synthetic patient identifiers file"
     )
     synth_parser.add_argument(
         "-v",
@@ -23,7 +23,7 @@ def register_subcommand(subparsers):
     )
     synth_parser.add_argument(
         "config", nargs="?", default="./my_files/synth.yml",
-        help="Name of the config file for deduplicating records. [Default: synth.yml]"
+        help="Name of the config file for synthesizing data. [Default: synth.yml]"
     )
     synth_parser.set_defaults(func=run_synth)
 
