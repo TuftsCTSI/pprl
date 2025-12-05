@@ -13,16 +13,25 @@ def read_config_file(config, allowed_config_names):
     logger.debug("Parsing config file: %s", config)
 
     configuration = yaml.safe_load(open(config))
+    if configuration is None:
+        logger.error("The configuration file contains no discernable options!")
+        logger.error("Only the following variables should be used:")
+        for name in allowed_config_names:
+            logger.error(f"    {name}")
+        exit(1)
+        #raise ValueError
+
     observed_config_names = set(configuration.keys())
     unexpected_config_names = observed_config_names - allowed_config_names
 
+    #TODO: avoid duplicating code
     if bool(unexpected_config_names):
         logger.error("The following variables were not expected in the configuration file:")
         for name in unexpected_config_names:
             logger.error(f"    unexpected: {name}")
         logger.error("Only the following variables should be used:")
         for name in allowed_config_names:
-            logger.error(f"    allowed: {name}")
+            logger.error(f"    {name}")
         exit(1)
         #raise ValueError
 

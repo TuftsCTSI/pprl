@@ -13,6 +13,13 @@ import os
 from pprl.tests.templates import basic_error_pattern
 
 class TestUsability:
+
+    #TODO: tests for missing YAML config files?
+    #TODO: tests for nonexistent YAML config files
+    #TODO: tests for empty YAML config files / no discernable options
+    #TODO: tests for YAML files with wrong format
+    #TODO: tests for YAML files with nonexistent options
+
     """Test that proper procedure is clear and that unintended behavious cannot occur"""
     def test_no_patient_file_provided(capsys):
         """The hashing script should throw an error if no patient identifiers input file is provided."""
@@ -38,6 +45,8 @@ class TestUsability:
                 patients_1 = "empty_file"
                 )
 
+    #TODO: patient CSV file, properly formatted, with no rows
+
     @pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
     def test_nonexistent_schema_file_provided(capsys):
         """The hashing script should throw an error if the schema input file doesn't exist."""
@@ -47,6 +56,8 @@ class TestUsability:
                 schema = "NONEXISTENT_FILE"
                 )
 
+    #TODO: empty, misformat, missing entries
+
     @pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
     def test_nonexistent_secret_file_provided(capsys):
         """The hashing script should throw an error if the secret input file doesn't exist."""
@@ -55,6 +66,16 @@ class TestUsability:
                 patients_1 = "3_test_patients.csv",
                 secret = "NONEXISTENT_FILE"
                 )
+
+    def test_empty_secret_file_provided(capsys):
+        """Hashing will not be performed without a secret"""
+        basic_error_pattern(capsys,
+                ValueError,
+                patients_1 = "3_test_patients.csv",
+                secret = "empty_file"
+                )
+
+    #TODO: other filters on secret (length, characters?)
 
     def test_bad_format_schema(capsys):
         """The hashing script should throw an error if the schema input file isn't valid JSON."""
@@ -66,7 +87,6 @@ class TestUsability:
                     expected_linkages = ('simple_synthetic', '0-19', 'simple_synthetic', '0-19'),
                     )
 
-
     def test_hashes_export_already_exists(capsys):
         """The hashing script should throw an error if the output hash file already exists."""
         basic_error_pattern(capsys,
@@ -75,6 +95,7 @@ class TestUsability:
                 hashes_1 = "3_test_patients"
                 )
 
+    #TODO: Add all tests similar to this (outfile already exists)
     def test_linkages_export_already_exists(capsys):
         """The linking script should throw an error if the output linkages file already exists."""
         basic_error_pattern(capsys,

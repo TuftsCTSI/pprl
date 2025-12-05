@@ -97,6 +97,8 @@ def _create_CLKs(
         logger.debug("Reading secret from file.")
         with open(secret_file_path, 'r') as secret_file:
             secret = secret_file.read()
+        if secret == "":
+            raise ValueError(f'The secret file cannot be empty: {secret_file_path}')
 
         # Create DataFrame from the input csv
         raw_patients_df = read_dataframe_from_CSV(patient_file_path)
