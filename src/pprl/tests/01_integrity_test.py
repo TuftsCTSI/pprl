@@ -85,35 +85,22 @@ class TestIntegrity:
 
     def test_hashing_invariance(capsys):
         """Hashes are determined entirely by the input"""
-        compare_hashes(capsys,
-                schema = "100-patient-schema.json",
-                patients_1 = "100-patients-original.csv",
-                patients_2 = "100-patients-original.csv",
-                secret = "basic_secret.txt",
-                lower_bound = 1.0,
-                )
+        for secret in ["secret.txt", "basic_secret.txt", "basic_secret_off_by_1.txt"]:
+            compare_hashes(capsys,
+                    schema = "100-patient-schema.json",
+                    patients_1 = "100-patients-original.csv",
+                    patients_2 = "100-patients-original.csv",
+                    secret = secret,
+                    lower_bound = 1.0,
+                    )
 
     def test_different_secrets(capsys):
         """Altering the secret should not affect the final linkages"""
-        basic_test_pattern(capsys,
-                schema = "100-patient-schema.json",
-                patients_1 = "100-patients-original.csv",
-                patients_2 = "100-patients-original.csv",
-                secret = "secret.txt",
-                expected_linkages = ('100', '1-100', '100', '1-100'),
-                )
-        basic_test_pattern(capsys,
-                schema = "100-patient-schema.json",
-                patients_1 = "100-patients-original.csv",
-                patients_2 = "100-patients-original.csv",
-                secret = "basic_secret.txt",
-                expected_linkages = ('100', '1-100', '100', '1-100'),
-                )
-        basic_test_pattern(capsys,
-                schema = "100-patient-schema.json",
-                patients_1 = "100-patients-original.csv",
-                patients_2 = "100-patients-original.csv",
-                secret = "basic_secret_off_by_1.txt",
-                expected_linkages = ('100', '1-100', '100', '1-100'),
-                )
-
+        for secret in ["secret.txt", "basic_secret.txt", "basic_secret_off_by_1.txt"]:
+            basic_test_pattern(capsys,
+                    schema = "100-patient-schema.json",
+                    patients_1 = "100-patients-original.csv",
+                    patients_2 = "100-patients-original.csv",
+                    secret = secret,
+                    expected_linkages = ('100', '1-100', '100', '1-100'),
+                    )
