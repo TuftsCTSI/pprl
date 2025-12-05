@@ -9,24 +9,39 @@ import pytest
 import colorama
 from colorama import Fore, Back, Style
 
-colorama.init()
+import pytest
+
+@pytest.hookspec()
+def pytest_addoption(parser):
+    parser.addoption(
+        "--cmdopt",
+        action="store",
+        default="standard_pytest",
+        help="standard_pytest or conformance_report",
+        choices=("standard_pytest", "conformance_report"),
+    )
 
 def pytest_sessionstart(session):
-    """Print a header line before running any tests"""
-    print_test_header_line(
-            "OBJECTIVE",
-            "DESIGN SPECIFICATION",
-            "TEST NAME",
-            "RESULT",
-            "(s)",
-            )
+    """(Conformance report only) Print a header line before running any tests"""
+    if session.config.getoption("--cmdopt") == "conformance_report":
+        colorama.init()
+
+        print_test_header_line(
+                "OBJECTIVE",
+                "DESIGN SPECIFICATION",
+                "TEST NAME",
+                "RESULT",
+                "(s)",
+                )
 
 def pytest_sessionfinish(session):
-    colorama.deinit()
+    """(Conformance report only) Final clean up"""
+    if session.config.getoption("--cmdopt") == "conformance_report":
+        colorama.deinit()
 
 @pytest.hookimpl(tryfirst = True, hookwrapper = True)
 def pytest_runtest_makereport(item, call):
-    """Print a single line fully describing the test"""
+    """(Conformance report only) Print a single line fully describing the test"""
 
     # Read values from the test funtion itself
     description = item.function.__doc__ or "<WARNING: This test is missing a docstring>"
@@ -44,13 +59,14 @@ def pytest_runtest_makereport(item, call):
     name = item.name.removeprefix("test_")
 
     if report.when == "call":
-        print_test_report_line(
-                objective,
-                description,
-                Style.DIM + name + Style.RESET_ALL,
-                result,
-                duration,
-                )
+        if item.config.getoption("--cmdopt") == "conformance_report":
+                print_test_report_line(
+                        objective,
+                        description,
+                        Style.DIM + name + Style.RESET_ALL,
+                        result,
+                        duration,
+                        )
 
 #TODO: warn if a value is too long
 def print_test_header_line(a,b,c,d,e):

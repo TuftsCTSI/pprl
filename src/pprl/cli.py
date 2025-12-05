@@ -9,7 +9,7 @@ import logging
 from pathlib import Path
 from datetime import datetime as dt
 
-from pprl.commands import create, match, synth, test, dedup
+from pprl.commands import create, match, synth, test, dedup, report
 
 curr_dt = dt.strftime(dt.now(), '%H%M%S')
 
@@ -17,6 +17,7 @@ curr_dt = dt.strftime(dt.now(), '%H%M%S')
 # we setup argparsing in each of these via register_subcommand()
 COMMAND_MODULES = [
     test,
+    report,
     synth,
     create,
     match,

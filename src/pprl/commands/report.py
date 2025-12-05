@@ -9,12 +9,12 @@ logger = logging.getLogger(__name__)
 
 def register_subcommand(subparsers):
     """
-    register 'test' as a subcommand within the top level entrypoint.
+    register 'report' as a subcommand within the top level entrypoint.
     """
-    # set up test command
+    # set up report command
     test_parser = subparsers.add_parser(
-        "test",
-        help="Run the test suite via pytest."
+        "report",
+        help="Generate a conformance testing report",
     )
     test_parser.add_argument(
         "-v",
@@ -32,7 +32,7 @@ def register_subcommand(subparsers):
 
 def run_test(args):
     """
-    CLI handler for running tests via pytest
+    CLI handler for conformance testing report
     """
     # ok so since we want to include tests with the final build?
     # tests have been relocated under src/pprl/tests/
@@ -53,6 +53,12 @@ def run_test(args):
     # this should probably be handled by pytest_args but oh well.
     if args.verbose:
         pytest_args.append("-v")
+
+    # Disable normal pytest output for conformance testing report
+    pytest_args.append("-p no:terminal")
+
+    # Conformance testing report
+    pytest_args.append("--cmdopt=conformance_report")
 
     logger.debug("Running pytest using tests at: %s", tests_dir)
     rc = pytest.main(pytest_args)
