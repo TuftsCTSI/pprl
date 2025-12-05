@@ -32,7 +32,7 @@ def run_deduplicate(args):
     CLI handler for deduplicate()
     """
     cfg = Path(args.config)
-    logger.info("Starting execution of 'deduplicate' with config: %s", cfg)
+    logger.debug("Starting execution of 'deduplicate' with config: %s", cfg)
 
     if not cfg.exists():
         logger.error(f"Config file not found: %s", cfg)
@@ -41,9 +41,9 @@ def run_deduplicate(args):
     try:
         rc = pprl.deduplicate(args)
         if rc == 0:
-            logger.info("Execution of 'deduplicate' finished successfully.")
+            logger.debug("Execution of 'deduplicate' finished successfully.")
         else:
-            logger.info("Execution of 'deduplicate' failed with exit code %s", rc)
+            logger.debug("Execution of 'deduplicate' failed with exit code %s", rc)
         return rc
     except Exception:
         logger.exception("Unhandled error during 'deduplicate' execution.")

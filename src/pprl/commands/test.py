@@ -54,10 +54,6 @@ def run_test(args):
     if args.verbose:
         pytest_args.append("-v")
 
-    #TODO: Add a toggle for this?
-    # Use custom test report (silence other Pytest output)
-    pytest_args.append("-p no:terminal")
-
     logger.info("Running pytest using tests at: %s", tests_dir)
     rc = pytest.main(pytest_args)
 
