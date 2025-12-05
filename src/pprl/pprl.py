@@ -58,7 +58,6 @@ def create_CLKs(args):
     rc = _create_CLKs(**configuration)
     return rc
 
-
 def _create_CLKs(
         patients = None,
         secret = None,
@@ -328,20 +327,27 @@ def _match_CLKs(
     s2_output = f"{Path(output).stem}_{source_2}.txt"
     s2_file_path = validated_out_path('linkages', s2_output, output_folder)
 
-    logger.debug("Linking pairs between sources...")
-    results_candidate_pairs = anonlink.candidate_generation.find_candidate_pairs(
-            [hashed_data_1, hashed_data_2],
-            anonlink.similarities.dice_coefficient,
-            threshold
-            )
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text="Calculating linkage probability for each pair (Don't worry if the timer freezes!)",
+        ) as spinner:
+        logger.debug("Linking pairs between sources...")
+        results_candidate_pairs = anonlink.candidate_generation.find_candidate_pairs(
+                [hashed_data_1, hashed_data_2],
+                anonlink.similarities.dice_coefficient,
+                threshold
+                )
 
-    # Rather than finding a single best fit, pull out all potential matches
-    #logger.debug("Generating solution...")
-    #solution = anonlink.solving.greedy_solve(results_candidate_pairs)
-    _, _, (left, right) = results_candidate_pairs
-    matching_rows = sorted([(x,y) for x,y in zip(left, right)])
+        # Rather than finding a single best fit, pull out all potential matches
+        #logger.debug("Generating solution...")
+        #solution = anonlink.solving.greedy_solve(results_candidate_pairs)
+        _, _, (left, right) = results_candidate_pairs
+        matching_rows = sorted([(x,y) for x,y in zip(left, right)])
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+
     logger.info("Found %s total matching rows", len(matching_rows))
-
     if self_match:
         #TODO: filter these out before matching, rather than match then remove?
         # When linking a dataset against itself, don't link a record to itself
@@ -351,7 +357,7 @@ def _match_CLKs(
         # No (4,4) or both (2,5) and (5,2)
         logger.info("Since we matched a dataset against itself, we should ignore matches with the same row number")
         relevant_matches = [x for x in matching_rows if x[0] < x[1]]
-        logger.info("There are %s matches between different records", len(relevant_matches))
+        logger.info("There are %s matches between distinct records", len(relevant_matches))
     else:
         relevant_matches = matching_rows
 
@@ -365,27 +371,45 @@ def _match_CLKs(
     # Okay, so we're gonna add two additional output files.
     # and keep the single unified file for debugging.
     # write the first file.
-    logger.info("Writing combined linkages from both sources to file %s", linkages_file_path)
-    with open(linkages_file_path, "w") as linkages_file:
-        csv_writer = csv.writer(linkages_file)
-        csv_writer.writerow([source_1,source_2])
-        csv_writer.writerows(row_IDs_of_matches)
-    logger.debug("Output successfully written: %s", linkages_file_path)
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text=f"Writing linkage pairs from both sources to {linkages_file_path}",
+        ) as spinner:
+        logger.debug("Writing combined linkages from both sources to file %s", linkages_file_path)
+        with open(linkages_file_path, "w") as linkages_file:
+            csv_writer = csv.writer(linkages_file)
+            csv_writer.writerow([source_1,source_2])
+            csv_writer.writerows(row_IDs_of_matches)
+        logger.debug("Output successfully written: %s", linkages_file_path)
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
 
     if not self_match:
         # now we need to dump matches for source 1
-        logger.info("Writing linkages for %s to file %s", source_1, s1_file_path)
-        with open(s1_file_path, "w") as linkages_file:
-            linkages_file.write(source_1)
-            linkages_file.writelines(f"{match[0]}\n" for match in relevant_matches )
-        logger.info("Output successfully written: %s", s1_file_path)
+        with yaspin(
+                custom_spinner(),
+                timer = True,
+                text=f"Writing {source_1} duplicates to {s1_file_path}",
+            ) as spinner:
+            logger.debug("Writing linkages for %s to file %s", source_1, s1_file_path)
+            with open(s1_file_path, "w") as linkages_file:
+                linkages_file.write(source_1)
+                linkages_file.writelines(f"{match[0]}\n" for match in relevant_matches )
+            logger.debug("Output successfully written: %s", s1_file_path)
+            spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
         # now we need to dump matches for source 2
-        logger.info("Writing linkages for %s to file %s", source_2, s2_file_path)
-        with open(s2_file_path, "w") as linkages_file:
-            linkages_file.write(source_2)
-            linkages_file.writelines(f"{match[1]}\n" for match in relevant_matches )
-        logger.info("Output successfully written: %s", s2_file_path)
-
+        with yaspin(
+                custom_spinner(),
+                timer = True,
+                text=f"Writing {source_2} duplicates to {s2_file_path}",
+            ) as spinner:
+            logger.debug("Writing linkages for %s to file %s", source_2, s2_file_path)
+            with open(s2_file_path, "w") as linkages_file:
+                linkages_file.write(source_2)
+                linkages_file.writelines(f"{match[1]}\n" for match in relevant_matches )
+            logger.debug("Output successfully written: %s", s2_file_path)
+            spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
 
     return 0
 
@@ -437,7 +461,7 @@ def _deduplicate(
     duplicate_rows = linkages_df[source].unique()
     filtered_patients_df = patients_df[~patients_df['row_id'].isin(duplicate_rows)]
 
-    logger.info("Writing filtered input to file: %s", output_file_path)
+    logger.debug("Writing filtered input to file: %s", output_file_path)
     filtered_patients_df.to_csv(output_file_path, index=False)
 
     return 0

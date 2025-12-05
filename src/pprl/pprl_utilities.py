@@ -10,7 +10,7 @@ def read_config_file(config, allowed_config_names):
     """
     Parse a YAML config file and validate the returned dictionary
     """
-    logger.info("Parsing config file: %s", config)
+    logger.debug("Parsing config file: %s", config)
 
     configuration = yaml.safe_load(open(config))
     observed_config_names = set(configuration.keys())
