@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pprl"
-version = "0.1.0"
+version = "1.0.0"
 authors = [
   { name="TuftsCTSI" },
 ]
@@ -14,8 +14,10 @@ requires-python = ">=3.12"
 dependencies = [
   "anonlink>=0.15.3",
   "anyascii>=0.3.3",
+  "bitstring>=4.2.3",
   "clkhash>=0.18.3",
-  "Faker>=38.2.0",
+  "colorama>=0.4.6",
+  "faker>=38.2.0",
   "pandas>=2.2.3",
   "pytest>=8.4.2",
   "PyYAML>=6.0.0",

@@ -16,23 +16,10 @@ Privacy-preserving record linkage for Tufts CTSI and collaborators
 1. Add all configuration files to the `my_files` subdirectory.
 2. Depending on your role, you might have generated an input file. This should also be placed in `my_files`.
 3. Run `source .venv/bin/activate`, if you haven't already.
-4. Run the proper `pprl` command from the main `pprl` directory.
-5. Delete any sensitive files once they are no longer required.
-6. Close or restart the terminal.
-
-### Create cryptographic linkage keys
-1. Add the patient identifiers CSV file to `user_files`.
-2. Add the secret file to `user_files`.
-3. Update `create_CLKs.yml`
-4. activate the virtual environment with: `source .venv/bin/activate`
-5. Run `pprl create`. The linkages CSV will be added to `user_files`.
-6. Distribute the linkages.
-7. Delete any sensitive files from `user_files`.
-
-### Create cryptographic linkage keys
-1. Add the patient identifiers CSV files to `user_files`.
-2. Update `match_CLKs.yml`
-3. activate the virtual environment with: `source .venv/bin/activate`
-4. Run `pprl match`
-5. Distribute the matches.
-6. Delete any sensitive files from `user_files`.
+4. From the main `pprl` directory, run the appropriate `pprl` command.
+  - If you're generating hashes from patient data, run `pprl create`.
+  - If you're linking hashes in order to determine duplicates, run `pprl match`.
+  - Run `pprl` to see a full list of options.
+5. Transmit output files according to the study protocol.
+6. Delete any sensitive files once they are no longer required.
+7. Close or restart the terminal.

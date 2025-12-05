@@ -32,7 +32,7 @@ def run_match(args):
     CLI handler for match_CLKs()
     """
     cfg = Path(args.config)
-    logger.info("Starting execution of 'match_CLKs' with config: %s", cfg)
+    logger.debug("Starting execution of 'match_CLKs' with config: %s", cfg)
 
     if not cfg.exists():
         logger.error(f"Config file not found: %s", cfg)
@@ -41,9 +41,9 @@ def run_match(args):
     try:
         rc = pprl.match_CLKs(args)
         if rc == 0:
-            logger.info("Execution of 'match_CLKs' finished successfully.")
+            logger.debug("Execution of 'match_CLKs' finished successfully.")
         else:
-            logger.info("Execution of 'match_CLKs' failed with exit code %s", rc)
+            logger.debug("Execution of 'match_CLKs' failed with exit code %s", rc)
         return rc
     except Exception:
         logger.exception("Unhandled error during 'match_CLKs' execution.")

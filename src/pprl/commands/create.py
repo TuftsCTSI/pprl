@@ -33,7 +33,7 @@ def run_create(args):
     CLI handler for create_CLKs()
     """
     cfg = Path(args.config)
-    logger.info("Starting execution of 'create_CLKs' with config: %s", cfg)
+    logger.debug("Starting execution of 'create_CLKs' with config: %s", cfg)
 
     if not cfg.exists():
         logger.error(f"Config file not found: %s", cfg)
@@ -43,9 +43,9 @@ def run_create(args):
     try:
         rc = pprl.create_CLKs(args)
         if rc == 0:
-            logger.info("Execution of 'create_CLKs' finished successfully.")
+            logger.debug("Execution of 'create_CLKs' finished successfully.")
         else:
-            logger.info("Execution of 'create_CLKs' failed with exit code %s", rc)
+            logger.debug("Execution of 'create_CLKs' failed with exit code %s", rc)
         return rc
     except Exception:
         logger.exception("Unhandled error during 'create_CLKs' execution.")

@@ -20,11 +20,20 @@ from clkhash.schema import from_json_dict
 from clkhash.serialization import deserialize_bitarray, serialize_bitarray
 
 from anyascii import anyascii
-from yaspin import yaspin
+from yaspin import yaspin, Spinner
 
-from .pprl_utilities import *
+import colorama
+from colorama import Fore, Back, Style
+
+from .util import *
 
 logger = logging.getLogger(__name__)
+
+def custom_spinner():
+    terms = ".   ", "..  ", "... ", " ...", "  ..", "   .", "    "
+    return Spinner(
+            ["[" + Style.BRIGHT + Fore.GREEN + x + Style.RESET_ALL + "]" for x in terms],
+            200)
 
 def create_CLKs(args):
     """
@@ -39,13 +48,12 @@ def create_CLKs(args):
     configuration['verbose'] = args.verbose
     #TODO: check for file format, validity, etc.
 
-    logger.info("Calling  _create_CLKs  with configuration:")
+    logger.debug("Calling  _create_CLKs  with configuration:")
     for key, value in configuration.items():
-        logger.info("    kwarg: %s = %r", key, value)
+        logger.debug("    kwarg: %s = %r", key, value)
 
     rc = _create_CLKs(**configuration)
     return rc
-
 
 def _create_CLKs(
         patients = None,
@@ -59,6 +67,8 @@ def _create_CLKs(
         ):
     logger.debug("Beginning execution within _create_CLKs")
 
+    colorama.init()
+
     # TODO: possibly break all of this out and put into a separate validate subroutine?
 
     logger.debug("Validating input filepaths:") # I don't like determining cwd in the arguments.
@@ -69,10 +79,15 @@ def _create_CLKs(
     logger.debug("Validating output filepaths:")
     output_file_path = validated_out_path('hash', output, output_folder)
 
-    with yaspin(text="Reading from files and preprocessing...") as spinner:
-        if not verbose:
-            spinner.stop()
-        # Linking schema
+    output_invalid_records_path = validated_out_path('invalid records', 'invalid_records.csv', output_folder)
+
+    #TODO: Here and throughout, add a separate silent toggle to disable the spinner
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text=f"Reading from input files",
+        ) as spinner:
+
         logger.debug("Reading schema json into dict.")
         with open(schema_file_path, 'r') as f:
             schema_dict = json.load(f)
@@ -82,16 +97,29 @@ def _create_CLKs(
         logger.debug("Reading secret from file.")
         with open(secret_file_path, 'r') as secret_file:
             secret = secret_file.read()
+        if secret == "":
+            raise ValueError(f'The secret file cannot be empty: {secret_file_path}')
 
         # Create DataFrame from the input csv
         raw_patients_df = read_dataframe_from_CSV(patient_file_path)
+        num_records = len(raw_patients_df)
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+    logger.info("TOTAL RECORDS: %s", num_records)
+
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text=f"Validating records from {patient_file_path}",
+        ) as spinner:
 
         # Pull row_ids and source then drop from dataframe prior to normalizing
         row_ids = raw_patients_df['row_id'].copy()
         source = raw_patients_df['source'].copy()
         data_fields = raw_patients_df.drop(['row_id', 'source'], axis=1)
+
         # TODO: deal with this separately to catch bad fields/corrupted formatting
-        logger.debug("Standardizing values... Converting to ascii and capitalizing all characters.")
+        logger.debug("Converting all values to ascii and capitalizing all strings.")
         patients_df = (
                 data_fields
                 .map(anyascii)
@@ -100,6 +128,38 @@ def _create_CLKs(
         # add em back
         patients_df.insert(0, 'source', source)
         patients_df.insert(0, 'row_id', row_ids)
+
+        ## Perhaps place this in a breakout subcommand that we can call before execution?
+        logger.debug("Validating fields and ensuring standard formatting.")
+        patients_df, invalid_records = validate_input_fields(patients_df)
+
+        num_valid_records = len(patients_df)
+        num_invalid_records = len(invalid_records)
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+
+    logger.info("VALID RECORDS:   %s", num_valid_records)
+    logger.info("INVALID RECORDS: %s", num_invalid_records)
+
+    if num_invalid_records > 0:
+        logger.warning("%s INVALID RECORDS DETECTED.", num_invalid_records)
+        logger.warning("Writing invalid records to file: %s", output_invalid_records_path)
+        with yaspin(
+                custom_spinner(),
+                timer = True,
+                text="Writing invalid records to {output_invalid_records_path}"
+            ) as spinner:
+            invalid_records.to_csv(output_invalid_records_path, index=False)
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        print("[" + Style.BRIGHT + Fore.YELLOW + "NOTE" + Style.RESET_ALL + "] " + 
+                f"Be sure to delete this file when it is no longer needed: {output_invalid_records_path}")
+
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text="Generating hashes",
+        ) as spinner:
+
 
         # Anonlink requires the records CSV and the schema to have the same columns.
         # However, I'd like to test various schemas against the same CSV.
@@ -162,18 +222,26 @@ def _create_CLKs(
         #TODO: add date type checking for dob
         # Maybe add flags, summary statistics (what kind of summary stats?)
 
-    logger.info("Generating clk hashes from input data...")
-    hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = verbose)
+        logger.debug("Generating clk hashes from input data...")
+        hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = verbose)
 
-    with yaspin(text=f"Writing to {output_file_path}...") as spinner:
-        if not verbose:
-            spinner.stop()
-        logger.info("Serializing hashes.")
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text=f"Writing to {output_file_path}",
+        ) as spinner:
+        logger.debug("Serializing hashes.")
         serialized_hashes = [serialize_bitarray(x) for x in hashed_data]
         patients_df['clk'] = serialized_hashes
         #TODO: optionally print this out for the user to see
-        logger.info("Writing hashes to file: %s", output_file_path)
+        logger.debug("Writing hashes to file: %s", output_file_path)
         patients_df[['row_id', 'source', 'clk']].to_csv(output_file_path, index=False)
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+
+    colorama.init()
 
     return 0
 
@@ -190,9 +258,9 @@ def match_CLKs(args):
 
     configuration['verbose'] = args.verbose
 
-    logger.info("Calling  _match_CLKs  with configuration kwargs:")
+    logger.debug("Calling  _match_CLKs  with configuration kwargs:")
     for key, value in configuration.items():
-        logger.info(" %s = %r", key, value)
+        logger.debug(" %s = %r", key, value)
 
     rc = _match_CLKs(**configuration)
     return rc
@@ -220,11 +288,12 @@ def _match_CLKs(
     logger.debug("Validating input path: input_1")
     input_1 = validated_file_path('hashes', hashes[0], data_folder)
     if len(hashes) == 2:
+        logger.info("Two hash files were provided. Using self_match = False")
         self_match = False
         logger.debug("Validating input path: input_2")
         input_2 = validated_file_path('hashes', hashes[1], data_folder)
     else:
-        logger.debug("Only one hash detected. Using self_match = True")
+        logger.info("Only one hash file was provided. Using self_match = True")
         self_match = True
         input_2 = input_1
     #TODO: add checks for self_match
@@ -232,6 +301,8 @@ def _match_CLKs(
 
 
     #TODO: Add some error checks
+
+    logger.debug("Creating dataframes from input csv files.")
     df_1 = read_dataframe_from_CSV(input_1)
     df_2 = read_dataframe_from_CSV(input_2)
 
@@ -241,44 +312,62 @@ def _match_CLKs(
 
     source_1 = df_1['source'][0]
     source_2 = df_2['source'][0]
-    logger.info("Source 1: %s", source_1)
-    logger.info("Source 2: %s", source_2)
+    #TODO: update logging info for case of self_match == True
+    logger.debug("Checking on data presence for source_1 output.")
+    #s1_output = f"{Path(output).stem}_{source_1}.txt"
+    s1_output = f"{source_1}_duplicates.csv"
+    s1_file_path = validated_out_path('duplicates', s1_output, output_folder)
+    if self_match:
+        logger.info("Source: %s", source_1)
+    else:
+        logger.info("Source 1: %s", source_1)
+        logger.info("Source 2: %s", source_2)
+        #if source_1 == source_2:
+            #TODO: Add a test for this and throw an error
+        logger.debug("Checking on data presence for source_2 output.")
+        #s2_output = f"{Path(output).stem}_{source_2}.txt"
+        s2_output = f"{source_2}_duplicates.csv"
+        s2_file_path = validated_out_path('duplicates', s2_output, output_folder)
 
     ## TODO: group all of the IO checking into a separate module so we can
     ## pull it out of the args above and also expand this into timestamped
     ## output directories.
 
-    logger.debug("Checking on data presence for source_1 output.")
-    s1_output = f"{Path(output).stem}_{source_1}.txt"
-    s1_file_path = validated_out_path('linkages', s1_output, output_folder)
 
-    logger.debug("Checking on data presence for source_2 output.")
-    s2_output = f"{Path(output).stem}_{source_2}.txt"
-    s2_file_path = validated_out_path('linkages', s2_output, output_folder)
 
-    logger.info("Linking pairs between sources...")
-    results_candidate_pairs = anonlink.candidate_generation.find_candidate_pairs(
-            [hashed_data_1, hashed_data_2],
-            anonlink.similarities.dice_coefficient,
-            threshold
-            )
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text="Calculating linkage probabilities (Don't worry if timer fails to update!)",
+        ) as spinner:
+        logger.debug("Linking pairs between sources...")
+        results_candidate_pairs = anonlink.candidate_generation.find_candidate_pairs(
+                [hashed_data_1, hashed_data_2],
+                anonlink.similarities.dice_coefficient,
+                threshold
+                )
 
-    # Rather than finding a single best fit, pull out all potential matches
-    #logger.info("Generating solution...")
-    #solution = anonlink.solving.greedy_solve(results_candidate_pairs)
-    _, _, (left, right) = results_candidate_pairs
-    matching_rows = sorted([(x,y) for x,y in zip(left, right)])
+        # Rather than finding a single best fit, pull out all potential matches
+        #logger.debug("Generating solution...")
+        #solution = anonlink.solving.greedy_solve(results_candidate_pairs)
+        _, _, (left, right) = results_candidate_pairs
+        matching_rows = sorted([(x,y) for x,y in zip(left, right)])
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+
     logger.info("Found %s total matching rows", len(matching_rows))
     if self_match:
+        #TODO: filter these out before matching, rather than match then remove?
         # When linking a dataset against itself, don't link a record to itself
         #TODO: Would we filter for x[0] < x[1]? I assume all mappings are reversible, but that should be a separate test.
         #TODO: already complete? based on self_match, filter out row N matches row N
         # We exclude rows matched to themselves, and we report only unique mappings
         # No (4,4) or both (2,5) and (5,2)
+        logger.info("Since we matched a dataset against itself, we should ignore matches with the same row number")
         relevant_matches = [x for x in matching_rows if x[0] < x[1]]
+        logger.info("There are %s matches between distinct records", len(relevant_matches))
     else:
         relevant_matches = matching_rows
-    logger.info("Found %s relevant (non-spurious) matches", len(relevant_matches))
 
     row_IDs_of_matches = list([df_1['row_id'][row_n_in_1], df_2['row_id'][row_n_in_2]] for (row_n_in_1, row_n_in_2) in relevant_matches)
 
@@ -290,34 +379,53 @@ def _match_CLKs(
     # Okay, so we're gonna add two additional output files.
     # and keep the single unified file for debugging.
     # write the first file.
-    logger.info("Writing combined linkages from both sources to file %s", linkages_file_path)
-    with open(linkages_file_path, "w") as linkages_file:
-        csv_writer = csv.writer(linkages_file)
-        csv_writer.writerow([source_1,source_2])
-        csv_writer.writerows(row_IDs_of_matches)
-    logger.info("Output successfully written: %s", linkages_file_path)
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text=f"Writing linkage pairs from both sources to {linkages_file_path}",
+        ) as spinner:
+        logger.debug("Writing combined linkages from both sources to file %s", linkages_file_path)
+        with open(linkages_file_path, "w") as linkages_file:
+            csv_writer = csv.writer(linkages_file)
+            csv_writer.writerow([source_1,source_2])
+            csv_writer.writerows(row_IDs_of_matches)
+        logger.debug("Output successfully written: %s", linkages_file_path)
 
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+
+    #TODO: Add CI test that ensures these two lists haven't been swapped
     if not self_match:
-        # now we need to dump matches for source 1
-        logger.info("Writing linkages for %s to file %s", source_1, s1_file_path)
-        with open(s1_file_path, "w") as linkages_file:
-            linkages_file.write(source_1)
-            linkages_file.writelines(f"{match[0]}\n" for match in relevant_matches )
-        logger.info("Output successfully written: %s", s1_file_path)
-        # now we need to dump matches for source 2
-        logger.info("Writing linkages for %s to file %s", source_2, s2_file_path)
-        with open(s2_file_path, "w") as linkages_file:
-            linkages_file.write(source_2)
-            linkages_file.writelines(f"{match[1]}\n" for match in relevant_matches )
-        logger.info("Output successfully written: %s", s2_file_path)
-
+        with yaspin(
+                custom_spinner(),
+                timer = True,
+                text=f"Writing {source_1} duplicates to {s1_file_path}",
+            ) as spinner:
+            logger.debug("Writing linkages for %s to file %s", source_1, s1_file_path)
+            with open(s1_file_path, "w") as linkages_file:
+                csv_writer = csv.writer(linkages_file)
+                csv_writer.writerow([source_1])
+                csv_writer.writerows([[i] for i,_ in row_IDs_of_matches])
+            logger.debug("Output successfully written: %s", s1_file_path)
+            spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        with yaspin(
+                custom_spinner(),
+                timer = True,
+                text=f"Writing {source_2} duplicates to {s2_file_path}",
+            ) as spinner:
+            logger.debug("Writing linkages for %s to file %s", source_2, s2_file_path)
+            with open(s2_file_path, "w") as linkages_file:
+                csv_writer = csv.writer(linkages_file)
+                csv_writer.writerow([source_2])
+                csv_writer.writerows([[j] for _,j in row_IDs_of_matches])
+            logger.debug("Output successfully written: %s", s2_file_path)
+            spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
 
     return 0
 
 #TODO: Add tests for this
 def deduplicate(args):
     """
-    Filter out duplicates from a patient identifier file 
+    Filter out duplicates from a patient identifier file
     """
     logger.debug("deduplicate called with %s", args.config)
 
@@ -328,9 +436,9 @@ def deduplicate(args):
 
     configuration['verbose'] = args.verbose
 
-    logger.info("Calling  _deduplicate with configuration kwargs:")
+    logger.debug("Calling  _deduplicate with configuration kwargs:")
     for key, value in configuration.items():
-        logger.info(" %s = %r", key, value)
+        logger.debug(" %s = %r", key, value)
 
     rc = _deduplicate(**configuration)
     return rc
@@ -362,7 +470,7 @@ def _deduplicate(
     duplicate_rows = linkages_df[source].unique()
     filtered_patients_df = patients_df[~patients_df['row_id'].isin(duplicate_rows)]
 
-    logger.info("Writing filtered input to file: %s", output_file_path)
+    logger.debug("Writing filtered input to file: %s", output_file_path)
     filtered_patients_df.to_csv(output_file_path, index=False)
 
     return 0
@@ -370,7 +478,7 @@ def _deduplicate(
 
 def read_dataframe_from_CSV(file_path):
     logger.debug("Creating DataFrame from: %s", file_path)
-    
+
     def get_delimiter(file_path, bytes = 4096):
         # Source - https://stackoverflow.com/a/69796836
         # Posted by pietz
@@ -393,41 +501,81 @@ def read_dataframe_from_CSV(file_path):
     #except pd.errors.ParserError:
         #print(f"\nERROR:\n    The data file couldn't be read: {patient_file_path}\n")
 
-#import csv
-#from faker import Faker
-#from faker.providers import DynamicProvider
+def synthesize_identifiers(args):
+    """
+    Generate a synthetic patient identifier file
+    """
+    logger.debug("synthesize_identifiers called with %s", args.config)
 
-def write_data_file(file_name, source, n):
+    configuration = read_config_file(
+            args.config,
+            {'n', 'source', 'output', 'seed', 'output_folder'}
+            )
 
-    # We'll limit states to our geographical region.
-    # Note that ZIP and City are ficitonal and independent.
-    custom_state_provider = DynamicProvider(
-         provider_name="custom_state",
-         elements=["CT", "MA", "RI", "NH"],
-    )
+    configuration['verbose'] = args.verbose
 
-    fake = Faker()
-    fake.add_provider(custom_state_provider)
-    Faker.seed(2026)
+    logger.debug("Calling  _synthesize_identifiers with configuration kwargs:")
+    for key, value in configuration.items():
+        logger.debug(" %s = %r", key, value)
 
-    with open(file_name, mode = 'w') as file:
-        writer = csv.writer(file)
-        
-        writer.writerow(['row_id', 'source', 'first', 'last', 'city', 'state', 'zip', 'dob'])
-        for i in range(1,n+1):
-            writer.writerow([
-                i, # These can be customized
-                source, # This is a constant
-                fake.first_name(),
-                fake.last_name(),
-                # Note that city, state, and ZIP are independent (addresses aren't coherent)
-                fake.city(),
-                fake.custom_state(),
-                fake.zipcode(),
-                fake.date_of_birth().strftime("%Y-%m-%d")
-                ])
-            
-#write_data_file('site_1_unique.csv', 'site_1', 980)
-#write_data_file('site_2_unique.csv', 'site_2', 980)
-#write_data_file('shared.csv', '', 20)
-#write_data_file('100k.csv', 'qq', 100_000)
+    rc = _synthesize_identifiers(**configuration)
+    return rc
+
+def _synthesize_identifiers(
+        n = 100,
+        source = None,
+        output = 'synthetic_identifiers.csv',
+        seed = None,
+        verbose = False,
+        output_folder = os.path.join(os.getcwd(), "my_files"),
+        ):
+    logger.debug("Beginning execution within _synthesize_identifiers")
+
+    logger.debug("Validating output filepaths:")
+    output_file_path = validated_out_path('output_folder', output, output_folder)
+
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text=f"Writing synthetic identifiers to {output_file_path}",
+        ) as spinner:
+
+        from faker import Faker
+        from faker.providers import DynamicProvider
+
+        #TODO: if it ever becomes a priority, set up custom frequencies for each field
+        #TODO: consider using a more sophisticated tool for reaslistic data
+
+        # We'll limit states to our geographical region.
+        # Note that ZIP and City are ficitonal and independent.
+        custom_state_provider = DynamicProvider(
+             provider_name="custom_state",
+             elements=["CT", "MA", "RI", "NH"],
+        )
+
+        fake = Faker()
+        fake.add_provider(custom_state_provider)
+        Faker.seed(2026)
+
+        logger.debug("Writing output to file: %s", output_file_path)
+
+        with open(output_file_path, mode = 'w') as file:
+            writer = csv.writer(file)
+
+            writer.writerow(['row_id', 'source', 'first', 'last', 'city', 'state', 'zip', 'dob'])
+            for i in range(1,n+1):
+                writer.writerow([
+                    i, # These can be customized
+                    source, # This is a constant
+                    fake.first_name(),
+                    fake.last_name(),
+                    # Note that city, state, and ZIP are independent (addresses aren't coherent)
+                    fake.city(),
+                    fake.custom_state(),
+                    fake.zipcode(),
+                    fake.date_of_birth().strftime("%Y-%m-%d")
+                    ])
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+
+    return 0
