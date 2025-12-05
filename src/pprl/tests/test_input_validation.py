@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from pprl.pprl_utilities import validate_input_fields
+from pprl.util import validate_input_fields
 
 class TestValidInput:
     """Direct unit tests for the validate_input_fields function."""

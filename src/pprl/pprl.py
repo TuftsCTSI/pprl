@@ -28,7 +28,7 @@ from faker.providers import DynamicProvider
 import colorama
 from colorama import Fore, Back, Style
 
-from .pprl_utilities import *
+from .util import *
 
 logger = logging.getLogger(__name__)
 
