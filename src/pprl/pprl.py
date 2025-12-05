@@ -22,9 +22,6 @@ from clkhash.serialization import deserialize_bitarray, serialize_bitarray
 from anyascii import anyascii
 from yaspin import yaspin, Spinner
 
-from faker import Faker
-from faker.providers import DynamicProvider
-
 import colorama
 from colorama import Fore, Back, Style
 
@@ -524,6 +521,10 @@ def _synthesize_identifiers(
 
     logger.debug("Validating output filepaths:")
     output_file_path = validated_out_path('output_folder', output, output_folder)
+
+    from faker import Faker
+    from faker.providers import DynamicProvider
+
 
     #TODO: if it ever becomes a priority, set up custom frequencies for each field
     #TODO: consider using a more sophisticated tool for reaslistic data
