@@ -14,6 +14,7 @@ requires-python = ">=3.12"
 dependencies = [
   "anonlink>=0.15.3",
   "anyascii>=0.3.3",
+  "bitstring>=4.2.3",
   "clkhash>=0.18.3",
   "colorama>=0.4.6",
   "faker>=38.2.0",

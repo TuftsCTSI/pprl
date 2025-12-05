@@ -10,7 +10,7 @@ import json
 import pytest
 import os
 
-from pprl.tests.templates import basic_test_pattern, basic_error_pattern
+from pprl.tests.templates import basic_test_pattern, basic_error_pattern, compare_hashes
 
 class TestPrivacy:
     """Test if any outputs contain discoverable patient data"""
@@ -26,4 +26,17 @@ class TestPrivacy:
                 secret = "basic_secret.txt",
                 secret_2 = "basic_secret_off_by_1.txt",
                 expected_linkages = ('100', '1-100', '100', '1-100'),
+                )
+
+    #TODO: this test doesn't quite correspond with the docstring
+    def test_hash_variation(capsys):
+        """Altering one bit in the secret must alter ~50% of bits in the hash."""
+        compare_hashes(capsys,
+                schema = "100-patient-schema.json",
+                patients_1 = "100-patients-original.csv",
+                patients_2 = "100-patients-original.csv",
+                secret = "basic_secret.txt",
+                secret_2 = "basic_secret_off_by_1.txt",
+                lower_bound = 0,
+                upper_bound = 0.01,
                 )

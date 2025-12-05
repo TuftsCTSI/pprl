@@ -71,6 +71,18 @@ wheels = [
 ]
 
 [[package]]
+name = "bitstring"
+version = "4.2.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "bitarray" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d8/d0/d6f57409bb50f54fe2894ec5a50b5c04cb41aa814c3bdb8a7eeb4a0f7697/bitstring-4.2.3.tar.gz", hash = "sha256:e0c447af3fda0d114f77b88c2d199f02f97ee7e957e6d719f40f41cf15fbb897", size = 250537, upload-time = "2024-05-25T21:08:03.949Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/67/5b/62278b308e45ba5edb4b6390a69033def7ade220890cafaaba9ef656a302/bitstring-4.2.3-py3-none-any.whl", hash = "sha256:20ed0036e2fcf0323acb0f92f0b7b178516a080f3e91061470aa019ac4ede404", size = 71671, upload-time = "2024-05-25T21:08:01.325Z" },
+]
+
+[[package]]
 name = "cffi"
 version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -439,6 +451,7 @@ source = { editable = "." }
 dependencies = [
     { name = "anonlink" },
     { name = "anyascii" },
+    { name = "bitstring" },
     { name = "clkhash" },
     { name = "colorama" },
     { name = "faker" },
@@ -454,6 +467,7 @@ dependencies = [
 requires-dist = [
     { name = "anonlink", specifier = ">=0.15.3" },
     { name = "anyascii", specifier = ">=0.3.3" },
+    { name = "bitstring", specifier = ">=4.2.3" },
     { name = "clkhash", specifier = ">=0.18.3" },
     { name = "colorama", specifier = ">=0.4.6" },
     { name = "faker", specifier = ">=38.2.0" },
