@@ -288,11 +288,12 @@ def _match_CLKs(
     logger.debug("Validating input path: input_1")
     input_1 = validated_file_path('hashes', hashes[0], data_folder)
     if len(hashes) == 2:
+        logger.info("Two hash files were provided. Using self_match = False")
         self_match = False
         logger.debug("Validating input path: input_2")
         input_2 = validated_file_path('hashes', hashes[1], data_folder)
     else:
-        logger.info("Only one hash detected. Using self_match = True")
+        logger.info("Only one hash file was provided. Using self_match = True")
         self_match = True
         input_2 = input_1
     #TODO: add checks for self_match
@@ -311,25 +312,33 @@ def _match_CLKs(
 
     source_1 = df_1['source'][0]
     source_2 = df_2['source'][0]
-    logger.info("Source 1: %s", source_1)
-    logger.info("Source 2: %s", source_2)
+    #TODO: update logging info for case of self_match == True
+    logger.debug("Checking on data presence for source_1 output.")
+    #s1_output = f"{Path(output).stem}_{source_1}.txt"
+    s1_output = f"{source_1}_duplicates.csv"
+    s1_file_path = validated_out_path('duplicates', s1_output, output_folder)
+    if self_match:
+        logger.info("Source: %s", source_1)
+    else:
+        logger.info("Source 1: %s", source_1)
+        logger.info("Source 2: %s", source_2)
+        #if source_1 == source_2:
+            #TODO: Add a test for this and throw an error
+        logger.debug("Checking on data presence for source_2 output.")
+        #s2_output = f"{Path(output).stem}_{source_2}.txt"
+        s2_output = f"{source_2}_duplicates.csv"
+        s2_file_path = validated_out_path('duplicates', s2_output, output_folder)
 
     ## TODO: group all of the IO checking into a separate module so we can
     ## pull it out of the args above and also expand this into timestamped
     ## output directories.
 
-    logger.debug("Checking on data presence for source_1 output.")
-    s1_output = f"{Path(output).stem}_{source_1}.txt"
-    s1_file_path = validated_out_path('linkages', s1_output, output_folder)
 
-    logger.debug("Checking on data presence for source_2 output.")
-    s2_output = f"{Path(output).stem}_{source_2}.txt"
-    s2_file_path = validated_out_path('linkages', s2_output, output_folder)
 
     with yaspin(
             custom_spinner(),
             timer = True,
-            text="Calculating linkage probability for each pair (Don't worry if the timer freezes!)",
+            text="Calculating linkage probabilities (Don't worry if timer fails to update!)",
         ) as spinner:
         logger.debug("Linking pairs between sources...")
         results_candidate_pairs = anonlink.candidate_generation.find_candidate_pairs(
@@ -384,8 +393,8 @@ def _match_CLKs(
 
         spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
 
+    #TODO: Add CI test that ensures these two lists haven't been swapped
     if not self_match:
-        # now we need to dump matches for source 1
         with yaspin(
                 custom_spinner(),
                 timer = True,
@@ -393,11 +402,11 @@ def _match_CLKs(
             ) as spinner:
             logger.debug("Writing linkages for %s to file %s", source_1, s1_file_path)
             with open(s1_file_path, "w") as linkages_file:
-                linkages_file.write(source_1)
-                linkages_file.writelines(f"{match[0]}\n" for match in relevant_matches )
+                csv_writer = csv.writer(linkages_file)
+                csv_writer.writerow([source_1])
+                csv_writer.writerows([[i] for i,_ in row_IDs_of_matches])
             logger.debug("Output successfully written: %s", s1_file_path)
             spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
-        # now we need to dump matches for source 2
         with yaspin(
                 custom_spinner(),
                 timer = True,
@@ -405,8 +414,9 @@ def _match_CLKs(
             ) as spinner:
             logger.debug("Writing linkages for %s to file %s", source_2, s2_file_path)
             with open(s2_file_path, "w") as linkages_file:
-                linkages_file.write(source_2)
-                linkages_file.writelines(f"{match[1]}\n" for match in relevant_matches )
+                csv_writer = csv.writer(linkages_file)
+                csv_writer.writerow([source_2])
+                csv_writer.writerows([[j] for _,j in row_IDs_of_matches])
             logger.debug("Output successfully written: %s", s2_file_path)
             spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
 
