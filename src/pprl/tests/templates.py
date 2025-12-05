@@ -20,6 +20,8 @@ def basic_test_pattern(
         linkages = "linkages.csv",
         schema = "schema.json",
         secret = "secret.txt",
+        secret_2 = None,
+        alternate_secret = None,
         threshold = 0.975,
         data_folder = None,
         schema_folder = None,
@@ -31,6 +33,8 @@ def basic_test_pattern(
         data_folder = test_dir / "data"
     if schema_folder is None:
         schema_folder = test_dir / "schemas"
+    if secret_2 is None:
+        secret_2 = secret
 
     with tempfile.TemporaryDirectory() as temp_dir:
         pprl._create_CLKs(
@@ -51,7 +55,7 @@ def basic_test_pattern(
                     patients = patients_2,
                     schema_folder = str(schema_folder),
                     schema = schema,
-                    secret = secret,
+                    secret = secret_2,
                     output = hashes_2,
                     output_folder = temp_dir,
                     verbose=True
@@ -75,4 +79,3 @@ def basic_test_pattern(
 def basic_error_pattern(capsys, error_type, **kwargs):
     with pytest.raises(error_type):
         basic_test_pattern(capsys, **kwargs)
-

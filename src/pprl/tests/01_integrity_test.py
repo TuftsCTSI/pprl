@@ -83,3 +83,27 @@ class TestIntegrity:
                 expected_linkages = ('100', '1-75', '100', '1-75'),
                 )
 
+    def test_different_secrets(capsys):
+        """Altering the secret should not affect the final linkages"""
+        basic_test_pattern(capsys,
+                schema = "100-patient-schema.json",
+                patients_1 = "100-patients-original.csv",
+                patients_2 = "100-patients-original.csv",
+                secret = "secret.txt",
+                expected_linkages = ('100', '1-100', '100', '1-100'),
+                )
+        basic_test_pattern(capsys,
+                schema = "100-patient-schema.json",
+                patients_1 = "100-patients-original.csv",
+                patients_2 = "100-patients-original.csv",
+                secret = "basic_secret.txt",
+                expected_linkages = ('100', '1-100', '100', '1-100'),
+                )
+        basic_test_pattern(capsys,
+                schema = "100-patient-schema.json",
+                patients_1 = "100-patients-original.csv",
+                patients_2 = "100-patients-original.csv",
+                secret = "basic_secret_off_by_1.txt",
+                expected_linkages = ('100', '1-100', '100', '1-100'),
+                )
+
