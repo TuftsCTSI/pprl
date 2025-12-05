@@ -20,15 +20,23 @@ from clkhash.schema import from_json_dict
 from clkhash.serialization import deserialize_bitarray, serialize_bitarray
 
 from anyascii import anyascii
-from yaspin import yaspin
+from yaspin import yaspin, Spinner
 
-#import faker
 from faker import Faker
 from faker.providers import DynamicProvider
+
+import colorama
+from colorama import Fore, Back, Style
 
 from .pprl_utilities import *
 
 logger = logging.getLogger(__name__)
+
+def custom_spinner():
+    terms = ".   ", "..  ", "... ", " ...", "  ..", "   .", "    "
+    return Spinner(
+            ["[" + Style.BRIGHT + Fore.GREEN + x + Style.RESET_ALL + "]" for x in terms],
+            200)
 
 def create_CLKs(args):
     """
@@ -43,9 +51,9 @@ def create_CLKs(args):
     configuration['verbose'] = args.verbose
     #TODO: check for file format, validity, etc.
 
-    logger.info("Calling  _create_CLKs  with configuration:")
+    logger.debug("Calling  _create_CLKs  with configuration:")
     for key, value in configuration.items():
-        logger.info("    kwarg: %s = %r", key, value)
+        logger.debug("    kwarg: %s = %r", key, value)
 
     rc = _create_CLKs(**configuration)
     return rc
@@ -63,6 +71,8 @@ def _create_CLKs(
         ):
     logger.debug("Beginning execution within _create_CLKs")
 
+    colorama.init()
+
     # TODO: possibly break all of this out and put into a separate validate subroutine?
 
     logger.debug("Validating input filepaths:") # I don't like determining cwd in the arguments.
@@ -75,10 +85,13 @@ def _create_CLKs(
 
     output_invalid_records_path = validated_out_path('invalid records', 'invalid_records.csv', output_folder)
 
-    with yaspin(text="Reading from files and preprocessing...") as spinner:
-        if not verbose:
-            spinner.stop()
-        # Linking schema
+    #TODO: Here and throughout, add a separate silent toggle to disable the spinner
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text=f"Reading from input files",
+        ) as spinner:
+
         logger.debug("Reading schema json into dict.")
         with open(schema_file_path, 'r') as f:
             schema_dict = json.load(f)
@@ -92,7 +105,15 @@ def _create_CLKs(
         # Create DataFrame from the input csv
         raw_patients_df = read_dataframe_from_CSV(patient_file_path)
         num_records = len(raw_patients_df)
-        logger.info("TOTAL RECORDS: %s", num_records)
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+    logger.info("TOTAL RECORDS: %s", num_records)
+
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text=f"Validating records from {patient_file_path}",
+        ) as spinner:
 
         # Pull row_ids and source then drop from dataframe prior to normalizing
         row_ids = raw_patients_df['row_id'].copy()
@@ -116,12 +137,31 @@ def _create_CLKs(
 
         num_valid_records = len(patients_df)
         num_invalid_records = len(invalid_records)
-        logger.info("VALID RECORDS:   %s", num_valid_records)
-        logger.info("INVALID RECORDS: %s", num_invalid_records)
-        if num_invalid_records > 0:
-            logger.warning("%s INVALID RECORDS DETECTED.", num_invalid_records)
-            logger.warning("Writing invalid records to file: %s", output_invalid_records_path)
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+
+    logger.info("VALID RECORDS:   %s", num_valid_records)
+    logger.info("INVALID RECORDS: %s", num_invalid_records)
+
+    if num_invalid_records > 0:
+        logger.warning("%s INVALID RECORDS DETECTED.", num_invalid_records)
+        logger.warning("Writing invalid records to file: %s", output_invalid_records_path)
+        with yaspin(
+                custom_spinner(),
+                timer = True,
+                text="Writing invalid records to {output_invalid_records_path}"
+            ) as spinner:
             invalid_records.to_csv(output_invalid_records_path, index=False)
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        print("[" + Style.BRIGHT + Fore.YELLOW + "NOTE" + Style.RESET_ALL + "] " + 
+                f"Be sure to delete this file when it is no longer needed: {output_invalid_records_path}")
+
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text="Generating hashes",
+        ) as spinner:
+
 
         # Anonlink requires the records CSV and the schema to have the same columns.
         # However, I'd like to test various schemas against the same CSV.
@@ -184,18 +224,26 @@ def _create_CLKs(
         #TODO: add date type checking for dob
         # Maybe add flags, summary statistics (what kind of summary stats?)
 
-    logger.info("Generating clk hashes from input data...")
-    hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = verbose)
+        logger.debug("Generating clk hashes from input data...")
+        hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = verbose)
 
-    with yaspin(text=f"Writing to {output_file_path}...") as spinner:
-        if not verbose:
-            spinner.stop()
-        logger.info("Serializing hashes.")
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text=f"Writing to {output_file_path}",
+        ) as spinner:
+        logger.debug("Serializing hashes.")
         serialized_hashes = [serialize_bitarray(x) for x in hashed_data]
         patients_df['clk'] = serialized_hashes
         #TODO: optionally print this out for the user to see
-        logger.info("Writing hashes to file: %s", output_file_path)
+        logger.debug("Writing hashes to file: %s", output_file_path)
         patients_df[['row_id', 'source', 'clk']].to_csv(output_file_path, index=False)
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+
+    colorama.init()
 
     return 0
 
@@ -212,9 +260,9 @@ def match_CLKs(args):
 
     configuration['verbose'] = args.verbose
 
-    logger.info("Calling  _match_CLKs  with configuration kwargs:")
+    logger.debug("Calling  _match_CLKs  with configuration kwargs:")
     for key, value in configuration.items():
-        logger.info(" %s = %r", key, value)
+        logger.debug(" %s = %r", key, value)
 
     rc = _match_CLKs(**configuration)
     return rc
@@ -280,7 +328,7 @@ def _match_CLKs(
     s2_output = f"{Path(output).stem}_{source_2}.txt"
     s2_file_path = validated_out_path('linkages', s2_output, output_folder)
 
-    logger.info("Linking pairs between sources...")
+    logger.debug("Linking pairs between sources...")
     results_candidate_pairs = anonlink.candidate_generation.find_candidate_pairs(
             [hashed_data_1, hashed_data_2],
             anonlink.similarities.dice_coefficient,
@@ -288,7 +336,7 @@ def _match_CLKs(
             )
 
     # Rather than finding a single best fit, pull out all potential matches
-    #logger.info("Generating solution...")
+    #logger.debug("Generating solution...")
     #solution = anonlink.solving.greedy_solve(results_candidate_pairs)
     _, _, (left, right) = results_candidate_pairs
     matching_rows = sorted([(x,y) for x,y in zip(left, right)])
@@ -322,7 +370,7 @@ def _match_CLKs(
         csv_writer = csv.writer(linkages_file)
         csv_writer.writerow([source_1,source_2])
         csv_writer.writerows(row_IDs_of_matches)
-    logger.info("Output successfully written: %s", linkages_file_path)
+    logger.debug("Output successfully written: %s", linkages_file_path)
 
     if not self_match:
         # now we need to dump matches for source 1
@@ -355,9 +403,9 @@ def deduplicate(args):
 
     configuration['verbose'] = args.verbose
 
-    logger.info("Calling  _deduplicate with configuration kwargs:")
+    logger.debug("Calling  _deduplicate with configuration kwargs:")
     for key, value in configuration.items():
-        logger.info(" %s = %r", key, value)
+        logger.debug(" %s = %r", key, value)
 
     rc = _deduplicate(**configuration)
     return rc
@@ -433,9 +481,9 @@ def synthesize_identifiers(args):
 
     configuration['verbose'] = args.verbose
 
-    logger.info("Calling  _synthesize_identifiers with configuration kwargs:")
+    logger.debug("Calling  _synthesize_identifiers with configuration kwargs:")
     for key, value in configuration.items():
-        logger.info(" %s = %r", key, value)
+        logger.debug(" %s = %r", key, value)
 
     rc = _synthesize_identifiers(**configuration)
     return rc
