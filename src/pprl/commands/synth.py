@@ -32,7 +32,7 @@ def run_synth(args):
     CLI handler for synth()
     """
     cfg = Path(args.config)
-    logger.info("Starting execution of 'synth' with config: %s", cfg)
+    logger.debug("Starting execution of 'synth' with config: %s", cfg)
 
     if not cfg.exists():
         logger.error(f"Config file not found: %s", cfg)
@@ -41,7 +41,7 @@ def run_synth(args):
     try:
         rc = pprl.synthesize_identifiers(args)
         if rc == 0:
-            logger.info("Execution of 'synth' finished successfully.")
+            logger.debug("Execution of 'synth' finished successfully.")
         else:
             logger.info("Execution of 'synth' failed with exit code %s", rc)
         return rc

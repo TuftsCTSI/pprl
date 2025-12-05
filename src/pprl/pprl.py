@@ -522,41 +522,48 @@ def _synthesize_identifiers(
     logger.debug("Validating output filepaths:")
     output_file_path = validated_out_path('output_folder', output, output_folder)
 
-    from faker import Faker
-    from faker.providers import DynamicProvider
+    with yaspin(
+            custom_spinner(),
+            timer = True,
+            text=f"Writing synthetic identifiers to {output_file_path}",
+        ) as spinner:
 
+        from faker import Faker
+        from faker.providers import DynamicProvider
 
-    #TODO: if it ever becomes a priority, set up custom frequencies for each field
-    #TODO: consider using a more sophisticated tool for reaslistic data
+        #TODO: if it ever becomes a priority, set up custom frequencies for each field
+        #TODO: consider using a more sophisticated tool for reaslistic data
 
-    # We'll limit states to our geographical region.
-    # Note that ZIP and City are ficitonal and independent.
-    custom_state_provider = DynamicProvider(
-         provider_name="custom_state",
-         elements=["CT", "MA", "RI", "NH"],
-    )
+        # We'll limit states to our geographical region.
+        # Note that ZIP and City are ficitonal and independent.
+        custom_state_provider = DynamicProvider(
+             provider_name="custom_state",
+             elements=["CT", "MA", "RI", "NH"],
+        )
 
-    fake = Faker()
-    fake.add_provider(custom_state_provider)
-    Faker.seed(2026)
+        fake = Faker()
+        fake.add_provider(custom_state_provider)
+        Faker.seed(2026)
 
-    logger.info("Writing output to file: %s", output_file_path)
+        logger.debug("Writing output to file: %s", output_file_path)
 
-    with open(output_file_path, mode = 'w') as file:
-        writer = csv.writer(file)
+        with open(output_file_path, mode = 'w') as file:
+            writer = csv.writer(file)
 
-        writer.writerow(['row_id', 'source', 'first', 'last', 'city', 'state', 'zip', 'dob'])
-        for i in range(1,n+1):
-            writer.writerow([
-                i, # These can be customized
-                source, # This is a constant
-                fake.first_name(),
-                fake.last_name(),
-                # Note that city, state, and ZIP are independent (addresses aren't coherent)
-                fake.city(),
-                fake.custom_state(),
-                fake.zipcode(),
-                fake.date_of_birth().strftime("%Y-%m-%d")
-                ])
+            writer.writerow(['row_id', 'source', 'first', 'last', 'city', 'state', 'zip', 'dob'])
+            for i in range(1,n+1):
+                writer.writerow([
+                    i, # These can be customized
+                    source, # This is a constant
+                    fake.first_name(),
+                    fake.last_name(),
+                    # Note that city, state, and ZIP are independent (addresses aren't coherent)
+                    fake.city(),
+                    fake.custom_state(),
+                    fake.zipcode(),
+                    fake.date_of_birth().strftime("%Y-%m-%d")
+                    ])
+
+        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
 
     return 0
