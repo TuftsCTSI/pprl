@@ -90,11 +90,10 @@ def compare_hashes(
         schema = "schema.json",
         secret = "secret.txt",
         secret_2 = None,
-        threshold = 0.975,
         data_folder = None,
         schema_folder = None,
-        lower_bound = None,
-        upper_bound = None,
+        lower_bound = 0.0,
+        upper_bound = 1.0,
         ):
 
     test_dir = Path(__file__).parent
@@ -137,5 +136,5 @@ def compare_hashes(
         print(upper_bound)
         print(similarity)
 
-        assert lower_bound < similarity < upper_bound
+        assert lower_bound <= similarity <= upper_bound
 

@@ -9,7 +9,7 @@ import json
 import pytest
 import os
 
-from pprl.tests.templates import basic_test_pattern
+from pprl.tests.templates import basic_test_pattern, compare_hashes
 
 class TestIntegrity:
     """Test that all outputs match our expectations"""
@@ -81,6 +81,16 @@ class TestIntegrity:
                 patients_1 = "100-patients-original.csv",
                 patients_2 = "100-patients-off-by-1.csv",
                 expected_linkages = ('100', '1-75', '100', '1-75'),
+                )
+
+    def test_hashing_invariance(capsys):
+        """Hashes are determined entirely by the input"""
+        compare_hashes(capsys,
+                schema = "100-patient-schema.json",
+                patients_1 = "100-patients-original.csv",
+                patients_2 = "100-patients-original.csv",
+                secret = "basic_secret.txt",
+                lower_bound = 1.0,
                 )
 
     def test_different_secrets(capsys):

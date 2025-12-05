@@ -37,6 +37,5 @@ class TestPrivacy:
                 patients_2 = "100-patients-original.csv",
                 secret = "basic_secret.txt",
                 secret_2 = "basic_secret_off_by_1.txt",
-                lower_bound = 0,
                 upper_bound = 0.01,
                 )
