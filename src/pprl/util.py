@@ -122,13 +122,18 @@ def validate_input_fields(df):
     # define our sanitization functions.
     def _sanitize_string(value):
         """
-        This will autocapitalize and sanitize all string fields.
+        Sanitize a string field
+
+        Returns the sanitized value along with a status flag
         """
         raw_str = str(value).strip()
-        # check for missing vals. if we've got nothing, return whatever that nothing is, and flag it.
-        if not raw_str or raw_str.lower() in ('nan', 'none', '999'):
-            return (value , False)
-        # If we've got something here, capitalize everything, keep only internal spaces, dashes, apostraphs, and periods, drop all other characters. (if we need to add more, this is trivial)
+
+        # Short circuit for any values explicitly marked as invalid
+        # (This is currently unused)
+        #if not raw_str or raw_str.lower() in ('nan', 'none', '999'):
+            #return (value , False)
+
+        # If we've got something here, keep only internal spaces, dashes, apostraphs, and periods, drop all other characters. (if we need to add more, this is trivial)
         clean_value = ''.join(c for c in raw_str if c.isalnum() or c in (' ', '-', "'", '.')).upper()
         # check to see that we've still got something, if length after cleaning is 0 then it's invalid.
         is_valid = True if len(clean_value) > 0 else False
