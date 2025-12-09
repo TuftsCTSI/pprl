@@ -20,9 +20,9 @@ class TestUsability:
     #TODO: tests for YAML files with wrong format
     #TODO: tests for YAML files with nonexistent options
 
-    """Test that proper procedure is clear and that unintended behavious cannot occur"""
+    """Test that proper procedure is clear and that unintended behaviors cannot occur"""
     def test_no_patient_file_provided(capsys):
-        """The hashing script should throw an error if no patient identifiers input file is provided."""
+        """Hashing without a patient identifiers filename must throw an error"""
         basic_error_pattern(
                 capsys,
                 TypeError,
@@ -30,7 +30,7 @@ class TestUsability:
 
     @pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
     def test_nonexistent_patient_file_provided(capsys):
-        """The hashing script should throw an error if the patient identifiers input file doesn't exist."""
+        """Hashing with a nonexistent patient identifiers file must throw an error"""
         basic_error_pattern(capsys,
                 FileNotFoundError,
                 patients_1 = "NONEXISTENT_FILE"
@@ -39,7 +39,7 @@ class TestUsability:
 
     @pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
     def test_empty_patient_file_provided(capsys):
-        """The hashing script should throw an error if the patient identifiers input file is empty."""
+        """Hashing with an empty patient identifiers file must throw an error"""
         basic_error_pattern(capsys,
                 FileNotFoundError,
                 patients_1 = "empty_file"
@@ -49,7 +49,7 @@ class TestUsability:
 
     @pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
     def test_nonexistent_schema_file_provided(capsys):
-        """The hashing script should throw an error if the schema input file doesn't exist."""
+        """Hashing with a nonexistent schema file must throw an error"""
         basic_error_pattern(capsys,
                 FileNotFoundError,
                 patients_1 = "3_test_patients.csv",
@@ -60,7 +60,7 @@ class TestUsability:
 
     @pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
     def test_nonexistent_secret_file_provided(capsys):
-        """The hashing script should throw an error if the secret input file doesn't exist."""
+        """Hashing with a nonexistent secret file must throw an error"""
         basic_error_pattern(capsys,
                 FileNotFoundError,
                 patients_1 = "3_test_patients.csv",
@@ -68,7 +68,7 @@ class TestUsability:
                 )
 
     def test_empty_secret_file_provided(capsys):
-        """Hashing will not be performed without a secret"""
+        """Hashing with an empty secret file must throw an error"""
         basic_error_pattern(capsys,
                 ValueError,
                 patients_1 = "3_test_patients.csv",
@@ -78,7 +78,7 @@ class TestUsability:
     #TODO: other filters on secret (length, characters?)
 
     def test_bad_format_schema(capsys):
-        """The hashing script should throw an error if the schema input file isn't valid JSON."""
+        """Hashing with an invalid schema file must throw an error"""
         for i in range(1,6):
             basic_error_pattern(capsys,
                     json.JSONDecodeError,
@@ -88,7 +88,7 @@ class TestUsability:
                     )
 
     def test_hashes_export_already_exists(capsys):
-        """The hashing script should throw an error if the output hash file already exists."""
+        """Hashing must throw an error if output already exists"""
         basic_error_pattern(capsys,
                 AssertionError,
                 patients_1 = "3_test_patients.csv",
@@ -97,7 +97,7 @@ class TestUsability:
 
     #TODO: Add all tests similar to this (outfile already exists)
     def test_linkages_export_already_exists(capsys):
-        """The linking script should throw an error if the output linkages file already exists."""
+        """Linking must throw an error if output already exists"""
         basic_error_pattern(capsys,
                 AssertionError,
                 patients_1 = "3_test_patients.csv",
@@ -108,7 +108,7 @@ class TestUsability:
     #TODO: remake this test?
     @pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
     def test_wrong_schema(capsys):
-        """The hashing script should throw an error if the input patient identifiers don't follow the schema format."""
+        """Hashing must throw an error if the patient identifiers don't follow the schema"""
         basic_error_pattern(capsys,
                 AssertionError,
                 patients_1 = "20_test_matches_a.csv",

@@ -31,7 +31,7 @@ def pytest_sessionstart(session):
                 "DESIGN SPECIFICATION",
                 "TEST NAME",
                 "RESULT",
-                "(s)",
+                "TIME (s)",
                 )
 
 def pytest_sessionfinish(session):
@@ -72,9 +72,9 @@ def pytest_runtest_makereport(item, call):
 def print_test_header_line(a,b,c,d,e):
     """Control the specific formatting for each line of the test report"""
     X, Y = Style.BRIGHT, Style.RESET_ALL
-    print(f"{X}{a.rjust(11)}{Y} | {X}{b.ljust(90)}{Y} | {X}{c.ljust(37)}{Y} | {X}{d.rjust(6)}{Y} | {X}{e.rjust(8)}{Y}")
+    print(f"{X}{a.rjust(11)}{Y} | {X}{b.ljust(70)}{Y} | {X}{d.rjust(6)}{Y} | {X}{e.rjust(8)}{Y}")
 
 def print_test_report_line(a,b,c,d,e):
     """Control the specific formatting for each line of the test report"""
-    print(f"{a.rjust(11)} | {b.ljust(90)} | {c.ljust(45)} | {d.rjust(6)} | {e.rjust(8)}")
+    print(f"{Style.DIM}{a.rjust(11)}{Style.RESET_ALL} | {b.ljust(70)} | {d.rjust(6)} | {e.rjust(8)}")
 

@@ -18,7 +18,7 @@ class TestPrivacy:
 
     #TODO: fuzzy matching would be more appropriate here
     def test_link_with_different_secrets(capsys):
-        """If data is hashed with 2 different secrets, no matches must be found."""
+        """No matches can be returned without identical secrets"""
         basic_error_pattern(capsys, AssertionError,
                 schema = "100-patient-schema.json",
                 patients_1 = "100-patients-original.csv",
@@ -30,7 +30,7 @@ class TestPrivacy:
 
     #TODO: this test doesn't quite correspond with the docstring
     def test_hash_variation(capsys):
-        """Altering one bit in the secret must alter ~50% of bits in the hash."""
+        """Altering one bit in the secret must alter ~50% of bits in the hash"""
         compare_hashes(capsys,
                 schema = "100-patient-schema.json",
                 patients_1 = "100-patients-original.csv",
