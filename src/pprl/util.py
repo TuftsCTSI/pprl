@@ -82,19 +82,10 @@ def validated_out_path(descriptor, file_name, file_directory):
 def read_dataframe_from_CSV(file_path):
     logger.debug("Creating DataFrame from: %s", file_path)
 
-    def get_delimiter(file_path, bytes = 4096):
-        # Source - https://stackoverflow.com/a/69796836
-        # Posted by pietz
-        # Retrieved 2025-11-21, License - CC BY-SA 4.0
-        sniffer = csv.Sniffer()
-        data = open(file_path, "r").read(bytes)
-        delimiter = sniffer.sniff(data).delimiter
-        return delimiter
-
     try:
         from collections import defaultdict
         return pd.read_csv(file_path,
-                sep = get_delimiter(file_path),
+                sep = ',',
                 dtype = defaultdict(lambda: str, row_id="int",),
                 keep_default_na=False,
                 )
