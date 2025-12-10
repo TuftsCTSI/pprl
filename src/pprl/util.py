@@ -64,7 +64,7 @@ def read_config_file(config, allowed_config_names):
 
     return configuration
 
-def validated_file_path(descriptor, file_name, file_directory, is_input_file = True):
+def validated_file_path(descriptor, file_name, file_directory, file_should_exist = True):
     """
     Assemble, validate, and return a file path
     """
@@ -74,11 +74,13 @@ def validated_file_path(descriptor, file_name, file_directory, is_input_file = T
     file_path = os.path.join(file_directory, file_name)
     file_exists = os.path.isfile(file_path)
 
-    if is_input_file and not file_exists:
+    print(f"{file_path}: exists? {file_exists} ... should exist? {file_should_exist}")
+
+    if file_should_exist and not file_exists:
         logger.error("Cannot find %s file: %s", descriptor, file_path)
         raise FileNotFoundError(f'Cannot find {descriptor} file: {file_path}')
         exit(1)
-    elif file_exists and not is_input_file:
+    elif file_exists and not file_should_exist:
         logger.error("The following %s file already exists: %s", descriptor, file_path)
         logger.error("Rather than overwrite this, no output will be written!")
         exit(1)
@@ -90,22 +92,7 @@ def validated_out_path(descriptor, file_name, file_directory):
     """
     Assemble, validate, and return the path for a new export file
     """
-
-    #TODO: Shouldn't the following definition work?
-    # I should troubleshoot why it fails when we search for the linking inputs
-    # Is it something with setting the directory?
-    validated_file_path(descriptor, file_name, file_directory, is_input_file = False)
-
-    if file_name is None:
-        raise TypeError(f"The name of a {descriptor} file must be provided.")
-    file_path = os.path.join(file_directory, file_name)
-    if os.path.isfile(file_path):
-        logger.error("The following %s file already exists: %s", descriptor, file_path)
-        logger.error("Rather than overwrite this, no output will be written!")
-        exit(1)
-        #raise FileNotFoundError(f'The following {descriptor} file already exists: {file_path}')
-    logger.debug("Valid: %s", file_path)
-    return file_path
+    return validated_file_path(descriptor, file_name, file_directory, file_should_exist = False)
 
 def validate_input_fields(df):
     """
