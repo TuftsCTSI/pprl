@@ -7,12 +7,10 @@ warnings.filterwarnings('ignore', message='.*pkg_resources.*')
 
 import anonlink
 import bitarray
-import csv
 import io
 import json
 import logging
 import os
-import pandas as pd
 
 import clkhash
 from clkhash import clk
@@ -30,30 +28,84 @@ from .util import *
 logger = logging.getLogger(__name__)
 
 def custom_spinner():
+    """A custom spinner that matches the format of our info messages"""
     terms = ".   ", "..  ", "... ", " ...", "  ..", "   .", "    "
-    return Spinner(
-            ["[" + Style.BRIGHT + Fore.GREEN + x + Style.RESET_ALL + "]" for x in terms],
-            200)
+    formatted_terms = ["[" + Style.BRIGHT + Fore.GREEN + x + Style.RESET_ALL + "]" for x in terms]
 
-def create_CLKs(args):
+    frame_duration = 200
+
+    return Spinner(formatted_terms, frame_duration)
+
+def parse_args_and_run(my_function, args, permitted_values):
     """
-    Parse a config file and call the underlying CLK generation
+    Generic template to parse a config file and call a subcommand
     """
-    logger.debug("create_CLKs called with %s", args.config)
+    
+    logger.debug("%s called with %s", __name__, args.config)
 
     configuration = read_config_file(
             args.config,
-            {'patients', 'schema', 'secret', 'output', 'data_folder', 'output_folder', 'schema_folder'}
+            permitted_values
             )
     configuration['verbose'] = args.verbose
-    #TODO: check for file format, validity, etc.
 
-    logger.debug("Calling  _create_CLKs  with configuration:")
+    function_name = my_function.__name__
+    logger.debug("Calling  %s  with configuration:", function_name)
     for key, value in configuration.items():
         logger.debug("    kwarg: %s = %r", key, value)
 
-    rc = _create_CLKs(**configuration)
+    rc = my_function(**configuration)
     return rc
+
+def create_CLKs(args):
+    """User-facing method with config file: hashing"""
+    my_function = _create_CLKs
+    permitted_values = {
+            'patients',
+            'schema',
+            'secret',
+            'output',
+            'data_folder',
+            'output_folder',
+            'schema_folder',
+            }
+    parse_args_and_run(my_function, args, permitted_values)
+
+def match_CLKs(args):
+    """User-facing method with config file: linking"""
+    my_function = _match_CLKs
+    permitted_values = {
+            'hashes',
+            'threshold',
+            'output',
+            'data_folder',
+            'output_folder',
+            }
+    parse_args_and_run(my_function, args, permitted_values)
+
+def deduplicate(args):
+    """User-facing method with config file: deduplication"""
+    my_function = _deduplicate
+    permitted_values = {
+            'patients',
+            'linkages',
+            'output',
+            'data_folder',
+            'output_folder',
+            }
+    parse_args_and_run(my_function, args, permitted_values)
+
+def synthesize_identifiers(args):
+    """User-facing method with config file: generate synthetic data"""
+    my_function = _synthesize_identifiers
+    permitted_values = {
+            'n',
+            'source',
+            'output',
+            'seed',
+            'output_folder',
+            }
+    parse_args_and_run(my_function, args, permitted_values)
 
 def _create_CLKs(
         patients = None,
@@ -65,6 +117,7 @@ def _create_CLKs(
         output_folder = os.path.join(os.getcwd(), "my_files"),
         schema_folder = os.path.join(os.getcwd(), "my_files"),
         ):
+    """Internal method for hashing"""
     logger.debug("Beginning execution within _create_CLKs")
 
     colorama.init()
@@ -245,26 +298,6 @@ def _create_CLKs(
 
     return 0
 
-def match_CLKs(args):
-    """
-    Parse a config file and call the underlying CLK matching
-    """
-    logger.debug("match_CLKs called with %s", args.config)
-
-    configuration = read_config_file(
-            args.config,
-            {'hashes', 'threshold', 'output', 'data_folder', 'output_folder'}
-            )
-
-    configuration['verbose'] = args.verbose
-
-    logger.debug("Calling  _match_CLKs  with configuration kwargs:")
-    for key, value in configuration.items():
-        logger.debug(" %s = %r", key, value)
-
-    rc = _match_CLKs(**configuration)
-    return rc
-
 #TODO: change default threshold to 0.975 throughout codebase
 def _match_CLKs(
         hashes = None,
@@ -274,6 +307,7 @@ def _match_CLKs(
         data_folder = 'my_files',
         output_folder = 'my_files',
         ):
+    """Internal method for linking"""
     logger.debug("Beginning execution within _match_CLKs")
     #TODO: check other lengths
     if hashes is None:
@@ -423,26 +457,6 @@ def _match_CLKs(
     return 0
 
 #TODO: Add tests for this
-def deduplicate(args):
-    """
-    Filter out duplicates from a patient identifier file
-    """
-    logger.debug("deduplicate called with %s", args.config)
-
-    configuration = read_config_file(
-            args.config,
-            {'patients', 'linkages', 'output', 'data_folder', 'output_folder'}
-            )
-
-    configuration['verbose'] = args.verbose
-
-    logger.debug("Calling  _deduplicate with configuration kwargs:")
-    for key, value in configuration.items():
-        logger.debug(" %s = %r", key, value)
-
-    rc = _deduplicate(**configuration)
-    return rc
-
 def _deduplicate(
         patients = None,
         linkages = None,
@@ -451,6 +465,7 @@ def _deduplicate(
         data_folder = os.path.join(os.getcwd(), "my_files"),
         output_folder = os.path.join(os.getcwd(), "my_files"),
         ):
+    """Internal method for deduplication"""
     logger.debug("Beginning execution within _deduplicate")
 
     logger.debug("Validating input filepaths:")
@@ -475,52 +490,6 @@ def _deduplicate(
 
     return 0
 
-
-def read_dataframe_from_CSV(file_path):
-    logger.debug("Creating DataFrame from: %s", file_path)
-
-    def get_delimiter(file_path, bytes = 4096):
-        # Source - https://stackoverflow.com/a/69796836
-        # Posted by pietz
-        # Retrieved 2025-11-21, License - CC BY-SA 4.0
-        sniffer = csv.Sniffer()
-        data = open(file_path, "r").read(bytes)
-        delimiter = sniffer.sniff(data).delimiter
-        return delimiter
-
-    try:
-        from collections import defaultdict
-        return pd.read_csv(file_path,
-                sep = get_delimiter(file_path),
-                dtype = defaultdict(lambda: str, row_id="int",),
-                keep_default_na=False,
-                )
-    except pd.errors.EmptyDataError:
-        logger.error("The data file is empty: %s", file_path)
-        exit(1)
-    #except pd.errors.ParserError:
-        #print(f"\nERROR:\n    The data file couldn't be read: {patient_file_path}\n")
-
-def synthesize_identifiers(args):
-    """
-    Generate a synthetic patient identifier file
-    """
-    logger.debug("synthesize_identifiers called with %s", args.config)
-
-    configuration = read_config_file(
-            args.config,
-            {'n', 'source', 'output', 'seed', 'output_folder'}
-            )
-
-    configuration['verbose'] = args.verbose
-
-    logger.debug("Calling  _synthesize_identifiers with configuration kwargs:")
-    for key, value in configuration.items():
-        logger.debug(" %s = %r", key, value)
-
-    rc = _synthesize_identifiers(**configuration)
-    return rc
-
 def _synthesize_identifiers(
         n = 100,
         source = None,
@@ -529,6 +498,7 @@ def _synthesize_identifiers(
         verbose = False,
         output_folder = os.path.join(os.getcwd(), "my_files"),
         ):
+    """Internal method for generating synthetic data"""
     logger.debug("Beginning execution within _synthesize_identifiers")
 
     logger.debug("Validating output filepaths:")

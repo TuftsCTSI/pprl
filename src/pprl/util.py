@@ -4,6 +4,9 @@ import logging
 import os
 import yaml
 
+import pandas as pd
+import csv
+
 from pathlib import Path
 from datetime import datetime
 
@@ -75,6 +78,31 @@ def validated_out_path(descriptor, file_name, file_directory):
     Assemble, validate, and return the path for a new export file
     """
     return validated_file_path(descriptor, file_name, file_directory, file_should_exist = False)
+
+def read_dataframe_from_CSV(file_path):
+    logger.debug("Creating DataFrame from: %s", file_path)
+
+    def get_delimiter(file_path, bytes = 4096):
+        # Source - https://stackoverflow.com/a/69796836
+        # Posted by pietz
+        # Retrieved 2025-11-21, License - CC BY-SA 4.0
+        sniffer = csv.Sniffer()
+        data = open(file_path, "r").read(bytes)
+        delimiter = sniffer.sniff(data).delimiter
+        return delimiter
+
+    try:
+        from collections import defaultdict
+        return pd.read_csv(file_path,
+                sep = get_delimiter(file_path),
+                dtype = defaultdict(lambda: str, row_id="int",),
+                keep_default_na=False,
+                )
+    except pd.errors.EmptyDataError:
+        logger.error("The data file is empty: %s", file_path)
+        exit(1)
+    #except pd.errors.ParserError:
+        #print(f"\nERROR:\n    The data file couldn't be read: {patient_file_path}\n")
 
 def validate_input_fields(df):
     """
