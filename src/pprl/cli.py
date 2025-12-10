@@ -136,7 +136,6 @@ def main(argv = None):
         help="Specify which of the following commands to run (e.g., `pprl report`)"
     )
 
-    #TODO: rename create as hash, rename match as link (both breaking changes)
     #TODO: Add tests for the CLI itself?
     # Register subcommand modules
     for command_name, command_description, config_filename, handler_function in [
@@ -153,13 +152,13 @@ def main(argv = None):
                 run_conformance_test,
                 ),
             (
-                "create",
+                "hash",
                 "Hash input data",
                 "create_CLKs.yml",
                 run_create,
                 ),
             (
-                "match",
+                "link",
                 "Link records based on hashes",
                 "match_CLKs.yml",
                 run_match,
