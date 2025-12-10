@@ -33,14 +33,22 @@ MY_FILES_DIRECTORY = SOURCE_DIRECTORY / "my_files"
 
 logger = logging.getLogger(__name__)
 
-def custom_spinner():
-    """A custom spinner that matches the format of our info messages"""
+def spin_on(text):
+    """Display a custom spinner that matches the format of our info messages"""
+
     terms = ".   ", "..  ", "... ", " ...", "  ..", "   .", "    "
     formatted_terms = ["[" + Style.BRIGHT + Fore.GREEN + x + Style.RESET_ALL + "]" for x in terms]
 
     frame_duration = 200
 
-    return Spinner(formatted_terms, frame_duration)
+    return yaspin(
+        Spinner(formatted_terms, frame_duration),
+        timer = True,
+        text=text,
+    )
+
+def spin_off(spinner):
+    spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
 
 def parse_args_and_run(my_function, args, permitted_values):
     """
@@ -60,49 +68,30 @@ def parse_args_and_run(my_function, args, permitted_values):
     for key, value in configuration.items():
         logger.debug("    kwarg: %s = %r", key, value)
 
-    rc = my_function(**configuration)
-    return rc
+    my_function(**configuration)
 
 def create_CLKs(args):
     """User-facing method with config file: hashing"""
     my_function = _create_CLKs
-    permitted_values = {
-            'patients',
-            'schema',
-            'secret',
-            'output',
-            }
+    permitted_values = {'patients', 'schema', 'secret', 'output',}
     parse_args_and_run(my_function, args, permitted_values)
 
 def match_CLKs(args):
     """User-facing method with config file: linking"""
     my_function = _match_CLKs
-    permitted_values = {
-            'hashes',
-            'threshold',
-            'output',
-            }
+    permitted_values = {'hashes', 'threshold', 'output',}
     parse_args_and_run(my_function, args, permitted_values)
 
 def deduplicate(args):
     """User-facing method with config file: deduplication"""
     my_function = _deduplicate
-    permitted_values = {
-            'patients',
-            'linkages',
-            'output',
-            }
+    permitted_values = {'patients', 'linkages', 'output',}
     parse_args_and_run(my_function, args, permitted_values)
 
 def synthesize_identifiers(args):
     """User-facing method with config file: generate synthetic data"""
     my_function = _synthesize_identifiers
-    permitted_values = {
-            'n',
-            'source',
-            'output',
-            'seed',
-            }
+    permitted_values = {'n', 'source', 'output', 'seed',}
     parse_args_and_run(my_function, args, permitted_values)
 
 def _create_CLKs(
@@ -130,36 +119,28 @@ def _create_CLKs(
     output_invalid_records_path = validated_out_path('invalid records', 'invalid_records.csv', output_folder)
 
     #TODO: Here and throughout, add a separate silent toggle to disable the spinner
-    with yaspin(
-            custom_spinner(),
-            timer = True,
-            text=f"Reading from input files",
-        ) as spinner:
+    #TODO: This would be most useful for automated tests of the CLI itself
+    with spin_on(f"Reading from input files") as spinner:
 
-        logger.debug("Reading schema json into dict.")
+        logger.debug("Parsing schema JSON into dict.")
         with open(schema_file_path, 'r') as f:
             schema_dict = json.load(f)
             schema = from_json_dict(schema_dict)
 
-        # Secret
         logger.debug("Reading secret from file.")
         with open(secret_file_path, 'r') as secret_file:
             secret = secret_file.read()
         if secret == "":
             raise ValueError(f'The secret file cannot be empty: {secret_file_path}')
 
-        # Create DataFrame from the input csv
+        logger.debug("Reading identifiers from file.")
         raw_patients_df = read_dataframe_from_CSV(patient_file_path)
         num_records = len(raw_patients_df)
 
-        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        spin_off(spinner)
     logger.info("TOTAL RECORDS: %s", num_records)
 
-    with yaspin(
-            custom_spinner(),
-            timer = True,
-            text=f"Validating records from {patient_file_path}",
-        ) as spinner:
+    with spin_on(f"Validating records from {patient_file_path}") as spinner:
 
         # Pull row_ids and source then drop from dataframe prior to normalizing
         row_ids = raw_patients_df['row_id'].copy()
@@ -184,7 +165,7 @@ def _create_CLKs(
         num_valid_records = len(patients_df)
         num_invalid_records = len(invalid_records)
 
-        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        spin_off(spinner)
 
     logger.info("VALID RECORDS:   %s", num_valid_records)
     logger.info("INVALID RECORDS: %s", num_invalid_records)
@@ -192,22 +173,13 @@ def _create_CLKs(
     if num_invalid_records > 0:
         logger.warning("%s INVALID RECORDS DETECTED.", num_invalid_records)
         logger.warning("Writing invalid records to file: %s", output_invalid_records_path)
-        with yaspin(
-                custom_spinner(),
-                timer = True,
-                text="Writing invalid records to {output_invalid_records_path}"
-            ) as spinner:
+        with spin_on(f"Writing invalid records to {output_invalid_records_path}") as spinner:
             invalid_records.to_csv(output_invalid_records_path, index=False)
-        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        spin_off(spinner)
         print("[" + Style.BRIGHT + Fore.YELLOW + "NOTE" + Style.RESET_ALL + "] " + 
                 f"Be sure to delete this file when it is no longer needed: {output_invalid_records_path}")
 
-    with yaspin(
-            custom_spinner(),
-            timer = True,
-            text="Generating hashes",
-        ) as spinner:
-
+    with spin_on(f"Generating hashes") as spinner:
 
         # Anonlink requires the records CSV and the schema to have the same columns.
         # However, I'd like to test various schemas against the same CSV.
@@ -273,13 +245,9 @@ def _create_CLKs(
         logger.debug("Generating clk hashes from input data...")
         hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = verbose)
 
-        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        spin_off(spinner)
 
-    with yaspin(
-            custom_spinner(),
-            timer = True,
-            text=f"Writing to {output_file_path}",
-        ) as spinner:
+    with spin_on(f"Writing to {output_file_path}") as spinner:
         logger.debug("Serializing hashes.")
         serialized_hashes = [serialize_bitarray(x) for x in hashed_data]
         patients_df['clk'] = serialized_hashes
@@ -287,7 +255,7 @@ def _create_CLKs(
         logger.debug("Writing hashes to file: %s", output_file_path)
         patients_df[['row_id', 'source', 'clk']].to_csv(output_file_path, index=False)
 
-        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        spin_off(spinner)
 
     colorama.init()
 
@@ -359,13 +327,8 @@ def _match_CLKs(
     ## pull it out of the args above and also expand this into timestamped
     ## output directories.
 
-
-
-    with yaspin(
-            custom_spinner(),
-            timer = True,
-            text="Calculating linkage probabilities (Don't worry if timer fails to update!)",
-        ) as spinner:
+    #TODO: any way to force spinner to update (better yet, show progress!)
+    with spin_on(f"Calculating probabilities (Timer freezing is normal)") as spinner:
         logger.debug("Linking pairs between sources...")
         results_candidate_pairs = anonlink.candidate_generation.find_candidate_pairs(
                 [hashed_data_1, hashed_data_2],
@@ -379,7 +342,7 @@ def _match_CLKs(
         _, _, (left, right) = results_candidate_pairs
         matching_rows = sorted([(x,y) for x,y in zip(left, right)])
 
-        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        spin_off(spinner)
 
     logger.info("Found %s total matching rows", len(matching_rows))
     if self_match:
@@ -405,11 +368,7 @@ def _match_CLKs(
     # Okay, so we're gonna add two additional output files.
     # and keep the single unified file for debugging.
     # write the first file.
-    with yaspin(
-            custom_spinner(),
-            timer = True,
-            text=f"Writing linkage pairs from both sources to {linkages_file_path}",
-        ) as spinner:
+    with spin_on(f"Writing linkage pairs from both sources to {linkages_file_path}") as spinner:
         logger.debug("Writing combined linkages from both sources to file %s", linkages_file_path)
         with open(linkages_file_path, "w") as linkages_file:
             csv_writer = csv.writer(linkages_file)
@@ -417,34 +376,26 @@ def _match_CLKs(
             csv_writer.writerows(row_IDs_of_matches)
         logger.debug("Output successfully written: %s", linkages_file_path)
 
-        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        spin_off(spinner)
 
     #TODO: Add CI test that ensures these two lists haven't been swapped
     if not self_match:
-        with yaspin(
-                custom_spinner(),
-                timer = True,
-                text=f"Writing {source_1} duplicates to {s1_file_path}",
-            ) as spinner:
+        with spin_on(f"Writing {source_1} duplicates to {s1_file_path}") as spinner:
             logger.debug("Writing linkages for %s to file %s", source_1, s1_file_path)
             with open(s1_file_path, "w") as linkages_file:
                 csv_writer = csv.writer(linkages_file)
                 csv_writer.writerow([source_1])
                 csv_writer.writerows([[i] for i,_ in row_IDs_of_matches])
             logger.debug("Output successfully written: %s", s1_file_path)
-            spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
-        with yaspin(
-                custom_spinner(),
-                timer = True,
-                text=f"Writing {source_2} duplicates to {s2_file_path}",
-            ) as spinner:
+            spin_off(spinner)
+        with spin_on(f"Writing {source_2} duplicates to {s2_file_path}") as spinner:
             logger.debug("Writing linkages for %s to file %s", source_2, s2_file_path)
             with open(s2_file_path, "w") as linkages_file:
                 csv_writer = csv.writer(linkages_file)
                 csv_writer.writerow([source_2])
                 csv_writer.writerows([[j] for _,j in row_IDs_of_matches])
             logger.debug("Output successfully written: %s", s2_file_path)
-            spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+            spin_off(spinner)
 
     return 0
 
@@ -492,11 +443,7 @@ def _synthesize_identifiers(
     logger.debug("Validating file paths")
     output_file_path = validated_out_path('output_folder', output, output_folder)
 
-    with yaspin(
-            custom_spinner(),
-            timer = True,
-            text=f"Writing synthetic identifiers to {output_file_path}",
-        ) as spinner:
+    with spin_on(f"Writing synthetic identifiers to {output_file_path}") as spinner:
 
         from faker import Faker
         from faker.providers import DynamicProvider
@@ -534,6 +481,6 @@ def _synthesize_identifiers(
                     fake.date_of_birth().strftime("%Y-%m-%d")
                     ])
 
-        spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
+        spin_off(spinner)
 
     return 0
