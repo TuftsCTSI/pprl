@@ -17,15 +17,15 @@ Typical users will only need to do complete these steps once. If you're updating
 ## Usage
 
 1. Run `source .venv/bin/activate` to add the `pprl` command to your terminal.
-- This command must be run directly in the top-level `pprl` folder.
-- You should see your prompt update, and you can test the effect by running `pprl`. 
+    - This command must be run directly in the top-level `pprl` folder.
+    - You should see your prompt update, and you can test the effect by running `pprl`. 
 2. At this point, no configuration files are in place, but if you'd like to test out the installation, `pprl test` and `pprl report` are available.
 3. If you received any configuration files from us, place them each directly to the `my_files` folder. It should be a subdirectory of the main `pprl` folder.
 4. Depending on your role, you might have generated an input file as well. This should also be placed in `my_files`.
 5. Depending on your role, run the appropriate `pprl` command:
-  - If you're generating hashes from patient data, run `pprl hash`.
-  - If you're linking hashes in order to determine duplicates, run `pprl link`.
-  - Run `pprl` to see a full list of options.
+    - If you're generating hashes from patient data, run `pprl hash`.
+    - If you're linking hashes in order to determine duplicates, run `pprl link`.
+    - Run `pprl` to see a full list of options.
 6. Transmit output files according to the study protocol. Any output files will be created in the `my_files` directory.
 7. Remember to delete any sensitive files once they are no longer required. 
 8. Close or restart the terminal.
