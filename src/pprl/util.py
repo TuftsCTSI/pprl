@@ -9,11 +9,6 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
-#TODO: The most graceful way to handle errors would be to print out any
-#TODO:   error-causing issues as they occur, but only halt just before
-#TODO:   an issue would arise. That way, the user can see all potential
-#TODO:   issues and fix them in one go.
-
 def read_config_file(config, allowed_config_names):
     """
     Parse a YAML config file and validate the returned dictionary
@@ -24,45 +19,34 @@ def read_config_file(config, allowed_config_names):
 
     configuration = yaml.safe_load(open(config))
     if configuration is None:
-        logger.error("The configuration file contains no discernable options!")
         issue_found_yet = True
-
-        exit(1)
-        #raise ValueError
+        logger.error("The configuration file contains no discernable options!")
 
     if not issue_found_yet:
         observed_config_names = set(configuration.keys())
         unexpected_config_names = observed_config_names - allowed_config_names
 
         if bool(unexpected_config_names):
+            issue_found_yet = True
             logger.error("The following variables were not expected in the configuration file:")
             for name in unexpected_config_names:
-                logger.error(f"    unexpected: {name}")
+                logger.error(f"    {name}")
 
     if issue_found_yet:
         logger.error("Only the following variables should be used:")
         for name in allowed_config_names:
             logger.error(f"    {name}")
-        exit(1)
-        #raise ValueError
+        #TODO: add test for this
+        raise ValueError
+    else:
+        unset_config_names = allowed_config_names - observed_config_names
+        if bool(unset_config_names):
+            logger.warning("The following variables weren't set in the config file:")
+            for name in unset_config_names:
+                logger.warning(f"    {name}")
+            logger.warning("Default values will be assigned instead.")
 
-    #TODO: test to avoid mixing hashing schema with linking schema?
-
-    unset_config_names = allowed_config_names - observed_config_names
-    if bool(unset_config_names):
-        logger.warning("The following variables weren't set in the config file:")
-        for name in unset_config_names:
-            logger.warning(f"    {name}")
-        logger.warning("Default values will be assigned instead.")
-
-    #configuration.setdefault('schema', 'schema.json')
-    #configuration.setdefault('secret', 'secret.txt')
-    #configuration.setdefault('output', 'out.csv')
-    #configuration.setdefault('quiet', True)
-    #configuration.setdefault('data_folder', os.path.join(os.getcwd(), "my_files"))
-    #configuration.setdefault('schema_folder', os.path.join(os.getcwd(), "schemas"))
-
-    return configuration
+        return configuration
 
 def validated_file_path(descriptor, file_name, file_directory, file_should_exist = True):
     """
@@ -73,8 +57,6 @@ def validated_file_path(descriptor, file_name, file_directory, file_should_exist
 
     file_path = os.path.join(file_directory, file_name)
     file_exists = os.path.isfile(file_path)
-
-    print(f"{file_path}: exists? {file_exists} ... should exist? {file_should_exist}")
 
     if file_should_exist and not file_exists:
         logger.error("Cannot find %s file: %s", descriptor, file_path)
