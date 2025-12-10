@@ -29,6 +29,8 @@ class TestPrivacy:
                 )
 
     #TODO: this test doesn't quite correspond with the docstring
+    #TODO: Is following needed to work with bits?
+    #TODO: from clkhash.serialization import deserialize_bitarray
     def test_hash_variation(capsys):
         """Altering one bit in the secret must alter ~50% of bits in the hash"""
         compare_hashes(capsys,

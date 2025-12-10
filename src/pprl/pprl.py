@@ -138,23 +138,32 @@ def _create_CLKs(
         num_records = len(raw_patients_df)
 
         spin_off(spinner)
+
     logger.info("TOTAL RECORDS: %s", num_records)
 
     with spin_on(f"Validating records from {patient_file_path}") as spinner:
 
-        # Pull row_ids and source then drop from dataframe prior to normalizing
+        #TODO: Add test set for each
+        logger.debug("Removing special columns (row_id and source)")
         row_ids = raw_patients_df['row_id'].copy()
         source = raw_patients_df['source'].copy()
         data_fields = raw_patients_df.drop(['row_id', 'source'], axis=1)
 
+        all_source_values_identical = len(set(source)) == 1
+        assert all_source_values_identical
+
+        all_row_ID_values_unique = len(set(row_ids)) == len(row_ids)
+        assert all_row_ID_values_unique
+
         # TODO: deal with this separately to catch bad fields/corrupted formatting
-        logger.debug("Converting all values to ascii and capitalizing all strings.")
+        logger.debug("Normalizing all remaining (data) values")
         patients_df = (
                 data_fields
                 .map(anyascii)
                 .map(lambda x: x.upper())
                 )
-        # add em back
+
+        logger.debug("Adding back (unnormalized) special columns")
         patients_df.insert(0, 'source', source)
         patients_df.insert(0, 'row_id', row_ids)
 
@@ -175,11 +184,11 @@ def _create_CLKs(
         logger.warning("Writing invalid records to file: %s", output_invalid_records_path)
         with spin_on(f"Writing invalid records to {output_invalid_records_path}") as spinner:
             invalid_records.to_csv(output_invalid_records_path, index=False)
-        spin_off(spinner)
+            spin_off(spinner)
         print("[" + Style.BRIGHT + Fore.YELLOW + "NOTE" + Style.RESET_ALL + "] " + 
                 f"Be sure to delete this file when it is no longer needed: {output_invalid_records_path}")
 
-    with spin_on(f"Generating hashes") as spinner:
+    with spin_on(f"Checking data against schema") as spinner:
 
         # Anonlink requires the records CSV and the schema to have the same columns.
         # However, I'd like to test various schemas against the same CSV.
@@ -188,21 +197,22 @@ def _create_CLKs(
         # This can all go into its own helper I think.
 
         logger.debug("Pulling all present features from the schema.")
-        features = [{'identifier': x["identifier"], 'ignored': x.get("ignored", False)} for x in schema_dict["features"] if x["identifier"] != ""]
-        feature_names = [ x['identifier'] for x in features ]
+        features = [
+                {'identifier': x["identifier"], 'ignored': x.get("ignored", False)}
+                for x in schema_dict["features"] if x["identifier"] != ""
+                ]
 
+        feature_names = [ x['identifier'] for x in features ]
         logger.debug("All Features:")
         for name in feature_names:
             logger.debug("    - %s", name)
 
         ignored_feature_names = [ x['identifier'] for x in features if x['ignored'] ]
-
         logger.debug("Ignored Features:")
         for name in ignored_feature_names:
             logger.debug("    - %s", name)
 
         unignored_feature_names = [ x['identifier'] for x in features if not x['ignored'] ]
-
         logger.debug("UNignored Features:")
         for name in unignored_feature_names:
             logger.debug("    - %s", name)
@@ -210,7 +220,6 @@ def _create_CLKs(
         expected_column_names = ['row_id', 'source', *unignored_feature_names]
         observed_column_names = patients_df.columns.tolist()
 
-        # in case of mismatch, log what we see and what we want, then exit 1.
         if observed_column_names != expected_column_names:
             logger.error("Names or Order of data columns do not match between schema and input data.")
             expected_col_str = ','.join(str(i) for i in expected_column_names)
@@ -221,7 +230,6 @@ def _create_CLKs(
             exit(1)
 
         # Add and order missing columns
-
         for f in feature_names:
             if f not in patients_df.columns:
                 logger.warning("Adding column %s, and filling with None", f)
@@ -233,19 +241,13 @@ def _create_CLKs(
         patients_df.to_csv(patients_str)
         patients_str.seek(0)
 
-        # Assert source is identical
-        len(set(patients_df['source'])) == 1
-
-        # Assert ID is unique
-        len(set(patients_df['row_id'])) == len(patients_df['row_id'])
-
         #TODO: add date type checking for dob
-        # Maybe add flags, summary statistics (what kind of summary stats?)
-
-        logger.debug("Generating clk hashes from input data...")
-        hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = verbose)
 
         spin_off(spinner)
+
+    logger.debug("Generating clk hashes from input data...")
+    #TODO: progress_bar toggle should take a value from (currently unimplemented) spinner toggle
+    hashed_data = clk.generate_clk_from_csv(patients_str, secret, schema, progress_bar = True)
 
     with spin_on(f"Writing to {output_file_path}") as spinner:
         logger.debug("Serializing hashes.")
@@ -257,11 +259,11 @@ def _create_CLKs(
 
         spin_off(spinner)
 
-    colorama.init()
+    colorama.deinit()
 
     return 0
 
-#TODO: change default threshold to 0.975 throughout codebase
+#TODO: source is included in the filename of the output, so format should be strictly enforced
 def _match_CLKs(
         hashes = None,
         threshold = 0.9,
@@ -272,10 +274,14 @@ def _match_CLKs(
         ):
     """Internal method for linking"""
     logger.debug("Beginning execution within _match_CLKs")
-    #TODO: check other lengths
+
+    colorama.init()
+
+    logger.debug("Validating list of hash files")
     if hashes is None:
         raise TypeError('A list of one or two hashes must be provided')
-    #TODO: verify it's a list
+    #TODO: Add corresponding test
+    assert isinstance(hashes, list)
     if len(hashes) not in {1,2}:
         raise ValueError('A list of one or two hashes must be provided')
 
@@ -293,17 +299,13 @@ def _match_CLKs(
     #TODO: add checks for self_match
     #TODO: self check should probably be its own method, not automatically inferred
 
-
     #TODO: Add some error checks
 
     logger.debug("Creating dataframes from input csv files.")
     df_1 = read_dataframe_from_CSV(input_1)
     df_2 = read_dataframe_from_CSV(input_2)
 
-    logger.debug("Deserializing bitarrays for both inputs.")
-    hashed_data_1 = [deserialize_bitarray(x) for x in df_1['clk']]
-    hashed_data_2 = [deserialize_bitarray(x) for x in df_2['clk']]
-
+    #TODO: should we assert matching source within file, as we do when hashing?
     source_1 = df_1['source'][0]
     source_2 = df_2['source'][0]
     #TODO: update logging info for case of self_match == True
@@ -329,6 +331,11 @@ def _match_CLKs(
 
     #TODO: any way to force spinner to update (better yet, show progress!)
     with spin_on(f"Calculating probabilities (Timer freezing is normal)") as spinner:
+
+        logger.debug("Deserializing bitarrays for both inputs.")
+        hashed_data_1 = [deserialize_bitarray(x) for x in df_1['clk']]
+        hashed_data_2 = [deserialize_bitarray(x) for x in df_2['clk']]
+
         logger.debug("Linking pairs between sources...")
         results_candidate_pairs = anonlink.candidate_generation.find_candidate_pairs(
                 [hashed_data_1, hashed_data_2],
@@ -336,39 +343,51 @@ def _match_CLKs(
                 threshold
                 )
 
-        # Rather than finding a single best fit, pull out all potential matches
+        # We diverge from the clkhash tutorial here.
+        # Rather than finding a single best fit, we pull out all potential matches.
+        # The following could be used if a single best fit is needed:
         #logger.debug("Generating solution...")
         #solution = anonlink.solving.greedy_solve(results_candidate_pairs)
+
         _, _, (left, right) = results_candidate_pairs
         matching_rows = sorted([(x,y) for x,y in zip(left, right)])
 
+        if self_match:
+            #TODO: avoid calculating unneeded probabilities (see discussion below)
+
+            # Our current implementation links each hash from file 1 with each hasj of file 2.
+            # This makes perfect sense when file 1 and file 2 are different.
+
+            # However, in this branch (self_match == True), we are comparing a file against itself.
+            # That means we don't need to consider if row N from file 1 is linked to row N from file 2.
+            # After all, they're the same record!
+            # More importantly, assuming that linkages are commutative, we can ignore half of the remaining linkages.
+            # That is, if we compare row A against row B, we don't need to compare row B against row A.
+            # For N and M hashes (N<M), we always calculate N*M probabilities, but I think we only need N*M/2 - N.
+
+            # The issue is that I don't know any way to adapt the tooling to take advantage of this
+            # The relevant function is anonlink.candidate_generation.find_candidate_pairs
+            # The current approach generates all these linkage probabilities, of which we discard more than half.
+
+            #TODO: add test set to indicate if matches are commutative
+            #TODO: add other tests in general to determine if order affects the probability
+
+            logger.debug("Since we matched a dataset against itself, we should ignore matches with the same row number")
+            relevant_matches = [x for x in matching_rows if x[0] < x[1]]
+            logger.debug("There are %s matches between distinct records", len(relevant_matches))
+        else:
+            relevant_matches = matching_rows
+
         spin_off(spinner)
 
-    logger.info("Found %s total matching rows", len(matching_rows))
-    if self_match:
-        #TODO: filter these out before matching, rather than match then remove?
-        # When linking a dataset against itself, don't link a record to itself
-        #TODO: Would we filter for x[0] < x[1]? I assume all mappings are reversible, but that should be a separate test.
-        #TODO: already complete? based on self_match, filter out row N matches row N
-        # We exclude rows matched to themselves, and we report only unique mappings
-        # No (4,4) or both (2,5) and (5,2)
-        logger.info("Since we matched a dataset against itself, we should ignore matches with the same row number")
-        relevant_matches = [x for x in matching_rows if x[0] < x[1]]
-        logger.info("There are %s matches between distinct records", len(relevant_matches))
-    else:
-        relevant_matches = matching_rows
+    logger.info("Found %s total matching rows", len(relevant_matches))
 
-    row_IDs_of_matches = list([df_1['row_id'][row_n_in_1], df_2['row_id'][row_n_in_2]] for (row_n_in_1, row_n_in_2) in relevant_matches)
+    #TODO: For CLI tests, manually go through user errors with batch testing, capturing output with tee and verifying?
 
-    #TODO: consistenly use full file path in all error reporting
-    #TODO: why not manually go through user errors with batch testing, capturing output with tee and verifying?
-    # That way, each group receives only presence/absence of link
-    # This could be toggled in the config file, which I could manually prepare for each site.
-
-    # Okay, so we're gonna add two additional output files.
-    # and keep the single unified file for debugging.
-    # write the first file.
     with spin_on(f"Writing linkage pairs from both sources to {linkages_file_path}") as spinner:
+
+        row_IDs_of_matches = list([df_1['row_id'][row_n_in_1], df_2['row_id'][row_n_in_2]] for (row_n_in_1, row_n_in_2) in relevant_matches)
+
         logger.debug("Writing combined linkages from both sources to file %s", linkages_file_path)
         with open(linkages_file_path, "w") as linkages_file:
             csv_writer = csv.writer(linkages_file)
@@ -378,14 +397,15 @@ def _match_CLKs(
 
         spin_off(spinner)
 
-    #TODO: Add CI test that ensures these two lists haven't been swapped
+    #TODO: Add CI test that ensures these two lists haven't been swapped?
+    #TODO: Add test on these files, as they can be significant outputs depending on study design
     if not self_match:
         with spin_on(f"Writing {source_1} duplicates to {s1_file_path}") as spinner:
             logger.debug("Writing linkages for %s to file %s", source_1, s1_file_path)
             with open(s1_file_path, "w") as linkages_file:
                 csv_writer = csv.writer(linkages_file)
                 csv_writer.writerow([source_1])
-                csv_writer.writerows([[i] for i,_ in row_IDs_of_matches])
+                csv_writer.writerows(sorted([[i] for i,_ in row_IDs_of_matches]))
             logger.debug("Output successfully written: %s", s1_file_path)
             spin_off(spinner)
         with spin_on(f"Writing {source_2} duplicates to {s2_file_path}") as spinner:
@@ -393,9 +413,11 @@ def _match_CLKs(
             with open(s2_file_path, "w") as linkages_file:
                 csv_writer = csv.writer(linkages_file)
                 csv_writer.writerow([source_2])
-                csv_writer.writerows([[j] for _,j in row_IDs_of_matches])
+                csv_writer.writerows(sorted([[j] for _,j in row_IDs_of_matches]))
             logger.debug("Output successfully written: %s", s2_file_path)
             spin_off(spinner)
+
+    colorama.deinit()
 
     return 0
 
@@ -411,6 +433,7 @@ def _deduplicate(
     """Internal method for deduplication"""
     logger.debug("Beginning execution within _deduplicate")
 
+    colorama.init()
 
     logger.debug("Validating file paths")
     patient_file_path = validated_file_path('patient records', patients, data_folder)
@@ -427,6 +450,8 @@ def _deduplicate(
     logger.debug("Writing filtered input to file: %s", output_file_path)
     filtered_patients_df.to_csv(output_file_path, index=False)
 
+    colorama.deinit()
+
     return 0
 
 def _synthesize_identifiers(
@@ -439,6 +464,8 @@ def _synthesize_identifiers(
         ):
     """Internal method for generating synthetic data"""
     logger.debug("Beginning execution within _synthesize_identifiers")
+
+    colorama.init()
 
     logger.debug("Validating file paths")
     output_file_path = validated_out_path('output_folder', output, output_folder)
@@ -482,5 +509,7 @@ def _synthesize_identifiers(
                     ])
 
         spin_off(spinner)
+
+    colorama.deinit()
 
     return 0
