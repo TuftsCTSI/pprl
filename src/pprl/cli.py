@@ -1,14 +1,15 @@
-"""Pack everything up into a single entrypoint called with `pprl`"""
+"""Pack all scripts into a single interface called with `pprl`"""
 
 # pprl/cli.py
 # 2025-11-19
 # github.com/mjfos2r
 
 import argparse
+import logging
 import pytest
 import subprocess
 import sys
-import logging
+
 from pathlib import Path
 from datetime import datetime as dt
 
@@ -41,7 +42,7 @@ def setup_logging(command, verbose = False):
 
 def run_standard_function(my_func, args):
     """
-    Generic CLI handler
+    Generic CLI handler for most commands
     """
     cfg = Path(args.config)
     logger.debug("Starting execution of '%s' with config: %s", my_func.__name__, cfg)
@@ -62,44 +63,27 @@ def run_standard_function(my_func, args):
         logger.exception("Unhandled error during '%s' execution.", my_func.__name__)
         return 1
 
-def run_create(args):
-    run_standard_function(create_CLKs, args)
-
-def run_match(args):
-    run_standard_function(match_CLKs, args)
-
-def run_synth(args):
-    run_standard_function(synthesize_identifiers, args)
-
-def run_dedup(args):
-    run_standard_function(deduplicate, args)
-
 def run_tests(args, as_conformance_report = False):
     """
-    CLI handler for conformance testing report
+    CLI handler for running the Pytest suite
     """
-    # ok so since we want to include tests with the final build?
-    # tests have been relocated under src/pprl/tests/
 
-    # let's grab the path now so we can feed it to pytest regardless
-    # of where we're executing things.
     tests_dir = Path(__file__).parent / "tests"
-
     if not tests_dir.exists():
         logger.error("Tests directory not found at %s", tests_dir)
         return 1
 
     pytest_args = [str(tests_dir)]
 
-    # this should probably be handled by pytest_args but oh well.
+    #TODO: this should probably be handled by pytest_args
     if args.verbose:
         pytest_args.append("-v")
 
     if as_conformance_report:
-        # Disable normal pytest output for conformance testing report
+        # Disable normal pytest output
         pytest_args.append("-p no:terminal")
 
-        # Conformance testing report
+        # Pass custom flag for enabling special output
         pytest_args.append("--cmdopt=conformance_report")
 
     logger.debug("Running pytest using tests at: %s", tests_dir)
@@ -112,7 +96,24 @@ def run_tests(args, as_conformance_report = False):
 
     return rc
 
+def run_create(args):
+    """Specific handler for hashing"""
+    run_standard_function(create_CLKs, args)
+
+def run_match(args):
+    """Specific handler for linking"""
+    run_standard_function(match_CLKs, args)
+
+def run_synth(args):
+    """Specific handler for creating synthetix data"""
+    run_standard_function(synthesize_identifiers, args)
+
+def run_dedup(args):
+    """Specific handler for deduplicating a dataset"""
+    run_standard_function(deduplicate, args)
+
 def run_conformance_test(args):
+    """Handler for generating a conformance report (another flavor of the Pytest suite)"""
     run_tests(args, as_conformance_report = True)
 
 def main(argv = None):
@@ -131,8 +132,10 @@ def main(argv = None):
         help="Specify which of the following commands to run (e.g., `pprl report`)"
     )
 
+    #TODO: rename create as hash, rename match as link (both breaking changes)
+    #TODO: Add tests for the CLI itself?
     # Register subcommand modules
-    for name, doc, config, cmd in [
+    for command_name, command_description, config_filename, handler_function in [
             (
                 "test",
                 "Run the project test suite",
@@ -171,8 +174,9 @@ def main(argv = None):
                 ),
             ]:
         create_parser = subparsers.add_parser(
-            name,
-            help=doc
+
+            command_name,
+            help=command_description
         )
         create_parser.add_argument(
             "-v",
@@ -181,15 +185,13 @@ def main(argv = None):
             help="Enable verbose logging. (DEBUG)"
         )
         create_parser.add_argument(
-            "config", nargs="?", default = f"./my_files/{config}",
-            help="Name of the config file for hash creation. [Default: {config}]"
+            "config", nargs="?", default = f"./my_files/{config_filename}",
+            help="Name of the config file for hash creation. [Default: {config_filename}]"
         )
-        create_parser.set_defaults(func=cmd)
+        create_parser.set_defaults(func=handler_function)
 
-    # Grab the passed args from the CLI call
+    # Run the subcommand if provided to the CLI all, else display usage
     args = parser.parse_args(argv)
-
-    # Run the subcommand if provided, else display usage
     if hasattr(args, "func"):
         setup_logging(
             command=getattr(args, "command", None),

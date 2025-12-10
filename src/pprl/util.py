@@ -1,10 +1,18 @@
+"""Utility functions called by the user-facing PPRL functions"""
+
 import logging
 import os
 import yaml
+
 from pathlib import Path
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
+
+#TODO: The most graceful way to handle errors would be to print out any
+#TODO:   error-causing issues as they occur, but only halt just before
+#TODO:   an issue would arise. That way, the user can see all potential
+#TODO:   issues and fix them in one go.
 
 def read_config_file(config, allowed_config_names):
     """
@@ -12,23 +20,26 @@ def read_config_file(config, allowed_config_names):
     """
     logger.debug("Parsing config file: %s", config)
 
+    issue_found_yet = False
+
     configuration = yaml.safe_load(open(config))
     if configuration is None:
         logger.error("The configuration file contains no discernable options!")
-        logger.error("Only the following variables should be used:")
-        for name in allowed_config_names:
-            logger.error(f"    {name}")
+        issue_found_yet = True
+
         exit(1)
         #raise ValueError
 
-    observed_config_names = set(configuration.keys())
-    unexpected_config_names = observed_config_names - allowed_config_names
+    if not issue_found_yet:
+        observed_config_names = set(configuration.keys())
+        unexpected_config_names = observed_config_names - allowed_config_names
 
-    #TODO: avoid duplicating code
-    if bool(unexpected_config_names):
-        logger.error("The following variables were not expected in the configuration file:")
-        for name in unexpected_config_names:
-            logger.error(f"    unexpected: {name}")
+        if bool(unexpected_config_names):
+            logger.error("The following variables were not expected in the configuration file:")
+            for name in unexpected_config_names:
+                logger.error(f"    unexpected: {name}")
+
+    if issue_found_yet:
         logger.error("Only the following variables should be used:")
         for name in allowed_config_names:
             logger.error(f"    {name}")
@@ -37,11 +48,11 @@ def read_config_file(config, allowed_config_names):
 
     #TODO: test to avoid mixing hashing schema with linking schema?
 
-    unused_config_names = allowed_config_names - observed_config_names
-    if bool(unexpected_config_names):
+    unset_config_names = allowed_config_names - observed_config_names
+    if bool(unset_config_names):
         logger.warning("The following variables weren't set in the config file:")
-        for name in unused_config_names:
-            logger.warning("unused: %s", name)
+        for name in unset_config_names:
+            logger.warning(f"    {name}")
         logger.warning("Default values will be assigned instead.")
 
     #configuration.setdefault('schema', 'schema.json')
@@ -51,30 +62,40 @@ def read_config_file(config, allowed_config_names):
     #configuration.setdefault('data_folder', os.path.join(os.getcwd(), "my_files"))
     #configuration.setdefault('schema_folder', os.path.join(os.getcwd(), "schemas"))
 
-#TODO: warn a user if any unexpected names appear in the dictionary!
-#TODO: warn a user if a default value is used
-#TODO: to be really nice, include a list of all potential errors, and only then exist
-
     return configuration
 
-def validated_file_path(descriptor, file_name, file_directory):
+def validated_file_path(descriptor, file_name, file_directory, is_input_file = True):
     """
-    Assmeble, validate, and return a file path
+    Assemble, validate, and return a file path
     """
     if file_name is None:
         raise TypeError(f"The name of a {descriptor} file must be provided.")
+
     file_path = os.path.join(file_directory, file_name)
-    if not os.path.isfile(file_path):
+    file_exists = os.path.isfile(file_path)
+
+    if is_input_file and not file_exists:
         logger.error("Cannot find %s file: %s", descriptor, file_path)
         raise FileNotFoundError(f'Cannot find {descriptor} file: {file_path}')
         exit(1)
-    logger.debug("Valid: %s", file_path)
-    return file_path
+    elif file_exists and not is_input_file:
+        logger.error("The following %s file already exists: %s", descriptor, file_path)
+        logger.error("Rather than overwrite this, no output will be written!")
+        exit(1)
+    else:
+        logger.debug("Valid: %s", file_path)
+        return file_path
 
 def validated_out_path(descriptor, file_name, file_directory):
     """
-    Assmeble, validate, and return the path for a new export file
+    Assemble, validate, and return the path for a new export file
     """
+
+    #TODO: Shouldn't the following definition work?
+    # I should troubleshoot why it fails when we search for the linking inputs
+    # Is it something with setting the directory?
+    validated_file_path(descriptor, file_name, file_directory, is_input_file = False)
+
     if file_name is None:
         raise TypeError(f"The name of a {descriptor} file must be provided.")
     file_path = os.path.join(file_directory, file_name)
