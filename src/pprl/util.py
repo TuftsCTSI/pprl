@@ -86,7 +86,7 @@ def read_dataframe_from_CSV(file_path):
         from collections import defaultdict
         return pd.read_csv(file_path,
                 sep = ',',
-                dtype = defaultdict(lambda: str, row_id="int",),
+                dtype = defaultdict(lambda: str),#, row_id="int",),
                 keep_default_na=False,
                 )
     except pd.errors.EmptyDataError:
