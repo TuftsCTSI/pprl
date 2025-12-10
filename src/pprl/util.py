@@ -86,6 +86,7 @@ def read_dataframe_from_CSV(file_path):
         from collections import defaultdict
         return pd.read_csv(file_path,
                 sep = ',',
+                #TODO: add tests for non-integer row IDs
                 dtype = defaultdict(lambda: str),#, row_id="int",),
                 keep_default_na=False,
                 )
