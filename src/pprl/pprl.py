@@ -124,14 +124,11 @@ def _create_CLKs(
 
     # TODO: possibly break all of this out and put into a separate validate subroutine?
 
-    logger.debug("Validating input filepaths:") # I don't like determining cwd in the arguments.
+    logger.debug("Validating file paths")
     patient_file_path = validated_file_path('patient records', patients, data_folder)
     secret_file_path = validated_file_path('secret', secret, data_folder)
     schema_file_path = validated_file_path('schema', schema, schema_folder)
-
-    logger.debug("Validating output filepaths:")
     output_file_path = validated_out_path('hash', output, output_folder)
-
     output_invalid_records_path = validated_out_path('invalid records', 'invalid_records.csv', output_folder)
 
     #TODO: Here and throughout, add a separate silent toggle to disable the spinner
@@ -316,15 +313,12 @@ def _match_CLKs(
     if len(hashes) not in {1,2}:
         raise ValueError('A list of one or two hashes must be provided')
 
-    logger.debug("Validating combined output path:")
+    logger.debug("Validating file paths")
     linkages_file_path = validated_out_path('linkages', output, output_folder)
-
-    logger.debug("Validating input path: input_1")
     input_1 = validated_file_path('hashes', hashes[0], data_folder)
     if len(hashes) == 2:
         logger.info("Two hash files were provided. Using self_match = False")
         self_match = False
-        logger.debug("Validating input path: input_2")
         input_2 = validated_file_path('hashes', hashes[1], data_folder)
     else:
         logger.info("Only one hash file was provided. Using self_match = True")
@@ -468,18 +462,14 @@ def _deduplicate(
     """Internal method for deduplication"""
     logger.debug("Beginning execution within _deduplicate")
 
-    logger.debug("Validating input filepaths:")
+
+    logger.debug("Validating file paths")
     patient_file_path = validated_file_path('patient records', patients, data_folder)
     linkage_file_path = validated_file_path('linkages', linkages, data_folder)
-
-    logger.debug("Validating output filepaths:")
     output_file_path = validated_out_path('output_folder', output, output_folder)
 
     patients_df = read_dataframe_from_CSV(patient_file_path)
-    linkages_df = pd.read_csv(linkage_file_path,
-                sep = ',',
-                keep_default_na=False,
-                )
+    linkages_df = read_dataframe_from_CSV(linkage_file_path)
 
     source = patients_df['source'].iloc[0]
     duplicate_rows = linkages_df[source].unique()
@@ -501,7 +491,7 @@ def _synthesize_identifiers(
     """Internal method for generating synthetic data"""
     logger.debug("Beginning execution within _synthesize_identifiers")
 
-    logger.debug("Validating output filepaths:")
+    logger.debug("Validating file paths")
     output_file_path = validated_out_path('output_folder', output, output_folder)
 
     with yaspin(
