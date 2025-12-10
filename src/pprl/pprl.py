@@ -25,6 +25,12 @@ from colorama import Fore, Back, Style
 
 from .util import *
 
+from pathlib import Path
+
+PPRL_DIRECTORY = Path(__file__).parent
+SOURCE_DIRECTORY = PPRL_DIRECTORY.parent.parent
+MY_FILES_DIRECTORY = SOURCE_DIRECTORY / "my_files"
+
 logger = logging.getLogger(__name__)
 
 def custom_spinner():
@@ -65,9 +71,6 @@ def create_CLKs(args):
             'schema',
             'secret',
             'output',
-            'data_folder',
-            'output_folder',
-            'schema_folder',
             }
     parse_args_and_run(my_function, args, permitted_values)
 
@@ -78,8 +81,6 @@ def match_CLKs(args):
             'hashes',
             'threshold',
             'output',
-            'data_folder',
-            'output_folder',
             }
     parse_args_and_run(my_function, args, permitted_values)
 
@@ -90,8 +91,6 @@ def deduplicate(args):
             'patients',
             'linkages',
             'output',
-            'data_folder',
-            'output_folder',
             }
     parse_args_and_run(my_function, args, permitted_values)
 
@@ -103,7 +102,6 @@ def synthesize_identifiers(args):
             'source',
             'output',
             'seed',
-            'output_folder',
             }
     parse_args_and_run(my_function, args, permitted_values)
 
@@ -113,9 +111,9 @@ def _create_CLKs(
         schema = 'schema.json',
         output = 'out.csv',
         verbose = False,
-        data_folder = os.path.join(os.getcwd(), "my_files"),
-        output_folder = os.path.join(os.getcwd(), "my_files"),
-        schema_folder = os.path.join(os.getcwd(), "my_files"),
+        data_folder = MY_FILES_DIRECTORY,
+        output_folder = MY_FILES_DIRECTORY,
+        schema_folder = MY_FILES_DIRECTORY,
         ):
     """Internal method for hashing"""
     logger.debug("Beginning execution within _create_CLKs")
@@ -301,8 +299,8 @@ def _match_CLKs(
         threshold = 0.9,
         output = 'out.csv',
         verbose = False,
-        data_folder = 'my_files',
-        output_folder = 'my_files',
+        data_folder = MY_FILES_DIRECTORY,
+        output_folder = MY_FILES_DIRECTORY,
         ):
     """Internal method for linking"""
     logger.debug("Beginning execution within _match_CLKs")
@@ -456,8 +454,8 @@ def _deduplicate(
         linkages = None,
         output = 'deduplicate.csv',
         verbose = False,
-        data_folder = os.path.join(os.getcwd(), "my_files"),
-        output_folder = os.path.join(os.getcwd(), "my_files"),
+        data_folder = MY_FILES_DIRECTORY,
+        output_folder = MY_FILES_DIRECTORY,
         ):
     """Internal method for deduplication"""
     logger.debug("Beginning execution within _deduplicate")
@@ -486,7 +484,7 @@ def _synthesize_identifiers(
         output = 'synthetic_identifiers.csv',
         seed = None,
         verbose = False,
-        output_folder = os.path.join(os.getcwd(), "my_files"),
+        output_folder = MY_FILES_DIRECTORY,
         ):
     """Internal method for generating synthetic data"""
     logger.debug("Beginning execution within _synthesize_identifiers")

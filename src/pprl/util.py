@@ -10,17 +10,21 @@ import csv
 from pathlib import Path
 from datetime import datetime
 
+UTIL_DIRECTORY = Path(__file__).parent
+SOURCE_DIRECTORY = UTIL_DIRECTORY.parent.parent
+
 logger = logging.getLogger(__name__)
 
 def read_config_file(config, allowed_config_names):
     """
     Parse a YAML config file and validate the returned dictionary
     """
+    cfg = SOURCE_DIRECTORY / Path(config)
     logger.debug("Parsing config file: %s", config)
 
     issue_found_yet = False
 
-    configuration = yaml.safe_load(open(config))
+    configuration = yaml.safe_load(open(cfg))
     if configuration is None:
         issue_found_yet = True
         logger.error("The configuration file contains no discernable options!")

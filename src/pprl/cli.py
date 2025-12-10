@@ -15,6 +15,12 @@ from datetime import datetime as dt
 
 from .pprl import *
 
+CLI_DIRECTORY = Path(__file__).parent
+LOGS_DIRECTORY = CLI_DIRECTORY / "logs"
+TESTS_DIRECTORY = CLI_DIRECTORY / "tests"
+SOURCE_DIRECTORY = CLI_DIRECTORY.parent.parent
+MY_FILES_DIRECTORY = SOURCE_DIRECTORY / "my_files"
+
 logger = logging.getLogger(__name__)
 
 curr_dt = dt.strftime(dt.now(), '%H%M%S')
@@ -27,7 +33,7 @@ def setup_logging(command, verbose = False):
     with -v/--verbose: DEBUG
     """
     level = logging.DEBUG if verbose else logging.INFO
-    log_dir = Path.cwd() / "logs"
+    log_dir = LOGS_DIRECTORY
     log_dir.mkdir(exist_ok=True)
     log_file = log_dir / f"{command or 'pprl'}_{curr_dt}.log"
     logging.basicConfig(
@@ -44,9 +50,11 @@ def run_standard_function(my_func, args):
     """
     Generic CLI handler for most commands
     """
-    cfg = Path(args.config)
-    logger.debug("Starting execution of '%s' with config: %s", my_func.__name__, cfg)
 
+    #TODO: consider rewriting directory logic here and downstream
+    #cfg = MY_FILES_DIRECTORY / Path(args.config)
+    cfg = SOURCE_DIRECTORY / Path(args.config)
+    logger.debug("Starting execution of '%s' with config: %s", my_func.__name__, cfg)
     if not cfg.exists():
         logger.error(f"Config file not found: %s", cfg)
         return 1
@@ -68,11 +76,7 @@ def run_tests(args, as_conformance_report = False):
     CLI handler for running the Pytest suite
     """
 
-    tests_dir = Path(__file__).parent / "tests"
-    if not tests_dir.exists():
-        logger.error("Tests directory not found at %s", tests_dir)
-        return 1
-
+    tests_dir = TESTS_DIRECTORY
     pytest_args = [str(tests_dir)]
 
     #TODO: this should probably be handled by pytest_args
