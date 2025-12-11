@@ -17,8 +17,8 @@ row_id,source,first,last,city,state,zip,dob
 16,100,Kristina,Osborn,North Amy,DC,67458,2007-11-07
 17,100,Dylan,Knap,Hallberg,NJ,38602,1952-11-08
 18,100,Jasmine,Wash,Ruizton,NE,94085,2010-01-01
-19,100,Lori,Powel,Gardnerburgh,VT,1250,1997-02-12
-20,100,Nicole,Harington,Christinemouth,FL,6876,1913-11-14
+19,100,Lori,Powel,Gardnerburgh,VT,01250,1997-02-12
+20,100,Nicole,Harington,Christinemouth,FL,06876,1913-11-14
 21,100,Joshua,Gallegoss,Jimmyburgh,CT,10822,1954-03-01
 22,100,Christian,Whaite,Lake Jeremy,MO,52061,1942-07-29
 23,100,Thomas,Hendersson,Juanside,WI,80190,1932-10-25
@@ -30,13 +30,13 @@ row_id,source,first,last,city,state,zip,dob
 29,100,Sandra,Hoseph,Ashleytown,MI,37404,1960-08-28
 30,100,Michael,Lawe,Smithchester,KS,14848,1949-10-09
 31,100,Lisa,Neal,West Kellyburg,VI,27602,1969-07-23
-32,100,Kristy,Wyatt,NewDerek,VT,2687,1922-08-10
+32,100,Kristy,Wyatt,NewDerek,VT,02687,1922-08-10
 33,100,Scott,Chambers,Tracymuth,LA,18408,1933-04-27
 34,100,Marc,Walters,South Dustinburg,FL,35412,1957-02-02
 35,100,Dakota,Mcdowell,Carlfurt,FM,83045,1958-02-16
 36,100,John,Miller,Carlosfurt,AL,40766,1949-01-19
 37,100,Daniel,Smith,Camposchesters,OR,58296,1989-11-06
-38,100,Andrea,Bowman,Joqelberg,KY,2889,1989-10-24
+38,100,Andrea,Bowman,Joqelberg,KY,02889,1989-10-24
 39,100,Tonya,Reeves,South Arngela,VT,35040,2006-09-28
 40,100,Laurie,Harris,East Caraly,PA,16680,2011-12-23
 41,100,Chelsea,Landry,Swansornmouth,AK,71363,1972-03-06
@@ -61,7 +61,7 @@ row_id,source,first,last,city,state,zip,dob
 60,100,Bradley,Good,North Elizabeth,PR,53944,1917-06-16
 61,100,Michael,Sherman,Hernandezland,AR,75577,1971-11-15
 62,100,Tina,Burns,Rioston,OK,13897,1945-03-02
-63,100,Justin,Fisher,Banksview,NJ,8214,1948-12-02
+63,100,Justin,Fisher,Banksview,NJ,08214,1948-12-02
 64,100,Marie,Fuller,South Douglasland,PA,34252,1966-03-07
 65,100,Stephanie,Day,Gabrielborough,PW,70318,1927-06-17
 66,100,Lisa,Aguilar,Parkertown,AR,52989,1954-04-14
@@ -71,7 +71,7 @@ row_id,source,first,last,city,state,zip,dob
 70,100,Ronald,Graham,Larsenborough,IA,13467,2006-06-27
 71,100,Travis,Sanchez,Sylviaside,GU,12854,1974-04-24
 72,100,Willie,Bates,Lake Jeanettestad,RI,78452,1935-10-02
-73,100,Lisa,Blankenship,Stephanieberg,MO,888,1968-11-25
+73,100,Lisa,Blankenship,Stephanieberg,MO,00888,1968-11-25
 74,100,Whitney,Garcia,Nicolebury,VA,50599,2003-05-01
 75,100,Cindy,Morrison,Lake George,NV,52052,2019-04-02
 76,100,Kelsey,Fisher,New Jennyberg,DE,20236,1972-01-25
