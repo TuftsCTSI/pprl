@@ -164,7 +164,7 @@ def run_tests(args, as_conformance_report = False):
 
     return rc
 
-def run_create(args):
+def run_hash(args):
     """User-facing method with config file: hashing"""
     def wrapper_function(args):
         my_function = _create_CLKs
@@ -172,7 +172,7 @@ def run_create(args):
         parse_args_and_run(my_function, args, permitted_values)
     run_standard_function(wrapper_function, args)
 
-def run_match(args):
+def run_link(args):
     """User-facing method with config file: linking"""
     def wrapper_function(args):
         my_function = _match_CLKs
@@ -234,14 +234,14 @@ def main(argv = None):
             (
                 "hash",
                 "Hash input data",
-                "create_CLKs.yml",
-                run_create,
+                "hash.yml",
+                run_hash,
                 ),
             (
                 "link",
                 "Link records based on hashes",
-                "match_CLKs.yml",
-                run_match,
+                "link.yml",
+                run_link,
                 ),
             (
                 "synth",
