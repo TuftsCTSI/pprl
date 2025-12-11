@@ -46,6 +46,13 @@ class TestUsability:
 
     #TODO: patient CSV file, properly formatted, with no rows
 
+    def test_patient_varying_source(capsys):
+        """Hashing with non-identical source must throw an error"""
+        basic_error_pattern(capsys,
+                AssertionError,
+                patients_1 = "3_test_patients_source_case.csv",
+                )
+
     @pytest.mark.skip(reason="For the user's sake, we now print a custom message and exit, rather than throw an error")
     def test_nonexistent_schema_file_provided(capsys):
         """Hashing with a nonexistent schema file must throw an error"""
