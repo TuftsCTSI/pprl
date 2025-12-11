@@ -8,7 +8,6 @@ Automated tests should be quick.
 import filecmp
 import json
 import pytest
-import os
 
 class TestPerformance:
     """Test whether linkage can be accomplished at scale"""

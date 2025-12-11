@@ -8,7 +8,6 @@ This code should introduce no unreasonable or easily preventable risk to patient
 import filecmp
 import json
 import pytest
-import os
 
 from pprl.tests.templates import basic_test_pattern, basic_error_pattern, compare_hashes
 

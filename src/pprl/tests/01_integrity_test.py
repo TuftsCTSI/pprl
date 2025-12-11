@@ -7,7 +7,6 @@ We should ensure that our code does what we say it does. This promotes all other
 import filecmp
 import json
 import pytest
-import os
 
 from pprl.tests.templates import basic_test_pattern, compare_hashes
 

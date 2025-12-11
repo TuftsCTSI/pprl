@@ -1,4 +1,3 @@
-import os
 import pytest
 import tempfile
 from pathlib import Path
@@ -73,7 +72,7 @@ def basic_test_pattern(
                 output_folder = temp_dir,
                 verbose=True)
         assert_file_contents(
-                os.path.join(temp_dir, linkages),
+                Path(temp_dir) / linkages,
                 expected_linkages_as_csv
                 )
 
@@ -128,8 +127,8 @@ def compare_hashes(
                 )
 
         similarity = SequenceMatcher(None,
-                ConstBitStream(filename=os.path.join(temp_dir, hashes_1)),
-                ConstBitStream(filename=os.path.join(temp_dir, hashes_2)),
+                ConstBitStream(filename=Path(temp_dir) / hashes_1),
+                ConstBitStream(filename=Path(temp_dir) / hashes_2),
             ).ratio()
 
         print(lower_bound)

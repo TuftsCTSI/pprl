@@ -10,7 +10,6 @@ import bitarray
 import io
 import json
 import logging
-import os
 
 import clkhash
 from clkhash import clk

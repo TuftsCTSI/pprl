@@ -1,7 +1,6 @@
 """Utility functions called by the user-facing PPRL functions"""
 
 import logging
-import os
 import yaml
 
 import pandas as pd
@@ -62,8 +61,8 @@ def validated_file_path(descriptor, file_name, file_directory, file_should_exist
     if file_name is None:
         raise TypeError(f"The name of a {descriptor} file must be provided.")
 
-    file_path = os.path.join(file_directory, file_name)
-    file_exists = os.path.isfile(file_path)
+    file_path = Path(file_directory) / file_name
+    file_exists = file_path.is_file()
 
     if file_should_exist and not file_exists:
         logger.error("Cannot find %s file: %s", descriptor, file_path)

@@ -8,7 +8,6 @@ We should do everything we can to eliminate the possibility of user errors that 
 import filecmp
 import json
 import pytest
-import os
 
 from pprl.tests.templates import basic_error_pattern
 
