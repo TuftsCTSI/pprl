@@ -46,6 +46,13 @@ class TestUsability:
 
     #TODO: patient CSV file, properly formatted, with no rows
 
+    def test_patient_matching_ID(capsys):
+        """Hashing with a non-unique row ID must throw an error"""
+        basic_error_pattern(capsys,
+                AssertionError,
+                patients_1 = "3_test_patients_ID_matches.csv",
+                )
+
     def test_patient_varying_source(capsys):
         """Hashing with non-identical source must throw an error"""
         basic_error_pattern(capsys,
