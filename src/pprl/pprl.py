@@ -368,6 +368,12 @@ def _match_CLKs(
             # The relevant function is anonlink.candidate_generation.find_candidate_pairs
             # The current approach generates all these linkage probabilities, of which we discard more than half.
 
+            # One idea: tests/template.py already includes code for comparing hashes by individual bits
+            # Is anonlink.candidate_generation.find_candidate_pairs really so complicated?
+            # I imagine the hashing is very involved, but linking might be straightforward.
+            # Would it be feasible to just reimplement this method myself.
+            # Another minor benefit to this is that I could possibly track the incremental progress a bit better.
+
             #TODO: add test set to indicate if matches are commutative
             #TODO: add other tests in general to determine if order affects the probability
 
