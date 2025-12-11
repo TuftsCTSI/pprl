@@ -1,8 +1,12 @@
 import pytest
 import tempfile
 from pathlib import Path
-from bitstring import ConstBitStream
+
+import Levenshtein
+from bitarray import bitarray
+#from bitstring import ConstBitStream
 from difflib import SequenceMatcher
+
 from pprl.tests.utilities import (
         assert_file_comparison,
         assert_file_contents,
@@ -10,6 +14,10 @@ from pprl.tests.utilities import (
         )
 
 from pprl import pprl
+from pprl.util import read_dataframe_from_CSV
+
+
+from clkhash.serialization import deserialize_bitarray
 
 def basic_test_pattern(
         capsys,
@@ -126,14 +134,31 @@ def compare_hashes(
                 verbose=True
                 )
 
-        similarity = SequenceMatcher(None,
-                ConstBitStream(filename=Path(temp_dir) / hashes_1),
-                ConstBitStream(filename=Path(temp_dir) / hashes_2),
-            ).ratio()
+        def read_hashes_as_single_bitstring(file_name):
+            df = read_dataframe_from_CSV(Path(temp_dir) / file_name)
 
-        print(lower_bound)
-        print(upper_bound)
-        print(similarity)
+            joined_hashes = bitarray()
+            for clk in df['clk']:
+                joined_hashes += deserialize_bitarray(clk)
+
+            return joined_hashes
+
+        hash_str_1 = read_hashes_as_single_bitstring(hashes_1)
+        hash_str_2 = read_hashes_as_single_bitstring(hashes_2)
+
+        levenshtein_distance = Levenshtein.distance(
+                hash_str_1,
+                hash_str_2,
+                )
+
+        total_bits = len(hash_str_1)
+        
+        similarity = 1 - levenshtein_distance / total_bits
+
+        print(f"Total bits: {total_bits}")
+        print(f"Levenshtein distance: {levenshtein_distance}")
+        print(f"Similarity: {similarity}")
+        print(f"(Should be between {lower_bound} and {upper_bound})")
 
         assert lower_bound <= similarity <= upper_bound
 
