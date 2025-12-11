@@ -110,31 +110,6 @@ def parse_args_and_run(my_function, args, permitted_values):
 
     my_function(**configuration)
 
-def create_CLKs(args):
-    """User-facing method with config file: hashing"""
-    my_function = _create_CLKs
-    permitted_values = {'patients', 'schema', 'secret', 'output',}
-    parse_args_and_run(my_function, args, permitted_values)
-
-def match_CLKs(args):
-    """User-facing method with config file: linking"""
-    my_function = _match_CLKs
-    permitted_values = {'hashes', 'threshold', 'output',}
-    parse_args_and_run(my_function, args, permitted_values)
-
-def deduplicate(args):
-    """User-facing method with config file: deduplication"""
-    my_function = _deduplicate
-    permitted_values = {'patients', 'linkages', 'output',}
-    parse_args_and_run(my_function, args, permitted_values)
-
-def synthesize_identifiers(args):
-    """User-facing method with config file: generate synthetic data"""
-    my_function = _synthesize_identifiers
-    permitted_values = {'n', 'source', 'output', 'seed',}
-    parse_args_and_run(my_function, args, permitted_values)
-
-
 def run_standard_function(my_func, args):
     """
     Generic CLI handler for most commands
@@ -190,20 +165,36 @@ def run_tests(args, as_conformance_report = False):
     return rc
 
 def run_create(args):
-    """Specific handler for hashing"""
-    run_standard_function(create_CLKs, args)
+    """User-facing method with config file: hashing"""
+    def wrapper_function(args):
+        my_function = _create_CLKs
+        permitted_values = {'patients', 'schema', 'secret', 'output',}
+        parse_args_and_run(my_function, args, permitted_values)
+    run_standard_function(wrapper_function, args)
 
 def run_match(args):
-    """Specific handler for linking"""
-    run_standard_function(match_CLKs, args)
+    """User-facing method with config file: linking"""
+    def wrapper_function(args):
+        my_function = _match_CLKs
+        permitted_values = {'hashes', 'threshold', 'output',}
+        parse_args_and_run(my_function, args, permitted_values)
+    run_standard_function(wrapper_function, args)
 
 def run_synth(args):
-    """Specific handler for creating synthetix data"""
-    run_standard_function(synthesize_identifiers, args)
+    def wrapper_function(args):
+        """User-facing method with config file: generate synthetic data"""
+        my_function = _synthesize_identifiers
+        permitted_values = {'n', 'source', 'output', 'seed',}
+        parse_args_and_run(my_function, args, permitted_values)
+    run_standard_function(wrapper_function, args)
 
 def run_dedup(args):
-    """Specific handler for deduplicating a dataset"""
-    run_standard_function(deduplicate, args)
+    """User-facing method with config file: deduplication"""
+    def wrapper_function(args):
+        my_function = _deduplicate
+        permitted_values = {'patients', 'linkages', 'output',}
+        parse_args_and_run(my_function, args, permitted_values)
+    run_standard_function(wrapper_function, args)
 
 def run_conformance_test(args):
     """Handler for generating a conformance report (another flavor of the Pytest suite)"""
