@@ -9,11 +9,13 @@ import logging
 import pytest
 import subprocess
 import sys
+import yaml
 
 from pathlib import Path
 from datetime import datetime as dt
 
-from .pprl import *
+from .pprl import _create_CLKs, _match_CLKs, _deduplicate, _synthesize_identifiers
+#from .util import *
 
 CLI_DIRECTORY = Path(__file__).parent
 LOGS_DIRECTORY = CLI_DIRECTORY / "logs"
@@ -45,6 +47,93 @@ def setup_logging(command, verbose = False):
         ],
     )
     logging.getLogger(__name__).debug("Logging to %s", log_file)
+
+def read_config_file(config, allowed_config_names):
+    """
+    Parse a YAML config file and validate the returned dictionary
+    """
+    cfg = SOURCE_DIRECTORY / Path(config)
+    logger.info("Parsing config file: %s", cfg)
+
+    issue_found_yet = False
+
+    configuration = yaml.safe_load(open(cfg))
+    if configuration is None:
+        issue_found_yet = True
+        logger.error("The configuration file contains no discernable options!")
+
+    if not issue_found_yet:
+        observed_config_names = set(configuration.keys())
+        unexpected_config_names = observed_config_names - allowed_config_names
+
+        if bool(unexpected_config_names):
+            issue_found_yet = True
+            logger.error("The following variables were not expected in the configuration file:")
+            for name in unexpected_config_names:
+                logger.error(f"    {name}")
+
+    if issue_found_yet:
+        logger.error("Only the following variables should be used:")
+        for name in allowed_config_names:
+            logger.error(f"    {name}")
+        #TODO: add test for this
+        #TODO: raise ValueError might make sense, but the stack trace could be unclear to users
+        exit(1)
+    else:
+        unset_config_names = allowed_config_names - observed_config_names
+        if bool(unset_config_names):
+            logger.warning("The following variables weren't set in the config file:")
+            for name in unset_config_names:
+                logger.warning(f"    {name}")
+            logger.warning("Default values will be assigned instead.")
+
+        return configuration
+
+
+def parse_args_and_run(my_function, args, permitted_values):
+    """
+    Generic template to parse a config file and call a subcommand
+    """
+    
+    logger.debug("%s called with %s", __name__, args.config)
+
+    configuration = read_config_file(
+            args.config,
+            permitted_values
+            )
+    configuration['verbose'] = args.verbose
+
+    function_name = my_function.__name__
+    logger.debug("Calling  %s  with configuration:", function_name)
+    for key, value in configuration.items():
+        logger.debug("    kwarg: %s = %r", key, value)
+
+    my_function(**configuration)
+
+def create_CLKs(args):
+    """User-facing method with config file: hashing"""
+    my_function = _create_CLKs
+    permitted_values = {'patients', 'schema', 'secret', 'output',}
+    parse_args_and_run(my_function, args, permitted_values)
+
+def match_CLKs(args):
+    """User-facing method with config file: linking"""
+    my_function = _match_CLKs
+    permitted_values = {'hashes', 'threshold', 'output',}
+    parse_args_and_run(my_function, args, permitted_values)
+
+def deduplicate(args):
+    """User-facing method with config file: deduplication"""
+    my_function = _deduplicate
+    permitted_values = {'patients', 'linkages', 'output',}
+    parse_args_and_run(my_function, args, permitted_values)
+
+def synthesize_identifiers(args):
+    """User-facing method with config file: generate synthetic data"""
+    my_function = _synthesize_identifiers
+    permitted_values = {'n', 'source', 'output', 'seed',}
+    parse_args_and_run(my_function, args, permitted_values)
+
 
 def run_standard_function(my_func, args):
     """

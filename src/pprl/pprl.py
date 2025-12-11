@@ -49,50 +49,6 @@ def spin_on(text):
 def spin_off(spinner):
     spinner.ok("[" + Fore.GREEN + "Done" + Style.RESET_ALL + "]")
 
-def parse_args_and_run(my_function, args, permitted_values):
-    """
-    Generic template to parse a config file and call a subcommand
-    """
-    
-    logger.debug("%s called with %s", __name__, args.config)
-
-    configuration = read_config_file(
-            args.config,
-            permitted_values
-            )
-    configuration['verbose'] = args.verbose
-
-    function_name = my_function.__name__
-    logger.debug("Calling  %s  with configuration:", function_name)
-    for key, value in configuration.items():
-        logger.debug("    kwarg: %s = %r", key, value)
-
-    my_function(**configuration)
-
-def create_CLKs(args):
-    """User-facing method with config file: hashing"""
-    my_function = _create_CLKs
-    permitted_values = {'patients', 'schema', 'secret', 'output',}
-    parse_args_and_run(my_function, args, permitted_values)
-
-def match_CLKs(args):
-    """User-facing method with config file: linking"""
-    my_function = _match_CLKs
-    permitted_values = {'hashes', 'threshold', 'output',}
-    parse_args_and_run(my_function, args, permitted_values)
-
-def deduplicate(args):
-    """User-facing method with config file: deduplication"""
-    my_function = _deduplicate
-    permitted_values = {'patients', 'linkages', 'output',}
-    parse_args_and_run(my_function, args, permitted_values)
-
-def synthesize_identifiers(args):
-    """User-facing method with config file: generate synthetic data"""
-    my_function = _synthesize_identifiers
-    permitted_values = {'n', 'source', 'output', 'seed',}
-    parse_args_and_run(my_function, args, permitted_values)
-
 def _create_CLKs(
         patients = None,
         secret = None,

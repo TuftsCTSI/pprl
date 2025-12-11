@@ -1,7 +1,6 @@
 """Utility functions called by the user-facing PPRL functions"""
 
 import logging
-import yaml
 
 import pandas as pd
 import csv
@@ -13,47 +12,6 @@ UTIL_DIRECTORY = Path(__file__).parent
 SOURCE_DIRECTORY = UTIL_DIRECTORY.parent.parent
 
 logger = logging.getLogger(__name__)
-
-def read_config_file(config, allowed_config_names):
-    """
-    Parse a YAML config file and validate the returned dictionary
-    """
-    cfg = SOURCE_DIRECTORY / Path(config)
-    logger.debug("Parsing config file: %s", config)
-
-    issue_found_yet = False
-
-    configuration = yaml.safe_load(open(cfg))
-    if configuration is None:
-        issue_found_yet = True
-        logger.error("The configuration file contains no discernable options!")
-
-    if not issue_found_yet:
-        observed_config_names = set(configuration.keys())
-        unexpected_config_names = observed_config_names - allowed_config_names
-
-        if bool(unexpected_config_names):
-            issue_found_yet = True
-            logger.error("The following variables were not expected in the configuration file:")
-            for name in unexpected_config_names:
-                logger.error(f"    {name}")
-
-    if issue_found_yet:
-        logger.error("Only the following variables should be used:")
-        for name in allowed_config_names:
-            logger.error(f"    {name}")
-        #TODO: add test for this
-        #TODO: raise ValueError might make sense, but the stack trace could be unclear to users
-        exit(1)
-    else:
-        unset_config_names = allowed_config_names - observed_config_names
-        if bool(unset_config_names):
-            logger.warning("The following variables weren't set in the config file:")
-            for name in unset_config_names:
-                logger.warning(f"    {name}")
-            logger.warning("Default values will be assigned instead.")
-
-        return configuration
 
 def validated_file_path(descriptor, file_name, file_directory, file_should_exist = True):
     """
