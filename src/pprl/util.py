@@ -43,7 +43,8 @@ def read_config_file(config, allowed_config_names):
         for name in allowed_config_names:
             logger.error(f"    {name}")
         #TODO: add test for this
-        raise ValueError
+        #TODO: raise ValueError might make sense, but the stack trace could be unclear to users
+        exit(1)
     else:
         unset_config_names = allowed_config_names - observed_config_names
         if bool(unset_config_names):

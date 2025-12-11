@@ -13,7 +13,7 @@ from pprl.tests.templates import basic_error_pattern
 
 class TestUsability:
 
-    #TODO: tests for missing YAML config files?
+    #TODO: tests for missing YAML config files? And a CLI test in general?
     #TODO: tests for nonexistent YAML config files
     #TODO: tests for empty YAML config files / no discernable options
     #TODO: tests for YAML files with wrong format
