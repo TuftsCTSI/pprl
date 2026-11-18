@@ -40,13 +40,15 @@ def stop_if_unsupported() -> None:
     """Stop pprl with exit code 1 if this computer is not supported."""
     if is_supported():
         return
-    from . import _messages as msg  # noqa: PLC0415 (only needed to stop)
+    # Only needed to stop. Neither module imports anonlink.
+    from . import _messages as msg  # noqa: PLC0415
+    from ._ui import fail  # noqa: PLC0415
 
-    message = msg.UNSUPPORTED_PLATFORM(
-        system=platform.system() or sys.platform,
-        machine=platform.machine() or "an unknown processor",
+    raise SystemExit(
+        fail(
+            msg.UNSUPPORTED_PLATFORM(
+                system=platform.system() or sys.platform,
+                machine=platform.machine() or "an unknown processor",
+            )
+        )
     )
-    first, *rest = message.splitlines()
-    sys.stderr.write(f"[STOP] {first}\n" + "".join(f"       {r}\n" for r in rest))
-    sys.stderr.flush()
-    raise SystemExit(1)
