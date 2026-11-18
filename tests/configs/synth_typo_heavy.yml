@@ -1,0 +1,9 @@
+# About 30% of name and address fields have a typo at one site or the other.
+seed: XWvVoNHMtatwfey2SNiy
+sites: [site_a, site_b]
+outputs: [patients]
+generated_individuals:
+  - {sites: [site_a, site_b], count: 100}
+pii:
+  name: {typos: {rate: 0.15, max_edits: 1}}
+  address: {typos: {rate: 0.15, max_edits: 1}}

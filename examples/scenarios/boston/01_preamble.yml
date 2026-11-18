@@ -1,0 +1,121 @@
+seed: 20260926
+scale: 1
+sites: [boston]
+outputs: [omop]          # OMOP tables only; no patient file
+
+cdm_source:
+  - name: "Boston Synthetic Dataset"
+    abbreviation: "BOSTON"
+    cdm_holder: "TuftsCTSI"
+    source_description: "Boston-area regression-test dataset spanning 2023-2025"
+
+concept:
+  # Demographics
+  - {id: 8507, name: MALE}
+  - {id: 8532, name: FEMALE}
+  - {id: 8527, name: white}
+  - {id: 8516, name: black}
+  - {id: 8515, name: asian}
+  - {id: 38003563, name: hispanic}
+  - {id: 38003564, name: not_hispanic}
+  # Unknown ethnicity is written as 0 (no matching concept)
+  # Visits
+  - {id: 9202, name: outpatient}
+  - {id: 9201, name: inpatient}
+  # Conditions
+  - {id: 320128, name: hypertension}
+  - {id: 201826, name: type_2_diabetes}
+  # Measurements
+  - {id: 3004249, name: systolic_bp}
+  - {id: 3012888, name: diastolic_bp}
+  - {id: 3004410, name: hba1c}
+  - {id: 3038553, name: bmi}
+  - {id: 40490382, name: bmi_percentile}
+  - {id: 3027299, name: fobt}
+  - {id: 46236059, name: sdna_fit}
+  - {id: 35609425, name: phq9}
+  # Procedures
+  - {id: 3016169, name: mammography}
+  - {id: 2006395, name: mastectomy}
+  - {id: 37163368, name: colonoscopy}
+  - {id: 4262589, name: sigmoidoscopy}
+  - {id: 40763569, name: ct_colonography}
+  # Observations
+  - {id: 36304041, name: food_security_q1}
+  - {id: 36306143, name: food_security_q2}
+  - {id: 42869557, name: housing_stability}
+  - {id: 4139934, name: homelessness}
+  - {id: 4144274, name: housing_lack}
+  - {id: 2000000095, name: psc17_internalization}
+  - {id: 2000000096, name: psc17_externalization}
+  - {id: 2000000097, name: psc17_attention}
+  - {id: 2000000094, name: psc17_total}
+  - {id: 4085802, name: routine_exam}
+  # Drugs
+  - {id: 702866, name: covid_pfizer}
+  # Units
+  - {id: 8554, name: percent}
+  # Value concepts (food/housing responses)
+  - {id: 36309869, name: never_true}
+  - {id: 45877955, name: sometimes_true}
+  - {id: 2000000101, name: steady_place}
+  - {id: 2000000102, name: worried_about_losing}
+  - {id: 2000000103, name: yes_homeless}
+  # Behavioral Health conditions
+  - {id: 4102973, name: depression}
+  - {id: 4217945, name: anxiety}
+  - {id: 432598, name: schizophrenia}
+  - {id: 4031928, name: bipolar}
+  - {id: 4279309, name: substance_abuse}
+  - {id: 433753, name: sud_alcohol}
+  # Disabilities
+  - {id: 372906, name: vision_disability}
+  - {id: 443608, name: hearing_disability}
+  - {id: 43020503, name: autism_spectrum}
+  - {id: 35207238, name: intellectual_disability}
+  # Smoking
+  - {id: 4275495, name: tobacco_status}
+  - {id: 4005823, name: tobacco_user}
+  - {id: 4022662, name: tobacco_nonuser}
+  # MMR
+  - {id: 40213183, name: mmr_vaccine}
+  # NQF Exclusions
+  - {id: 4004279, name: advanced_illness}
+  - {id: 438567, name: frailty_dx}
+  - {id: 2514578, name: frailty_encounter}
+  - {id: 4008159, name: frailty_symptom}
+  - {id: 4140947, name: hospice_enc}
+  - {id: 4138051, name: acute_inpatient_admission}
+  # Renal / Pregnancy
+  - {id: 193782, name: esrd}
+  - {id: 4322471, name: kidney_transplant_proc}
+  - {id: 4299535, name: pregnancy}
+
+  # Additional test concepts
+  - {id: 4032799, name: opioid_sud}
+  - {id: 4096461, name: colectomy_proc}
+  - {id: 45884037, name: tobacco_unknown_val}
+  - {id: 0, name: zero_visit}
+  - {id: 8761, name: community_health_center}
+  - {id: 8940, name: office_visit}
+
+concept_ancestor:
+  - {ancestor_concept_id: substance_abuse, descendant_concept_id: sud_alcohol}
+  - {ancestor_concept_id: substance_abuse, descendant_concept_id: opioid_sud}
+
+location:
+  - source_value: boston
+    address_1: "123 Main St"
+    city: "Boston"
+    state: "MA"
+    zip: "02118"
+
+care_site:
+  - source_value: boston_chc
+    name: "Boston CHC"
+    place_of_service_concept_id: community_health_center
+    location_id: boston
+  - source_value: pcp_office
+    name: "Primary Care Office"
+    place_of_service_concept_id: office_visit
+    location_id: boston

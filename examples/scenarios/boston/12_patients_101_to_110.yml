@@ -1,0 +1,201 @@
+individuals:
+- source_value: bh09_sud_opioid
+  id: 101
+  description: "41-year-old female; opioid use disorder diagnosed Jan 2023; routine exam in Jun 2023"
+  expected:
+    BH_09:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1982
+  month_of_birth: 11
+  day_of_birth: 5
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: opioid_sud
+    start_date: "2023-01-15"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: bh09_sud_inactive
+  id: 102
+  description: "44-year-old male; alcohol use disorder diagnosed Jan 2023; last routine exam in Jun 2020"
+  expected:
+    BH_09:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1979
+  month_of_birth: 5
+  day_of_birth: 14
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: sud_alcohol
+    start_date: "2023-01-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2020-06-01"
+
+- source_value: psc_age5_excluded
+  id: 103
+  description: "5-year-old male; PSC-17 attention score 4 in Sep 2023"
+  expected:
+    BH_05:
+      '2023': absent
+    BH_06:
+      '2023': absent
+    BH_07:
+      '2023': absent
+    BH_08:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2018
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: psc17_attention
+    date: "2023-09-01"
+    value_as_number: 4
+
+- source_value: psc_latest_wins
+  id: 104
+  description: "9-year-old female; PSC-17 attention score 7 in Mar 2023, then 6 in Sep 2023"
+  expected:
+    BH_05:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2014
+  month_of_birth: 6
+  day_of_birth: 1
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: psc17_attention
+    date: "2023-03-01"
+    value_as_number: 7
+  - concept_id: psc17_attention
+    date: "2023-09-01"
+    value_as_number: 6
+
+- source_value: covid_adult_1dose_2021
+  id: 105
+  description: "43-year-old male; single COVID Pfizer dose in Apr 2021 with lot number; no subsequent doses"
+  expected:
+    COVID_01:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1980
+  month_of_birth: 5
+  day_of_birth: 10
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2021-07-01"
+  drug:
+  - concept_id: covid_pfizer
+    start_date: "2021-04-15"
+    lot_number: LOT-2021-X
+
+- source_value: covid_adult_no_lot
+  id: 106
+  description: "43-year-old female; COVID Pfizer vaccine in Mar 2023 without lot number"
+  expected:
+    COVID_01:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1980
+  month_of_birth: 8
+  day_of_birth: 20
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  drug:
+  - concept_id: covid_pfizer
+    start_date: "2023-03-01"
+
+- source_value: bmi_adult_null
+  id: 107
+  description: "43-year-old male with BMI measurement in Aug 2023; no numeric value recorded"
+  expected:
+    CVR_01:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1980
+  month_of_birth: 3
+  day_of_birth: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurement:
+  - concept_id: bmi
+    date: "2023-08-01"
+
+- source_value: bmi_adult_age18_exact
+  id: 108
+  description: "18-year-old female born Jun 2005; BMI 28.0 recorded in Aug 2023"
+  expected:
+    CVR_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2005
+  month_of_birth: 6
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  measurement:
+  - concept_id: bmi
+    date: "2023-08-01"
+    value_as_number: 28.0
+
+- source_value: bmi_peds_age2_excluded
+  id: 109
+  description: "2-year-old male with BMI percentile 85 in Aug 2023"
+  expected:
+    CVR_02:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2021
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  measurement:
+  - concept_id: bmi_percentile
+    date: "2023-08-01"
+    value_as_number: 85.0
+
+- source_value: bmi_adult_inactive
+  id: 110
+  description: "43-year-old female; BMI 28.0 in Aug 2023; last qualifying visit in Jun 2020"
+  expected:
+    CVR_01:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1980
+  month_of_birth: 9
+  day_of_birth: 10
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  measurement:
+  - concept_id: bmi
+    date: "2023-08-01"
+    value_as_number: 28.0
+    visit: {concept_id: zero_visit}
+  observation:
+  - concept_id: routine_exam
+    date: "2020-06-01"

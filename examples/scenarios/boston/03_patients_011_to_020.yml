@@ -1,0 +1,265 @@
+individuals:
+- source_value: htn_not_measured
+  id: 11
+  description: "Hypertension diagnosed Jun 2021; only blood pressure reading 135/85 in Mar 2022; routine exam in 2023"
+  expected:
+    CVR_03:
+      '2021': -1
+      '2022': 1
+      '2023': -1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1968
+  month_of_birth: 3
+  day_of_birth: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: hypertension
+    start_date: "2021-06-01"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2022-03-15"
+    value_as_number: 135
+  - concept_id: diastolic_bp
+    date: "2022-03-15"
+    value_as_number: 85
+  observation:
+  - concept_id: routine_exam
+    date: "2023-09-01"
+
+- source_value: htn_multi_year
+  id: 12
+  description: "Hypertension diagnosed Dec 2022; blood pressure 139/89 in 2023, 145/91 in 2024, 138/88 in 2025"
+  expected:
+    CVR_03:
+      '2023': 1
+      '2024': 0
+      '2025': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1970
+  month_of_birth: 5
+  day_of_birth: 1
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: hypertension
+    start_date: "2022-12-01"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-06-15"
+    value_as_number: 139
+  - concept_id: diastolic_bp
+    date: "2023-06-15"
+    value_as_number: 89
+  - concept_id: systolic_bp
+    date: "2024-06-15"
+    value_as_number: 145
+  - concept_id: diastolic_bp
+    date: "2024-06-15"
+    value_as_number: 91
+  - concept_id: systolic_bp
+    date: "2025-06-15"
+    value_as_number: 138
+  - concept_id: diastolic_bp
+    date: "2025-06-15"
+    value_as_number: 88
+
+- source_value: dm_age17_excluded
+  id: 13
+  description: "17-year-old male with type 2 diabetes diagnosed Jan 2023; A1c 9.0% in Jun 2023"
+  expected:
+    CVR_04:
+      '2023': absent
+    CVR_05:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2006
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2023-01-10"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-06-10"
+    value_as_number: 9.0
+    unit_concept_id: percent
+
+- source_value: dm_age18_met_9
+  id: 14
+  description: "18-year-old male with type 2 diabetes diagnosed Jan 2023; A1c 9.0% in Jun 2023"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2005
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2023-01-10"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-06-10"
+    value_as_number: 9.0
+    unit_concept_id: percent
+
+- source_value: dm_age75_met_9
+  id: 15
+  description: "75-year-old female with type 2 diabetes diagnosed Jan 2023; A1c 9.0% in Jun 2023"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1948
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2023-01-10"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-06-10"
+    value_as_number: 9.0
+    unit_concept_id: percent
+
+- source_value: dm_age76_excluded
+  id: 16
+  description: "76-year-old female with type 2 diabetes diagnosed Jan 2023; A1c 9.0% in Jun 2023"
+  expected:
+    CVR_04:
+      '2023': absent
+    CVR_05:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1947
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2023-01-10"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-06-10"
+    value_as_number: 9.0
+    unit_concept_id: percent
+
+- source_value: dm_notmet_10
+  id: 17
+  description: "Type 2 diabetes diagnosed Dec 2022; A1c 10.0% in Sep 2023"
+  expected:
+    CVR_04:
+      '2023': 0
+    CVR_05:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1969
+  month_of_birth: 4
+  day_of_birth: 1
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2022-12-15"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-09-10"
+    value_as_number: 10.0
+    unit_concept_id: percent
+
+- source_value: dm_missing
+  id: 18
+  description: "Type 2 diabetes diagnosed Dec 2022; routine exam in Sep 2023 without A1c measurement"
+  expected:
+    CVR_04:
+      '2023': -1
+    CVR_05:
+      '2023': -1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1970
+  month_of_birth: 4
+  day_of_birth: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2022-12-15"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-09-10"
+
+- source_value: dm_multi_year
+  id: 19
+  description: "Type 2 diabetes diagnosed Dec 2022; A1c 8.9% in 2023, 10.1% in 2024, 8.5% in 2025"
+  expected:
+    CVR_04:
+      '2023': 1
+      '2024': 0
+      '2025': 1
+    CVR_05:
+      '2023': 1
+      '2024': 0
+      '2025': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1965
+  month_of_birth: 4
+  day_of_birth: 1
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2022-12-15"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-05-10"
+    value_as_number: 8.9
+    unit_concept_id: percent
+  - concept_id: hba1c
+    date: "2024-05-10"
+    value_as_number: 10.1
+    unit_concept_id: percent
+  - concept_id: hba1c
+    date: "2025-05-10"
+    value_as_number: 8.5
+    unit_concept_id: percent
+
+- source_value: breast_met_recent_mammo
+  id: 20
+  description: "50-year-old female; mammogram in Jun 2022; routine exam in Jun 2023"
+  expected:
+    PS_03:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1973
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: mammography
+    date: "2022-06-15"

@@ -1,0 +1,209 @@
+individuals:
+- source_value: covid_peds_met_2023
+  id: 61
+  description: "13-year-old female; COVID Pfizer vaccine in Mar 2023 with lot number"
+  expected:
+    COVID_02:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2010
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  drug:
+  - concept_id: covid_pfizer
+    start_date: "2023-03-01"
+    lot_number: LOT-2023-P
+
+- source_value: covid_peds_notmet_none
+  id: 62
+  description: "13-year-old female; no COVID vaccine on record; routine exam in Jul 2023"
+  expected:
+    COVID_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2010
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+
+- source_value: covid_adult_age17_peds_only
+  id: 63
+  description: "17-year-old male; COVID Pfizer vaccine in Mar 2023 with lot number"
+  expected:
+    COVID_02:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2006
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  drug:
+  - concept_id: covid_pfizer
+    start_date: "2023-03-01"
+    lot_number: LOT-2023-B
+
+- source_value: covid_peds_age18_adult_only
+  id: 64
+  description: "18-year-old female; COVID Pfizer vaccine in Mar 2023 with lot number"
+  expected:
+    COVID_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2005
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  drug:
+  - concept_id: covid_pfizer
+    start_date: "2023-03-01"
+    lot_number: LOT-2023-C
+
+- source_value: psc_all_met
+  id: 65
+  description: "9-year-old male; PSC-17 scores Sep 2023: internalization 4, externalization 6, attention 6, total 14"
+  expected:
+    BH_05:
+      '2023': 1
+    BH_06:
+      '2023': 1
+    BH_07:
+      '2023': 1
+    BH_08:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2014
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: psc17_internalization
+    date: "2023-09-01"
+    value_as_number: 4
+  - concept_id: psc17_externalization
+    date: "2023-09-01"
+    value_as_number: 6
+  - concept_id: psc17_attention
+    date: "2023-09-01"
+    value_as_number: 6
+  - concept_id: psc17_total
+    date: "2023-09-01"
+    value_as_number: 14
+
+- source_value: psc_internal_notmet
+  id: 66
+  description: "9-year-old female; PSC-17 internalization score 5 in Sep 2023"
+  expected:
+    BH_07:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2014
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: psc17_internalization
+    date: "2023-09-01"
+    value_as_number: 5
+
+- source_value: psc_external_notmet
+  id: 67
+  description: "9-year-old male; PSC-17 externalization score 7 in Sep 2023"
+  expected:
+    BH_06:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2014
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: psc17_externalization
+    date: "2023-09-01"
+    value_as_number: 7
+
+- source_value: psc_attention_notmet
+  id: 68
+  description: "9-year-old female; PSC-17 attention score 7 in Sep 2023"
+  expected:
+    BH_05:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2014
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: psc17_attention
+    date: "2023-09-01"
+    value_as_number: 7
+
+- source_value: psc_total_notmet
+  id: 69
+  description: "9-year-old male; PSC-17 total score 15 in Sep 2023"
+  expected:
+    BH_08:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2014
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: psc17_total
+    date: "2023-09-01"
+    value_as_number: 15
+
+- source_value: psc_age12_excluded
+  id: 70
+  description: "12-year-old female; PSC-17 internalization score 4 in Sep 2023"
+  expected:
+    BH_05:
+      '2023': absent
+    BH_06:
+      '2023': absent
+    BH_07:
+      '2023': absent
+    BH_08:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2011
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: psc17_internalization
+    date: "2023-09-01"
+    value_as_number: 4

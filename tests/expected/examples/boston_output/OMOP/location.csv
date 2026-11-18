@@ -1,0 +1,2 @@
+location_id,address_1,address_2,city,state,zip,county,location_source_value,country_concept_id,country_source_value,latitude,longitude
+1,123 Main St,,Boston,MA,02118,,boston,,,,

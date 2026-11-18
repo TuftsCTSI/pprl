@@ -1,0 +1,101 @@
+person_id,name,city,state,zip,dob
+1,Earlean Carver,Leander,MA,29869,1965-01-24
+2,Lou Sanford,Centennial,MO,50820,2008-09-08
+3,Vernetta Bernard,Moscow,DE,49712,1930-05-01
+4,Cristie Watson,Salinas,DE,43596,1931-10-14
+5,Robbyn Goff,Darien,DE,20658,1958-01-25
+6,Cherlyn Orr,Lynbrook,AL,30867,1953-05-20
+7,Clint Grant,East Ridge,UT,99828,1983-02-20
+8,Lino Carrillo,Port Angeles,MO,51751,2002-07-20
+9,Renda Vega,New Bedford,NC,83641,1931-06-01
+10,Todd Slater,Paducah,IA,21986,2002-10-26
+11,Dyan Freeman,Buena Park,WV,49146,2005-09-05
+12,Valery Ferrell,Steubenville,OK,71429,2000-08-10
+13,Tyler Marquez,Macon,HI,76161,1996-11-12
+14,Ermelinda Robles,Monterey,IN,44590,1962-01-10
+15,Eldon Odom,Cedar Rapids,MA,58840,1980-09-02
+16,Rocky Richard,Gulfport,UT,75951,1962-05-05
+17,Charley Casey,Greenfield,WY,72383,1940-10-05
+18,Ernie Mays,Clearfield,AR,86130,1964-05-19
+19,Reggie Powers,Ocoee,NJ,58789,1931-09-21
+20,Rene Richmond,Davis,ND,70967,1941-01-11
+21,Stan Sweet,Lancaster,CT,46938,2004-09-08
+22,Harry Berger,Southfield,LA,21603,2008-06-13
+23,Gaylord Gaines,Logansport,NE,69030,1995-12-16
+24,Allen Boyd,Wilmington,NJ,72922,2002-05-11
+25,Tamekia Washington,Stafford,RI,16828,1978-02-18
+26,Loree Rose,Taylorsville,VT,04943,1962-08-27
+27,Kieth Rivers,Duluth,NY,81821,1971-07-04
+28,Earlean Bates,Piqua,ME,15142,1960-10-03
+29,Coleman Tate,Laurel,MS,72229,1941-09-15
+30,Steven Holcomb,Morristown,MO,97765,1943-09-03
+31,Elin Harvey,Garden City,CT,41113,1936-08-01
+32,Elease Burch,North Charleston,AR,99274,1934-01-23
+33,Zulema Guthrie,Clemmons,NJ,81532,2006-11-17
+34,Jacki Cannon,La Quinta,WI,53607,1935-09-15
+35,Ted Foreman,Cudahy,TN,61263,1943-08-05
+36,Andre Hardin,Moorhead,AL,53545,1963-09-07
+37,Lavern Wilkinson,Iowa City,IA,58370,1989-04-20
+38,Babette Wright,Port St. Lucie,NC,86597,1932-07-14
+39,Hyo Sharpe,Midlothian,NM,50590,2002-04-22
+40,Clyde Crosby,Greenbelt,IA,65864,1989-12-05
+41,Walter Bishop,Batavia,OR,50366,1938-07-21
+42,Sharilyn Cleveland,Providence,MI,18052,1988-07-19
+43,Shena Prince,Roseville,GA,61696,1969-04-04
+44,Winford Charles,Joliet,MI,41324,1991-11-09
+45,Jed Payne,Gahanna,SC,72147,1975-10-09
+46,Ressie Spears,West Palm Beach,KY,11557,1943-06-05
+47,Layne Ramsey,Duncan,KS,17195,1994-04-11
+48,Lazaro Page,Port Orange,VA,51486,1988-06-05
+49,Herschel Stanley,South Jordan,AZ,26005,1955-02-05
+50,Roman George,South St. Paul,OK,86215,1944-11-06
+51,Hilma Weber,Buffalo,WI,58658,2010-12-27
+52,Hugo Vinson,Philadelphia,WA,13346,1991-12-18
+53,Von Gibbs,Oxford,HI,51230,1962-08-01
+54,Elijah Hines,Aberdeen,WV,75266,1940-05-10
+55,Dione Cooke,North Canton,MI,73565,1976-07-21
+56,Ike Swanson,Long Branch,PA,09180,1967-09-26
+57,Lamonica Foster,Lauderhill,TX,05118,2001-02-19
+58,Edmond Horn,Asbury Park,MO,34337,2008-10-10
+59,Winfred Cardenas,Bloomingdale,TX,97056,1996-11-16
+60,Wesley Howe,Tulare,WY,57848,1994-09-07
+61,Jamie Chase,San Jose,VT,55778,1939-03-05
+62,Devon Donaldson,Culver City,IN,20425,1992-04-25
+63,Marx Meyer,Garfield Heights,LA,87730,1963-03-09
+64,Erminia Eaton,Spring Hill,WA,81943,1979-06-23
+65,Roni Fry,Coeur d'Alene,SD,34454,1995-11-11
+66,Kallie Marquez,Meriden,CA,10154,1979-04-27
+67,Lonnie Kent,Paris,MT,78506,1943-10-26
+68,Sylvester Austin,Cedar Rapids,UT,65680,1996-05-27
+69,Louetta Bush,Southfield,SD,18992,1944-06-02
+70,Kimbra Heath,American Fork,WY,51943,2003-10-13
+71,Lemuel Chambers,Dalton,SD,13433,1941-03-16
+72,Carmine Ayala,Sayreville,LA,26237,1961-08-25
+73,Gwyn Vaughan,Broadview Heights,MN,50022,1995-07-26
+74,Alfonzo Valentine,Sanford,NM,43502,2006-01-21
+75,Rupert Robles,Sikeston,FL,51052,1969-09-13
+76,Tracy Lindsey,Medina,IL,98477,1965-07-13
+77,Floria Dale,Simi Valley,ME,47161,1947-07-07
+78,Danuta Miles,Beaumont,NJ,15407,1993-01-06
+79,Temple Byers,Euclid,NY,76255,1988-06-19
+80,Damian Gillespie,Hinesville,NJ,78217,1940-10-05
+81,Aaron Lott,Wilmette,VT,04271,2001-09-22
+82,Rea Hardin,Albuquerque,MI,43103,1972-05-15
+83,Marcelino Simmons,Orinda,KY,43004,2008-11-20
+84,Lance Pearson,Gurnee,AZ,26354,1954-07-09
+85,France Davidson,Oxnard,TX,15307,2006-07-27
+86,Dante Reilly,Burton,HI,19589,1937-04-24
+87,Marg Franco,Brawley,CT,87341,1936-04-16
+88,Jeanett Chandler,Stephenville,ME,67883,1999-04-26
+89,Christene Sparks,Foster City,SC,01084,1944-03-11
+90,Lurline Kent,Athens,RI,69207,1985-12-13
+91,Clinton Dodson,Sheboygan,OK,62574,1974-02-03
+92,Malika Jennings,Christiansburg,AL,72495,1997-10-15
+93,Hank Watts,Berea,ME,44403,1997-01-14
+94,Jerrell Cox,Culver City,OH,33460,2004-09-29
+95,Shavon Merritt,Sylvania,HI,98677,1943-10-02
+96,Victor Baldwin,Shaker Heights,AL,42592,1980-05-31
+97,Leigh Glover,Mundelein,DE,58913,1970-05-21
+98,Evelina Acosta,Sacramento,ND,28334,1947-06-11
+99,Lien Middleton,East Cleveland,MN,59804,1943-04-07
+100,Winfred Valdez,Salem,IA,69446,1956-02-01

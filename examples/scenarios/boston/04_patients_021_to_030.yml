@@ -1,0 +1,195 @@
+individuals:
+- source_value: breast_met_25mo_mammo
+  id: 21
+  description: "53-year-old female; mammogram in Nov 2021"
+  expected:
+    PS_03:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1970
+  month_of_birth: 6
+  day_of_birth: 1
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  procedure:
+  - concept_id: mammography
+    date: "2021-11-01"
+
+- source_value: breast_notmet_old_mammo
+  id: 22
+  description: "50-year-old female; mammogram in Dec 2020; routine exam in Jun 2023"
+  expected:
+    PS_03:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1973
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: mammography
+    date: "2020-12-15"
+
+- source_value: breast_notmet_none
+  id: 23
+  description: "50-year-old female; no mammogram on record; routine exam in Jun 2023"
+  expected:
+    PS_03:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1973
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- source_value: breast_excluded_mastectomy
+  id: 24
+  description: "50-year-old female; mastectomy in Mar 2022; routine exam in Jun 2023"
+  expected:
+    PS_03:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1973
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: mastectomy
+    date: "2022-03-15"
+
+- source_value: breast_age49_excluded
+  id: 25
+  description: "49-year-old female; mammogram in Jun 2022; routine exam in Jun 2023"
+  expected:
+    PS_03:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1974
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: mammography
+    date: "2022-06-15"
+
+- source_value: breast_age74_included
+  id: 26
+  description: "74-year-old female; mammogram in Jun 2022; routine exam in Jun 2023"
+  expected:
+    PS_03:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1949
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: mammography
+    date: "2022-06-15"
+
+- source_value: breast_age75_excluded
+  id: 27
+  description: "75-year-old female; mammogram in Jun 2022; routine exam in Jun 2023"
+  expected:
+    PS_03:
+      '2022': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1948
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: mammography
+    date: "2022-06-15"
+
+- source_value: crc_met_fobt
+  id: 28
+  description: "53-year-old male; FOBT in May 2023; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1970
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  measurement:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- source_value: crc_met_colonoscopy_window
+  id: 29
+  description: "53-year-old male; colonoscopy in Jul 2014; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1970
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: colonoscopy
+    date: "2014-07-01"
+
+- source_value: crc_notmet_colonoscopy_old
+  id: 30
+  description: "53-year-old male; colonoscopy in Jul 2013; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1970
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: colonoscopy
+    date: "2013-07-01"

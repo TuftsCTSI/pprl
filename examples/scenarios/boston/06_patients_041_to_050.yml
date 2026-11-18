@@ -1,0 +1,192 @@
+individuals:
+- source_value: bmi_adult_met_29
+  id: 41
+  description: "43-year-old male with BMI 29.0 recorded in Aug 2023"
+  expected:
+    CVR_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1980
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  measurement:
+  - concept_id: bmi
+    date: "2023-08-01"
+    value_as_number: 29.0
+
+- source_value: bmi_adult_notmet_30
+  id: 42
+  description: "42-year-old female with BMI 30.0 recorded in Aug 2023"
+  expected:
+    CVR_01:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1981
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurement:
+  - concept_id: bmi
+    date: "2023-08-01"
+    value_as_number: 30.0
+
+- source_value: bmi_adult_last_met
+  id: 43
+  description: "41-year-old male; BMI 31.0 in May 2023, then 29.0 in Oct 2023"
+  expected:
+    CVR_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1982
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  measurement:
+  - concept_id: bmi
+    date: "2023-05-01"
+    value_as_number: 31.0
+  - concept_id: bmi
+    date: "2023-10-01"
+    value_as_number: 29.0
+
+- source_value: bmi_adult_last_notmet
+  id: 44
+  description: "40-year-old female; BMI 29.0 in May 2023, then 31.0 in Oct 2023"
+  expected:
+    CVR_01:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1983
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  measurement:
+  - concept_id: bmi
+    date: "2023-05-01"
+    value_as_number: 29.0
+  - concept_id: bmi
+    date: "2023-10-01"
+    value_as_number: 31.0
+
+- source_value: bmi_adult_age17_excluded
+  id: 45
+  description: "17-year-old male with BMI 29.0 recorded in Aug 2023"
+  expected:
+    CVR_01:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2006
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  measurement:
+  - concept_id: bmi
+    date: "2023-08-01"
+    value_as_number: 29.0
+
+- source_value: bmi_peds_met_94
+  id: 46
+  description: "13-year-old male with BMI percentile 94 in Aug 2023"
+  expected:
+    CVR_02:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2010
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  measurement:
+  - concept_id: bmi_percentile
+    date: "2023-08-01"
+    value_as_number: 94.0
+
+- source_value: bmi_peds_notmet_95
+  id: 47
+  description: "13-year-old female with BMI percentile 95 in Aug 2023"
+  expected:
+    CVR_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2010
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  measurement:
+  - concept_id: bmi_percentile
+    date: "2023-08-01"
+    value_as_number: 95.0
+
+- source_value: bmi_peds_last_met
+  id: 48
+  description: "13-year-old male; BMI percentile 95 in May 2023, then 94 in Oct 2023"
+  expected:
+    CVR_02:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2010
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  measurement:
+  - concept_id: bmi_percentile
+    date: "2023-05-01"
+    value_as_number: 95.0
+  - concept_id: bmi_percentile
+    date: "2023-10-01"
+    value_as_number: 94.0
+
+- source_value: bmi_peds_last_notmet
+  id: 49
+  description: "13-year-old male; BMI percentile 94 in May 2023, then 95 in Oct 2023"
+  expected:
+    CVR_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2010
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  measurement:
+  - concept_id: bmi_percentile
+    date: "2023-05-01"
+    value_as_number: 94.0
+  - concept_id: bmi_percentile
+    date: "2023-10-01"
+    value_as_number: 95.0
+
+- source_value: bmi_peds_age18_excluded
+  id: 50
+  description: "18-year-old female with BMI percentile 94 in Aug 2023"
+  expected:
+    CVR_02:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2005
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurement:
+  - concept_id: bmi_percentile
+    date: "2023-08-01"
+    value_as_number: 94.0

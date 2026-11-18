@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example project: guide for the merge agent</title>
+<style>
+  :root {
+    --text: #1d1d1f; --muted: #5c5c66; --background: #ffffff;
+    --panel: #f4f4f7; --rule: #d9d9e0; --accent: #2b5a9e; --warning: #8a4b00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #e8e8ed; --muted: #a5a5b0; --background: #17171a;
+      --panel: #222227; --rule: #3a3a42; --accent: #8fb4ec; --warning: #f0b46a;
+    }
+  }
+  body {
+    margin: 0 auto; max-width: 46rem; padding: 2rem 1rem 4rem;
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text); background: var(--background);
+  }
+  header { border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
+  header p { color: var(--muted); margin: 0.25rem 0 1rem; }
+  h1 { font-size: 1.6rem; margin: 0; }
+  h2 { font-size: 1.2rem; margin-top: 2.2rem; }
+  h2 .step { color: var(--muted); font-weight: normal; }
+  a { color: var(--accent); }
+  code {
+    font: 0.9em ui-monospace, "Cascadia Mono", Consolas, monospace;
+    background: var(--panel); padding: 0.1em 0.3em; border-radius: 3px;
+    overflow-wrap: anywhere;
+  }
+  pre { background: var(--panel); padding: 0.75rem 1rem; border-radius: 4px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 0.75rem 0; }
+  th, td { text-align: left; vertical-align: top; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule); }
+  th { font-weight: 600; }
+  .note { border-left: 3px solid var(--warning); padding: 0.25rem 0 0.25rem 0.9rem; margin: 1rem 0; }
+  footer { margin-top: 3rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }
+  @media print {
+    body { max-width: none; padding: 0; font-size: 11pt; }
+    a { color: inherit; }
+    h2 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<header>
+<h1>Example project: guide for the merge agent</h1>
+<p>pprl 3.0.0rc1, generated at 2026-11-16 08:30:00. Questions: Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+</header>
+<p>You are <strong>the merge agent</strong> of Example project. Each site participant (site_a and site_b) sends you the site's clinical tables, keyed by study ids that mean nothing outside the project, and the linkage agent sends you which study ids belong to the same person. You merge the tables into one dataset, with one new id for each person, for the host. You never see a hash, a name, or a site's own id.</p>
+<p><strong>Do not run <code class="command">pprl merge</code> until the go-ahead from Jo Example</strong>, which you should receive around 14:30 on Monday 16 November 2026. You can create your workspace at any time before merging, such as once the files arrive. Keep the linkage file, which reaches you before the go-ahead, unopened. The go-ahead goes out only once the linkage agent has deleted every copy of the hashes.</p>
+
+<p>The project's times:</p>
+<table>
+<tr><th>Planned</th><th>What happens</th></tr>
+<tr><td>09:00 on Monday 16 November 2026</td><td>bundle and this guide received</td></tr>
+<tr><td>14:00 on Monday 16 November 2026</td><td>linkage file received</td></tr>
+<tr><td>14:30 on Monday 16 November 2026</td><td>go-ahead received from Jo Example</td></tr>
+<tr><td>15:00 on Monday 16 November 2026</td><td>every site's tables received</td></tr>
+<tr><td>16:30 on Monday 16 November 2026</td><td>merged dataset sent to the host (steps 1 to 4)</td></tr>
+<tr><td>17:00 on Monday 16 November 2026</td><td>workspace destroyed, receipt sent (step 5)</td></tr>
+</table>
+<p>All times are Eastern time.</p>
+
+<h2><span class="step">1.</span> Install pprl</h2>
+<p>Install <a href="https://docs.astral.sh/uv/">uv</a>, then pprl 3.0.0rc1:</p>
+<pre><code class="command">uv tool install https://github.com/TuftsCTSI/pprl/releases/download/v3.0.0rc1/pprl-3.0.0rc1-py3-none-any.whl</code></pre>
+<p>Open a new terminal, and run <code class="command">pprl</code>: it lists its commands. If a step fails, or your computer restricts what you can install, write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+
+<h2><span class="step">2.</span> Create your workspace</h2>
+<p>Your workspace is a new, empty folder you create, such as <code class="file">example-project-merge</code>: somewhere your organization has approved for clinical data, on an encrypted drive, where files can be deleted permanently. Keep it out of search indexing, cloud sync and backups. You receive your bundle, <code class="file">merge.pprl</code>, from Jo Example, over a secure channel. Save it, and any of the files in step 3 you have received, in the folder, open a terminal there, and run:</p>
+<pre><code class="command">pprl init</code></pre>
+<p>pprl reads your role from the bundle and shows it back, makes the folder your workspace, and lists the files it created. Any other files stay as they are. Open a terminal in your workspace for every step below.</p>
+<div class="note"><p>Every file in this folder is deleted at the end of the project, so keep nothing else here, such as your notes.</p><p>Open no file in your workspace, not even to look: an editor or your computer itself can leave copies of a file elsewhere on the disk, such as backup files or a search index, which pprl cannot delete. To see what a file holds, run <code class="command">pprl inspect</code> on it.</p></div>
+<div class="note"><p>If you ever receive a bundle other than your own, do not open it: delete it, and tell Jo Example.</p></div>
+
+<h2><span class="step">3.</span> Merge the sites' tables</h2>
+<p>The linkage agent sends you the linkage file, <code class="file">linkages.pprl</code>, and each site participant sends you the site's tables, over a secure channel. The linkage file is expected around 14:00 on Monday 16 November 2026 and the tables around 15:00 on Monday 16 November 2026. Save them in your workspace folder, if you have not already, under the names they have:</p>
+<ul>
+<li><code class="file">site_a.tables.pprl</code>, from site_a</li>
+<li><code class="file">site_b.tables.pprl</code>, from site_b</li>
+</ul>
+<p>Never open or rename them: pprl refuses a file that was opened and saved. Then run:</p>
+<pre><code class="command">pprl merge</code></pre>
+<p>pprl checks that every file is from this project's set of bundles, and that each site's tables and hashes came from the same run at that site, then merges each table by the project's rules. It writes <code class="file">outbox/host/merged/</code>, one CSV file for each table:</p>
+<ul>
+<li><code class="file">outbox/host/merged/scores.csv</code>: the columns <code>person_id</code> and <code>score</code>; one row for each <code>person_id</code>.</li>
+</ul>
+<p>The column <code>person_id</code> holds each person's new id, the same in every table: a random number, drawn anew each time, that no site's ids can be traced from.</p>
+
+<h2><span class="step">4.</span> Send the merged dataset</h2>
+<p>Send exactly the files in your workspace's <code class="file">outbox/host/merged/</code> folder, as they are, to the host, Hal Example (<a href="mailto:hal@example.org">hal@example.org</a>), over a secure channel. This is planned for around 16:30 on Monday 16 November 2026. Never send anything else from your workspace, and above all never send the sites' tables or the linkage file on.</p>
+
+<h2><span class="step">5.</span> At the end of the project</h2>
+<p><strong>Do not run <code class="command">pprl destroy</code> until Jo Example tells you that the project's transfers are complete.</strong> This is planned for shortly before 17:00 on Monday 16 November 2026. Then delete any copy you shared of the merged dataset, and every other copy of the files you received, wherever they were shared, such as in your downloads folder. Then, in your workspace, run:</p>
+<pre><code class="command">pprl destroy</code></pre>
+<p>pprl lists every file in your workspace, asks you to type "yes", and deletes them permanently. It leaves the folder, with only your receipt, <code class="file">outbox/coordinator/merge.receipt_&lt;date&gt;.txt</code>: send it to Jo Example over a secure channel. The receipt holds your workspace's <code class="file">merge.log</code>, and no patient details or secret. You may then delete the folder.</p>
+<p>pprl destroy cannot delete copies kept by your storage (recycle bins, version history, retention policies and backups; OneDrive keeps deleted files for up to 93 days), so follow these up. Nor can it delete files you sent on, such as hashes at the linkage agent: each recipient destroys the copies received, and confirms that. Your drive&#x27;s encryption protects data left on the drive after deletion.</p>
+
+<h2>Questions</h2>
+<p>Write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>) about anything unclear, however small: a step in this guide, a message you did not expect, or anything that did not seem right. Each question helps the project. If pprl stops with a problem and its message doesn't settle it, send <code class="file">merge.log</code>, in your workspace, to Jo Example over a secure channel: it holds what pprl showed you, and no patient details or secret.</p>
+
+<footer>
+<p>This guide was generated at 2026-11-16 08:30:00 for Example project by pprl guides, for pprl 3.0.0rc1. If anything in it does not match what pprl shows you, stop, and write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+</footer>
+</body>
+</html>

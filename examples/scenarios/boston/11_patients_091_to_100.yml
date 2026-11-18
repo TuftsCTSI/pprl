@@ -1,0 +1,246 @@
+individuals:
+- source_value: nqf_hospice_excluded
+  id: 91
+  description: "Type 2 diabetes diagnosed Jan 2023; hospice encounter in Apr 2023; A1c 7.5% in Jul 2023"
+  expected:
+    CVR_04:
+      '2023': absent
+    CVR_05:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1950
+  month_of_birth: 6
+  day_of_birth: 10
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2023-01-01"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-07-01"
+    value_as_number: 7.5
+    unit_concept_id: percent
+  observation:
+  - concept_id: hospice_enc
+    date: "2023-04-01"
+  - concept_id: routine_exam
+    date: "2023-07-01"
+
+- source_value: renal_esrd_excluded
+  id: 92
+  description: "Type 2 diabetes since 2020; end-stage renal disease diagnosed Aug 2022; A1c 8.0% in May 2023"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1960
+  month_of_birth: 3
+  day_of_birth: 5
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2020-02-01"
+  - concept_id: esrd
+    start_date: "2022-08-01"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-05-01"
+    value_as_number: 8.0
+    unit_concept_id: percent
+  observation:
+  - concept_id: routine_exam
+    date: "2023-05-01"
+
+- source_value: renal_transplant_excluded
+  id: 93
+  description: "Type 2 diabetes since 2018; kidney transplant in Nov 2021; A1c 7.2% in Apr 2023"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1958
+  month_of_birth: 9
+  day_of_birth: 20
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2018-01-15"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-04-01"
+    value_as_number: 7.2
+    unit_concept_id: percent
+  observation:
+  - concept_id: routine_exam
+    date: "2023-04-01"
+  procedure:
+  - concept_id: kidney_transplant_proc
+    date: "2021-11-01"
+
+- source_value: pregnancy_htn_excluded
+  id: 94
+  description: "Hypertension diagnosed Jan 2023; pregnant Mar through Nov 2023; blood pressure 145/92 in Aug 2023"
+  expected:
+    CVR_03:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1992
+  month_of_birth: 7
+  day_of_birth: 14
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: hypertension
+    start_date: "2023-01-10"
+  - concept_id: pregnancy
+    start_date: "2023-03-01"
+    end_date: "2023-11-15"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-08-01"
+    value_as_number: 145
+  - concept_id: diastolic_bp
+    date: "2023-08-01"
+    value_as_number: 92
+
+- source_value: bh01_depression_inactive
+  id: 95
+  description: "38-year-old female; depression diagnosed Mar 2023; last routine exam in Jun 2020"
+  expected:
+    BH_01:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1985
+  month_of_birth: 3
+  day_of_birth: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: depression
+    start_date: "2023-03-01"
+    visit: {concept_id: zero_visit}
+  observation:
+  - concept_id: routine_exam
+    date: "2020-06-01"
+
+- source_value: bh01_both_anxiety_depression
+  id: 96
+  description: "35-year-old male; depression diagnosed Jan 2023 and anxiety Feb 2023; routine exam in Jun 2023"
+  expected:
+    BH_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1988
+  month_of_birth: 2
+  day_of_birth: 14
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: depression
+    start_date: "2023-01-15"
+  - concept_id: anxiety
+    start_date: "2023-02-20"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: bh01_recently_expired
+  id: 97
+  description: "43-year-old female; depression diagnosed Jun 2021; routine exams in Jun 2023 and Jun 2024"
+  expected:
+    BH_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1980
+  month_of_birth: 8
+  day_of_birth: 5
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: depression
+    start_date: "2021-06-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+  - concept_id: routine_exam
+    date: "2024-06-01"
+
+- source_value: bh02_smh_inactive
+  id: 98
+  description: "48-year-old male; schizophrenia diagnosed Jan 2022; last routine exam in Jun 2019"
+  expected:
+    BH_02:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1975
+  month_of_birth: 4
+  day_of_birth: 22
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: schizophrenia
+    start_date: "2022-01-10"
+    visit: {concept_id: zero_visit}
+  observation:
+  - concept_id: routine_exam
+    date: "2019-06-01"
+
+- source_value: bh02_both_schiz_bipolar
+  id: 99
+  description: "43-year-old female; schizophrenia Mar 2022 and bipolar Sep 2022; routine exam in Jun 2023"
+  expected:
+    BH_02:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1980
+  month_of_birth: 7
+  day_of_birth: 18
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: schizophrenia
+    start_date: "2022-03-01"
+  - concept_id: bipolar
+    start_date: "2022-09-15"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: bh09_sud_relapse
+  id: 100
+  description: "43-year-old male; alcohol use disorder Mar-Sep 2018 (resolved), then new episode Apr 2023"
+  expected:
+    BH_09:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1980
+  month_of_birth: 1
+  day_of_birth: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: sud_alcohol
+    start_date: "2018-03-01"
+    end_date: "2018-09-01"
+  - concept_id: sud_alcohol
+    start_date: "2023-04-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"

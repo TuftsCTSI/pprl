@@ -1,0 +1,241 @@
+individuals:
+- source_value: dis04_intellectual
+  id: 81
+  description: "15-year-old female; intellectual disability diagnosed Apr 2016; routine exam in Jun 2023"
+  expected:
+    DIS_04:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2008
+  month_of_birth: 12
+  day_of_birth: 1
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: intellectual_disability
+    start_date: "2016-04-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: smoke_current_smoker
+  id: 82
+  description: "53-year-old male; tobacco user status recorded in Mar 2023"
+  expected:
+    PS_01:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1970
+  month_of_birth: 4
+  day_of_birth: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: tobacco_status
+    date: "2023-03-15"
+    value_as_concept_id: tobacco_user
+  - concept_id: routine_exam
+    date: "2023-03-15"
+
+- source_value: smoke_non_smoker
+  id: 83
+  description: "55-year-old female; tobacco non-user status recorded in May 2023"
+  expected:
+    PS_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1968
+  month_of_birth: 10
+  day_of_birth: 12
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: tobacco_status
+    date: "2023-05-20"
+    value_as_concept_id: tobacco_nonuser
+  - concept_id: routine_exam
+    date: "2023-05-20"
+
+- source_value: smoke_latest_wins
+  id: 84
+  description: "58-year-old male; tobacco user in Feb 2023, then non-user in Sep 2023"
+  expected:
+    PS_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1965
+  month_of_birth: 2
+  day_of_birth: 28
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: tobacco_status
+    date: "2023-02-01"
+    value_as_concept_id: tobacco_user
+  - concept_id: tobacco_status
+    date: "2023-09-01"
+    value_as_concept_id: tobacco_nonuser
+  - concept_id: routine_exam
+    date: "2023-09-01"
+
+- source_value: mmr_met_before_18mo
+  id: 85
+  description: "Infant born Jan 2022; MMR vaccine administered Jun 2023 at age 17 months"
+  expected:
+    PS_04:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2022
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+  drug:
+  - concept_id: mmr_vaccine
+    start_date: "2023-06-01"
+    lot_number: LOT001
+
+- source_value: mmr_notmet_after_18mo
+  id: 86
+  description: "Infant born Jan 2022; MMR vaccine administered Dec 2023 at age 23 months"
+  expected:
+    PS_04:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2022
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-12-01"
+  drug:
+  - concept_id: mmr_vaccine
+    start_date: "2023-12-01"
+    lot_number: LOT002
+
+- source_value: mmr_notmet_none
+  id: 87
+  description: "Infant born Jun 2022; no MMR vaccine on record; routine exam in Dec 2023"
+  expected:
+    PS_04:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2022
+  month_of_birth: 6
+  day_of_birth: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-12-15"
+
+- source_value: nqf_dm_excluded_frailty
+  id: 88
+  description: "68-year-old with type 2 diabetes; advanced illness and frailty diagnosed Mar 2023; A1c 8.5% in Jun 2023"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1955
+  month_of_birth: 1
+  day_of_birth: 1
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2020-01-15"
+  - concept_id: advanced_illness
+    start_date: "2023-03-01"
+  - concept_id: frailty_dx
+    start_date: "2023-03-01"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-06-15"
+    value_as_number: 8.5
+    unit_concept_id: percent
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  - concept_id: acute_inpatient_admission
+    date: "2023-03-01"
+
+- source_value: nqf_dm_excluded_frailty_encounter
+  id: 89
+  description: "69-year-old with type 2 diabetes; advanced illness and frailty encounter Apr 2023; A1c 8.0% in Jul 2023"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1954
+  month_of_birth: 5
+  day_of_birth: 10
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2020-03-01"
+  - concept_id: advanced_illness
+    start_date: "2023-04-01"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-07-01"
+    value_as_number: 8.0
+    unit_concept_id: percent
+  observation:
+  - concept_id: frailty_encounter
+    date: "2023-04-01"
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  - concept_id: acute_inpatient_admission
+    date: "2023-04-01"
+
+- source_value: nqf_dm_excluded_frailty_symptom
+  id: 90
+  description: "70-year-old with type 2 diabetes; advanced illness and frailty symptom May 2023; A1c 7.8% in Aug 2023"
+  expected:
+    CVR_04:
+      '2023': 1
+    CVR_05:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1953
+  month_of_birth: 8
+  day_of_birth: 20
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: type_2_diabetes
+    start_date: "2019-06-01"
+  - concept_id: advanced_illness
+    start_date: "2023-05-01"
+  measurement:
+  - concept_id: hba1c
+    date: "2023-08-01"
+    value_as_number: 7.8
+    unit_concept_id: percent
+  observation:
+  - concept_id: frailty_symptom
+    date: "2023-05-01"
+  - concept_id: routine_exam
+    date: "2023-08-01"
+  - concept_id: acute_inpatient_admission
+    date: "2023-05-01"

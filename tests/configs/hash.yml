@@ -1,0 +1,10 @@
+# Shared by every test case; `patients` and `output` are filled in per site.
+secret: fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210
+hash_length: 1024
+fill_ratio: 1.0
+fields:
+  name: 500
+  city: 200
+  state: 200
+  zip: 200
+  dob: 300

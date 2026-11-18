@@ -1,0 +1,9 @@
+# Half of the name and address fields change case.
+seed: 2IXDyQVt5LSMjqeT1drm
+sites: [site_a, site_b]
+outputs: [patients]
+generated_individuals:
+  - {sites: [site_a, site_b], count: 100}
+pii:
+  name: {case_change: 0.5}
+  address: {case_change: 0.5}

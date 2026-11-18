@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example project: guide for the host</title>
+<style>
+  :root {
+    --text: #1d1d1f; --muted: #5c5c66; --background: #ffffff;
+    --panel: #f4f4f7; --rule: #d9d9e0; --accent: #2b5a9e; --warning: #8a4b00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #e8e8ed; --muted: #a5a5b0; --background: #17171a;
+      --panel: #222227; --rule: #3a3a42; --accent: #8fb4ec; --warning: #f0b46a;
+    }
+  }
+  body {
+    margin: 0 auto; max-width: 46rem; padding: 2rem 1rem 4rem;
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text); background: var(--background);
+  }
+  header { border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
+  header p { color: var(--muted); margin: 0.25rem 0 1rem; }
+  h1 { font-size: 1.6rem; margin: 0; }
+  h2 { font-size: 1.2rem; margin-top: 2.2rem; }
+  h2 .step { color: var(--muted); font-weight: normal; }
+  a { color: var(--accent); }
+  code {
+    font: 0.9em ui-monospace, "Cascadia Mono", Consolas, monospace;
+    background: var(--panel); padding: 0.1em 0.3em; border-radius: 3px;
+    overflow-wrap: anywhere;
+  }
+  pre { background: var(--panel); padding: 0.75rem 1rem; border-radius: 4px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 0.75rem 0; }
+  th, td { text-align: left; vertical-align: top; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule); }
+  th { font-weight: 600; }
+  .note { border-left: 3px solid var(--warning); padding: 0.25rem 0 0.25rem 0.9rem; margin: 1rem 0; }
+  footer { margin-top: 3rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }
+  @media print {
+    body { max-width: none; padding: 0; font-size: 11pt; }
+    a { color: inherit; }
+    h2 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<header>
+<h1>Example project: guide for the host</h1>
+<p>pprl 3.0.0rc1, generated at 2026-11-16 08:30:00. Questions: Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+</header>
+<p>You are <strong>the host</strong> of Example project. You receive its merged dataset: the clinical tables of its 2 sites, site_a and site_b, with the records of each person found at more than one site brought together. You do not install or run pprl, and you never receive anything else from the project.</p>
+
+<p>The project's times:</p>
+<table>
+<tr><th>Planned</th><th>What happens</th></tr>
+<tr><td>16:30 on Monday 16 November 2026</td><td>merged dataset sent to you by the merge agent</td></tr>
+<tr><td>17:00 on Monday 16 November 2026</td><td>project's workspaces destroyed, after you confirm receipt (step 2)</td></tr>
+</table>
+<p>All times are Eastern time.</p>
+
+<h2><span class="step">1.</span> Receive the merged dataset</h2>
+<p>The merge agent sends you the folder <code class="file">merged/</code>, over a secure channel, expected around 16:30 on Monday 16 November 2026. It holds one CSV file for each table:</p>
+<ul>
+<li><code class="file">merged/scores.csv</code>: the columns <code>person_id</code> and <code>score</code>; one row for each <code>person_id</code>.</li>
+</ul>
+<p>Save them where your organization holds the project's data. The column <code>person_id</code> holds each person's id, the same in every table. It is new: a random number, drawn when the tables were merged, so that no row can be traced back to a site's records. No site's own ids, and no study ids, are in the dataset.</p>
+
+<h2><span class="step">2.</span> Confirm</h2>
+<p>Check that you have every table above, then tell Jo Example. Delete any other copy outside your own storage, wherever it was shared, such as in your downloads folder.</p>
+
+<h2>Questions</h2>
+<p>Write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>) about anything unclear, however small: a step in this guide, or anything that did not seem right.</p>
+
+<footer>
+<p>This guide was generated at 2026-11-16 08:30:00 for Example project by pprl guides, for pprl 3.0.0rc1. If anything in it does not match what pprl shows you, stop, and write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+</footer>
+</body>
+</html>

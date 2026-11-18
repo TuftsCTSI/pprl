@@ -1,0 +1,7 @@
+# No individual has a record at both sites: nothing should link.
+seed: dUQa8ziMuxeL7l5wKV1A
+sites: [site_a, site_b]
+outputs: [patients]
+generated_individuals:
+  - {sites: [site_a], count: 100}
+  - {sites: [site_b], count: 100}

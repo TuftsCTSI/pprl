@@ -1,0 +1,86 @@
+<p>You are <strong>the $site participant</strong> of $project: you run pprl for $site, one of its $site_count sites, $sites. You turn your patients' identifying details into hashes, which let the linkage agent find the same person at different sites without seeing a name, and you prepare your clinical tables for the merge agent. No patient's details, and none of your own ids, leave your site.</p>
+
+<p>The project's times:</p>
+<table>
+<tr><th>Planned</th><th>What happens</th></tr>
+<tr><td>$time_bundles</td><td>bundle and this guide received</td></tr>
+<tr><td>$time_secrets</td><td>public key sent, secret file received (steps 1 to 3)</td></tr>
+<tr><td>$time_hash</td><td>hashes sent to the linkage agent (steps 4 to 10)</td></tr>
+<tr><td>$time_review</td><td>go-ahead received from $contact_name</td></tr>
+<tr><td>$time_pack</td><td>tables sent to the merge agent (step 11)</td></tr>
+<tr><td>$time_destroy</td><td>workspace destroyed, receipt sent (step 12)</td></tr>
+</table>
+<p>All times are Eastern time.</p>
+
+<h2><span class="step">1.</span> Install pprl</h2>
+<p>Install <a href="https://docs.astral.sh/uv/">uv</a>, then pprl $release:</p>
+<pre>$install</pre>
+<p>Open a new terminal, and run <code class="command">pprl</code>: it lists its commands. If a step fails, or your computer restricts what you can install, write to $contact.</p>
+
+<h2><span class="step">2.</span> Create your workspace</h2>
+<p>You receive your bundle, $bundle, from $contact_name, over a secure channel. It holds your role's settings: never forward it, and never open it.</p>
+<p>Your workspace is a new, empty folder you create, such as $folder, that will hold your patients' details until the end of the project. It must be somewhere your organization has approved for them, on an encrypted drive, where files can be deleted permanently. Keep it out of search indexing, cloud sync and backups. Put the bundle in the folder, open a terminal there, and run:</p>
+<pre>$init</pre>
+<p>pprl reads your role and site from the bundle and shows them back, makes the folder your workspace, makes your key pair, and lists the files it created. Open a terminal in your workspace for every step below.</p>
+<div class="note"><p>$deleted_at_end</p><p>Open no file in your workspace but $set_aside (step 7), not even to look: an editor, a spreadsheet or your computer itself can leave copies of a file elsewhere on the disk, such as backup and AutoRecover files or a search index, which pprl cannot delete. To see what a file holds, run <code class="command">pprl inspect</code> on it, such as $inspect_hashes.</p></div>
+
+<h2><span class="step">3.</span> Exchange keys for the project's secret</h2>
+<p>Every site's hashes use one secret, which reaches you locked, so that only your workspace can open it.</p>
+<ol>
+<li>Send $key_out, your public key, to $contact over a secure channel. It is not secret, but the coordinator accepts it only from you.</li>
+<li>$contact_name sends back your secret file over a secure channel, expected around $time_secrets. Save it in your workspace as $secret, without opening it.</li>
+</ol>
+<p>Your private key, $private_key, is what unlocks it. It never leaves your workspace: never send it to anyone, nor copy it elsewhere. The linkage agent must never see your secret file or your private key.</p>
+
+<h2><span class="step">4.</span> Export your tables</h2>
+<p>Export each of the project's tables, with one row for each record, keyed by your own ids, and save it in your workspace's $tables_folder folder, as CSV: in Excel, choose File &gt; Save As &gt; "CSV UTF-8". Leave a cell empty where the value is unknown (NULL), and close the file once it is saved.</p>
+<ul>
+$site_tables
+</ul>
+
+<h2><span class="step">5.</span> Select the study's rows</h2>
+<pre><code class="command">pprl select</code></pre>
+<p>pprl checks each table, keeps only the rows the project's rules keep, and says how many rows each rule left out. It writes $selected, which stays in your workspace and is never sent. The rows it leaves out are not written anywhere. Its patients are the study's: only they are hashed.</p>
+<p>Read its summary, and do what any warning says.</p>
+
+<h2><span class="step">6.</span> Export your patient file</h2>
+<p>Export one row for each of your patients, as your records identify them, keyed by the same ids as your tables, with exactly these columns, named exactly so (names are case-sensitive), and no others. pprl leaves out every patient without a row that <code class="command">pprl select</code> kept, so the file may hold more patients than the study's.</p>
+<table>
+<tr><th>Column</th><th>What it holds</th></tr>
+$patient_columns
+</table>
+<p>Where your records keep apart what a column holds as one, such as first and last names, join them with a space: the order of the words makes no difference.</p>
+<p>Save it in your workspace as $patients, as CSV UTF-8, and close it. pprl reads any line endings, and a file saved as Windows text.</p>
+
+<h2><span class="step">7.</span> Clean your patient file</h2>
+<pre><code class="command">pprl clean</code></pre>
+<p>pprl leaves out the patients who are not the study's, checks the rest, repairs what it safely can, and gives each patient a random study id in place of your own id. It writes $cleaned, which stays in your workspace and is never sent, and $set_aside, the rows it could not use: each one's row number in $patients, your id, and the reason, and none of the patient's details, so that your data team can find and fix the record in your own database. It is the one file in your workspace to open.</p>
+<p>Read its warnings, and do what each says.</p>
+
+<h2><span class="step">8.</span> Hash your patients</h2>
+<pre><code class="command">pprl hash</code></pre>
+<p>pprl unlocks the secret, turns each patient's identifying details in $cleaned into a hash with it, and writes $hashes_out: each patient's study id and hash, and nothing else.</p>
+<p>Read its summary: it hashes every patient <code class="command">pprl clean</code> kept, and no others. If it shows a warning, do what the warning says.</p>
+
+<h2><span class="step">9.</span> Pack your tables</h2>
+<pre><code class="command">pprl pack</code></pre>
+<p>pprl checks the rows <code class="command">pprl select</code> kept against the project's rules again, and writes $tables_out: those rows, with each of your ids replaced by its study id. It stays in your workspace until the go-ahead (step 11). You pack now, before your hashes leave, so that any problem with your patients or tables comes to light first. It leaves out, with a warning, the rows of a patient it has no study id for: one <code class="command">pprl clean</code> set aside, or one not in your patient file.</p>
+<p>Read its warnings, and do what each says.</p>
+
+<h2><span class="step">10.</span> Send your hashes</h2>
+<p>Send $hashes_out, from your workspace's $outbox folder, as it is, to the linkage agent, $contact_linkage, over a secure channel. This is planned for around $time_hash. Send nothing else yet, and above all not your tables: no table moves until the linkage agent has deleted every copy of the hashes. Never open this file: pprl refuses a file that was opened and saved.</p>
+<p>Now wait for the go-ahead from $contact_name.</p>
+
+<h2><span class="step">11.</span> Wait for the go-ahead, then send your tables</h2>
+<p>Do not send your tables until $contact_name gives the go-ahead, which you should receive around $time_review. Then send $tables_out, from your workspace's $outbox folder, as it is, to the merge agent, $contact_merge, over a secure channel. Never send anything else from your workspace.</p>
+<p>Leave every other file in your workspace as it is: $destroy deletes them all at the end of the project (step 12).</p>
+<p>Do not run <code class="command">pprl clean</code> again after the go-ahead: the study ids would no longer match the linkage.</p>
+
+<h2><span class="step">12.</span> At the end of the project</h2>
+<p><strong>Do not run $destroy until $contact_name tells you that the project's transfers are complete.</strong> This is planned for shortly before $time_destroy. Then delete every copy of a file you sent or received outside your workspace, wherever it was shared, such as in your downloads folder or in messages you sent or received, emptying deleted items: your hash file above all, and your tables, your secret file and your bundle. Then, in your workspace, run:</p>
+<pre>$destroy</pre>
+<p>pprl lists every file in your workspace, asks you to type "yes", and deletes them permanently. It leaves the folder, with only your receipt, $receipt: send it to $contact_name over a secure channel. The receipt holds your workspace's $log, and no patient details or secret. You may then delete the folder.</p>
+<p>$destroy_limits</p>
+
+<h2>Questions</h2>
+<p>Write to $contact about anything unclear, however small: a step in this guide, a message you did not expect, or anything that did not seem right. Each question helps the project. If pprl stops with a problem and its message doesn't settle it, send $log, in your workspace, to $contact_name over a secure channel: it holds what pprl showed you, and no patient details or secret.</p>

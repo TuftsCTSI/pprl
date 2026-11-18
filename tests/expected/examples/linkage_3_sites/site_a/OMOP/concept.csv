@@ -1,0 +1,10 @@
+concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,standard_concept,concept_code,valid_start_date,valid_end_date,invalid_reason
+8507,MALE,Unknown,Unknown,Unknown,S,8507,1970-01-01,2099-12-31,
+8515,Asian,Unknown,Unknown,Unknown,S,8515,1970-01-01,2099-12-31,
+8516,Black,Unknown,Unknown,Unknown,S,8516,1970-01-01,2099-12-31,
+8522,Other,Unknown,Unknown,Unknown,S,8522,1970-01-01,2099-12-31,
+8527,White,Unknown,Unknown,Unknown,S,8527,1970-01-01,2099-12-31,
+8532,FEMALE,Unknown,Unknown,Unknown,S,8532,1970-01-01,2099-12-31,
+8551,UNKNOWN,Unknown,Unknown,Unknown,S,8551,1970-01-01,2099-12-31,
+38003563,Hispanic,Unknown,Unknown,Unknown,S,38003563,1970-01-01,2099-12-31,
+38003564,Not Hispanic,Unknown,Unknown,Unknown,S,38003564,1970-01-01,2099-12-31,

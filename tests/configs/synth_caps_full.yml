@@ -1,0 +1,9 @@
+# Every name and address field changes case at both sites.
+seed: GJtVNtkHTVN7P2ucOSJI
+sites: [site_a, site_b]
+outputs: [patients]
+generated_individuals:
+  - {sites: [site_a, site_b], count: 100}
+pii:
+  name: {case_change: 1.0}
+  address: {case_change: 1.0}

@@ -1,0 +1,5 @@
+[FAIL] output file            site_a.hashes.pprl already exists, and pprl never replaces a file or folder.
+                              To fix: Move or delete the earlier site_a.hashes.pprl.
+[FAIL] patients file          Cannot find the cleaned patient file nonexistent.clean.pprl in this workspace.
+                              To fix: Put it in this workspace, with exactly that name.
+[STOP] Nothing was written.

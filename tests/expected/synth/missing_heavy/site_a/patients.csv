@@ -1,0 +1,101 @@
+person_id,name,city,state,zip,dob
+1,Gerry Hutchinson,Chickasha,RI,,1952-03-24
+2,Deja Robles,Leander,TX,35918,1959-01-25
+3,Bruce Burton,Atlantic City,NM,90809,1942-02-09
+4,Edwardo Wall,Riverbank,,,1979-01-17
+5,Jean,Redlands,WA,81287,1972-06-29
+6,Mclean,Wenatchee,ID,08900,1971-09-20
+7,Figueroa,,VT,39832,1940-08-25
+8,Maddox,Rocklin,MD,84951,1972-06-27
+9,Head,Palestine,WI,28904,1960-02-24
+10,Ike Adkins,Agawam,NC,17287,1985-03-16
+11,Julio Kim,Rowlett,MA,31976,1931-03-15
+12,Hien Flynn,Wheeling,PA,63387,1998-07-18
+13,Chia Johnson,Munster,CO,17365,1966-01-19
+14,Justin Calhoun,Clarksburg,LA,78783,1987-04-28
+15,Abram,El Mirage,NJ,,1941-11-16
+16,Petersen,Overland Park,TX,15948,1988-03-31
+17,Thompson,New Brighton,NY,74354,1966-12-18
+18,Shalanda Craig,Tualatin,NE,44374,1995-11-05
+19,Morris Vazquez,Hercules,,58138,1936-07-29
+20,Yolande Jarvis,,ND,95648,1983-02-10
+21,Mercado,Redlands,OK,59673,1956-07-05
+22,Whitney Rivera,Spartanburg,NH,92415,1965-06-28
+23,Aubrey Knox,Duluth,CO,,1956-06-30
+24,Sheppard,Santa Rosa,AK,34131,1985-09-15
+25,Bret,Greenville,NV,98233,1984-10-24
+26,Hayes,,NV,38359,1950-09-10
+27,Janae Hendrix,Bedford,NM,82808,1966-09-15
+28,Golden,,UT,42815,1994-07-11
+29,Bryan,Belton,DE,49828,1958-05-31
+30,,,WV,76311,1965-02-16
+31,Allena Scott,Miami,NY,90987,2000-04-15
+32,Franchesca Mcmahon,New Albany,CA,34775,1960-11-21
+33,Dudley Crane,St. Cloud,OK,77189,1968-02-06
+34,Hall,Hempstead,NJ,89503,1957-04-27
+35,Aurelio Shannon,,,27503,1967-06-06
+36,Isreal Yang,Edmonds,FL,,2000-04-05
+37,Ashlea Walls,Loma Linda,LA,45510,2008-02-02
+38,Witt,Nashua,AL,49496,2003-12-20
+39,Wilbur,Tiffin,AK,29514,1976-06-11
+40,Melvin Gutierrez,Jeffersontown,CO,67909,1942-11-15
+41,Bradley Farmer,Long Beach,MO,,1943-11-03
+42,Neville Sellers,Corona,RI,97065,1963-03-15
+43,Elisabeth Cantrell,Perris,NE,06186,1961-03-14
+44,Hannelore Gilmore,Boston,WI,17353,1966-03-31
+45,Kurt Fry,Laconia,,15539,1988-05-18
+46,Patton,Leander,MA,76261,1951-11-10
+47,Sharp,Howard,WI,19832,1934-06-04
+48,Jefferson Chase,Sunnyvale,,95666,1981-07-29
+49,Dario Ruiz,Carlisle,MD,61161,1961-09-25
+50,Patrick Watkins,,NH,,1955-04-29
+51,Donella Fisher,,MI,27056,1975-09-14
+52,Nohemi,Bellaire,AK,14954,2000-12-28
+53,Charles Bowers,Fitchburg,MI,53279,1969-02-07
+54,Marshall,Kirksville,MA,23947,2010-04-26
+55,Esta,,ME,01580,1994-08-16
+56,Larry Silva,Edwardsville,NJ,50819,1978-08-08
+57,Chi,,,,1986-05-07
+58,Kelly Barnett,,NC,19055,2009-08-01
+59,Leia Olsen,Irvine,AK,40071,1940-12-20
+60,Jimmy Castaneda,Christiansburg,AR,86234,1938-05-08
+61,Mallie Erickson,Mercer Island,,05128,1959-10-03
+62,Elmer Ortega,Provo,ND,,1946-08-14
+63,Carlos Parker,Cortland,MD,84880,1971-03-27
+64,Vivien Hester,Brownwood,FL,34298,1982-11-14
+65,Palmer Montoya,Oak Creek,IL,01072,1979-12-17
+66,Lawrence Gaines,Miami Gardens,AR,17594,1973-11-11
+67,Tod Robertson,Woodbury,OR,57042,1951-02-16
+68,Sebastian Woods,,ID,48594,1931-06-02
+69,Tom Burke,Hesperia,TX,70990,1992-08-17
+70,Bill Maddox,Addison,KY,12463,2002-05-25
+71,Casey Cantrell,Fairbanks,,66199,1956-08-25
+72,Odilia Summers,Tamarac,WV,,1939-10-07
+73,Gross,Hamtramck,WI,,2002-09-18
+74,Hong Ashley,Roy,IL,65736,1949-07-17
+75,Del Mcpherson,Green,SD,38275,1976-11-27
+76,Buddy Hurley,Hagerstown,KY,40157,1972-02-09
+77,Everett Wilkins,St. Joseph,WA,23032,1935-11-04
+78,Maegan Day,Garner,NH,17855,2007-10-04
+79,Barrett,Eureka,KS,38421,2009-05-25
+80,Yuk Kirby,Scottsdale,MS,,1933-12-21
+81,Jamal Barton,,WI,27089,1965-05-24
+82,Damian,,KY,,1938-02-19
+83,Robt Kinney,San Ramon,RI,00638,1940-11-20
+84,Ardelia,St. Petersburg,NH,95240,2000-09-01
+85,Dario Frank,Charleston,ME,,1977-10-24
+86,Efren Marks,Yucca Valley,WA,54625,1980-02-12
+87,Brant Holloway,Keller,WI,46740,1978-07-20
+88,Mandie Clemons,,DE,77235,1959-07-15
+89,Adolfo Britt,Blaine,SD,19189,1973-01-25
+90,Tyson Frazier,,WI,94796,2004-09-19
+91,Freeda Atkinson,,MA,01159,1956-04-07
+92,Travis Dodson,Carson City,CO,06798,2004-12-05
+93,Faustina Cochran,Eastpointe,,79003,1934-03-15
+94,Hayes,Moore,KS,16304,1963-10-11
+95,Demarcus,Round Lake Beach,NJ,35414,1993-02-25
+96,Tifany Butler,Arlington,DE,89751,1983-01-11
+97,Keneth,Pearland,IN,99946,1945-02-09
+98,Patience,Greeley,OK,52827,1963-08-30
+99,Ben Spence,San Dimas,KS,15546,1955-03-11
+100,Lonnie Webster,Richland,WV,34857,1977-11-24

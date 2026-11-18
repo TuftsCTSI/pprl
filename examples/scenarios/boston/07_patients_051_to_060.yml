@@ -1,0 +1,198 @@
+individuals:
+- source_value: food_secure
+  id: 51
+  description: "38-year-old female; food security screen Jul 2023 with response 'Never true'"
+  expected:
+    SDOH_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1985
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: food_security_q1
+    date: "2023-07-01"
+    value_as_string: "Never true"
+    value_as_concept_id: never_true
+
+- source_value: food_insecure
+  id: 52
+  description: "38-year-old male; food security screen Jul 2023 with response 'Sometimes true'"
+  expected:
+    SDOH_01:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1985
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: food_security_q2
+    date: "2023-07-01"
+    value_as_string: "Sometimes true"
+    value_as_concept_id: sometimes_true
+
+- source_value: food_secure_overridden
+  id: 53
+  description: "39-year-old female; food security 'Sometimes true' in Mar 2023, then 'Never true' in Sep 2023"
+  expected:
+    SDOH_01:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1984
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: food_security_q1
+    date: "2023-03-01"
+    value_as_string: "Sometimes true"
+    value_as_concept_id: sometimes_true
+  - concept_id: food_security_q1
+    date: "2023-09-01"
+    value_as_string: "Never true"
+    value_as_concept_id: never_true
+
+- source_value: housing_secure
+  id: 54
+  description: "37-year-old female; housing screen Jul 2023: 'I have a steady place to live'"
+  expected:
+    SDOH_02:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1986
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: housing_stability
+    date: "2023-07-01"
+    value_as_string: "I have a steady place to live"
+    value_as_concept_id: steady_place
+
+- source_value: housing_insecure
+  id: 55
+  description: "37-year-old male; housing screen Jul 2023: worried about losing current housing"
+  expected:
+    SDOH_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1986
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: housing_stability
+    date: "2023-07-01"
+    value_as_string: "I have a place to live today, but I am worried about losing"
+    value_as_concept_id: worried_about_losing
+
+- source_value: housing_homeless
+  id: 56
+  description: "37-year-old male; positive homelessness screen in Jul 2023"
+  expected:
+    SDOH_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1986
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: homelessness
+    date: "2023-07-01"
+    value_as_string: true
+    value_as_concept_id: yes_homeless
+
+- source_value: housing_lack_homeless
+  id: 57
+  description: "36-year-old female; positive housing lack screen in Jul 2023"
+  expected:
+    SDOH_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1987
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: housing_lack
+    date: "2023-07-01"
+    value_as_string: true
+    value_as_concept_id: yes_homeless
+
+- source_value: housing_secure_overridden
+  id: 58
+  description: "36-year-old male; housing 'worried about losing' in Mar 2023, then 'steady place' in Sep 2023"
+  expected:
+    SDOH_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1987
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: housing_stability
+    date: "2023-03-01"
+    value_as_string: "I have a place to live today, but I am worried about losing"
+    value_as_concept_id: worried_about_losing
+  - concept_id: housing_stability
+    date: "2023-09-01"
+    value_as_string: "I have a steady place to live"
+    value_as_concept_id: steady_place
+
+- source_value: covid_adult_met_2023
+  id: 59
+  description: "43-year-old male; COVID Pfizer vaccine in Mar 2023 with lot number"
+  expected:
+    COVID_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1980
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-07-01"
+  drug:
+  - concept_id: covid_pfizer
+    start_date: "2023-03-01"
+    lot_number: LOT-2023-A
+
+- source_value: covid_adult_notmet_none
+  id: 60
+  description: "43-year-old male; no COVID vaccine on record; routine exam in Jul 2023"
+  expected:
+    COVID_01:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1980
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-07-01"

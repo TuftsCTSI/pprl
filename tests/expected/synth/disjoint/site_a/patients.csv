@@ -1,0 +1,101 @@
+person_id,name,city,state,zip,dob
+1,Eddie Massey,Opelika,HI,98118,1980-10-15
+2,Sachiko Tanner,Lino Lakes,AL,04413,2002-12-28
+3,Hyo Hurley,Matteson,NH,95196,1960-03-09
+4,Yasuko Rosales,Taunton,RI,83055,1992-10-19
+5,Candie Powers,Ashwaubenon,IL,31382,1965-06-22
+6,Louie Mclean,American Fork,GA,98247,2007-12-30
+7,Shanice Bray,Petersburg,AR,72160,1994-01-27
+8,Dionna Eaton,Madera,WI,53664,1952-10-20
+9,Andres Marshall,Lawrenceville,KY,93481,1988-08-06
+10,Dreama Mosley,Reno,IA,90508,1990-06-20
+11,Vannesa Lewis,Walnut Creek,NV,80208,1943-03-27
+12,Gordon Nicholson,Corvallis,PA,89610,1979-06-28
+13,Keven Weaver,Paramount,MD,61198,1999-09-12
+14,Freddy Owen,Harrisonburg,CT,69877,1992-09-23
+15,Chadwick Winters,Seymour,MI,63454,1946-11-01
+16,Donnetta Heath,Sacramento,ND,39134,1978-11-13
+17,Shira Parker,Cranston,CT,68241,1954-02-14
+18,Irwin Bowers,Rosemead,GA,39607,2000-10-12
+19,Norah O'brien,Reno,IL,81358,1981-02-10
+20,Ruthanne Anthony,Fontana,NJ,46860,1992-10-20
+21,Carrol Mccall,Gainesville,OR,48287,1996-09-15
+22,Nyla Sherman,Lompoc,RI,79341,1995-09-23
+23,Scottie Mack,Elizabeth City,CO,19298,1940-05-24
+24,Douglass Tucker,Savannah,IL,76377,1938-06-13
+25,Mitsue Robinson,Allen,IL,84813,1980-06-30
+26,Antone Acosta,Foster City,NJ,86978,1933-07-22
+27,Alonso Bell,Bethany,ME,47385,2006-03-14
+28,Augustine Cannon,Horn Lake,PA,77560,2005-09-25
+29,Alline Rivas,Claremore,VT,75708,1950-12-11
+30,Alverta Murphy,Buffalo Grove,PA,05670,1957-04-27
+31,Antone Patel,Edwardsville,OR,11448,1936-04-17
+32,Demarcus Becker,Los Altos,DE,93273,1972-06-22
+33,Carlyn Hendricks,Romeoville,NE,82640,1936-04-14
+34,Ike Baldwin,Newburgh,SD,57950,1968-07-29
+35,Irving Lopez,Brownsville,OR,43866,1945-11-26
+36,Irina Gamble,Balch Springs,WA,07238,1953-09-13
+37,Millard Vang,Bixby,OR,38940,1976-02-29
+38,Maira Sheppard,Arcadia,ID,54075,1997-11-28
+39,Lucien Avery,East Moline,WA,76081,1939-04-04
+40,Marielle Sexton,Alpharetta,IN,99911,1940-12-10
+41,Colton Parrish,Carteret,NC,75514,1981-08-29
+42,Carol Woods,Streamwood,PA,79146,1944-04-17
+43,Vernon Compton,Los Angeles,IL,33411,1975-01-13
+44,Shirely Potter,Edwardsville,SD,91440,1934-07-27
+45,Ivelisse Walters,Alton,SC,91077,1968-02-04
+46,Mike Norton,Goose Creek,NJ,08591,1944-03-28
+47,Delinda Stout,Newton,WY,25371,2004-02-28
+48,Dalila Fisher,Broadview Heights,SD,80008,1968-07-18
+49,Rubi Barber,Little Rock,IL,10507,1994-05-13
+50,Marcelo Flowers,Muskego,NE,73842,1938-07-15
+51,Ayesha Keith,Auburn Hills,MS,61349,1999-03-09
+52,Lincoln Santos,Bullhead City,GA,32914,1952-01-02
+53,Taylor Simpson,Meriden,WI,80803,1966-03-16
+54,Kourtney Roman,High Point,CA,87158,1977-09-11
+55,Tommie Campos,Leominster,HI,53562,2002-11-12
+56,Roy Luna,Olive Branch,AL,64618,1940-04-30
+57,Sherell Patel,Daytona Beach,SC,37837,2004-07-15
+58,Leonel Morris,East Moline,OR,12527,1942-06-21
+59,Raymonde Oliver,San Dimas,CA,78559,1967-10-22
+60,Crista Rodgers,Statesboro,FL,55152,1980-12-18
+61,Mathew Flowers,Hoover,SC,36437,1935-08-22
+62,Linwood Pitts,Alexandria,NV,43851,1957-02-11
+63,Rickie Petersen,Glendora,AR,41741,2007-08-26
+64,Taneka Becker,Alsip,MA,59330,1978-02-01
+65,Serafina Mcdowell,Kearney,IL,24285,1941-04-17
+66,Santina Yates,Muskogee,MS,29859,1976-10-13
+67,Milly Brown,Mishawaka,ME,19401,1946-11-26
+68,Regine Flowers,San Bernardino,KS,49172,1972-10-09
+69,Miquel Santiago,Elgin,AZ,61984,1957-09-03
+70,Sindy Valentine,Lebanon,WV,69991,1944-10-11
+71,Derick Jarvis,Lindenwold,FL,74916,1993-07-09
+72,Darryl Galloway,West Memphis,SD,96156,1972-01-08
+73,Neal Munoz,Wasco,VA,24204,1996-06-13
+74,Lynelle Sampson,St. Louis,NM,90285,1930-06-01
+75,Willie Osborn,Oakley,WA,60409,1965-11-27
+76,Janessa Brooks,Salisbury,SC,29429,1933-12-31
+77,Jude Hale,West Lafayette,KS,81307,1964-05-23
+78,Kaleigh Melton,Canton,HI,50890,1987-11-08
+79,Williams Fischer,Aiken,AL,69652,2004-01-02
+80,Noe Farley,Cliffside Park,WV,91977,1963-06-14
+81,Melodee Fernandez,Newport Beach,VA,70569,1976-11-22
+82,Lyndon Hoffman,Chaska,VA,16495,1992-03-06
+83,Peter Luna,Lake Zurich,SD,77627,2006-09-11
+84,Simona Hampton,Grand Rapids,SD,25842,1934-05-02
+85,Joan Burnett,Dublin,ND,17376,1997-11-11
+86,Francie Christensen,St. Louis,AR,39440,1994-04-27
+87,Eric Holt,Cerritos,PA,92901,1967-07-31
+88,Cornell Patton,Paragould,RI,58568,1998-02-26
+89,Rubi Cotton,Mequon,MN,46950,1979-11-01
+90,Ethelene Ware,Ardmore,IA,81618,1989-11-10
+91,Dorathy Daniels,North Miami Beach,NC,58130,1977-11-16
+92,Hye Good,National City,OR,23890,1996-11-07
+93,Latoria Ramos,Trenton,MS,25731,1959-11-01
+94,Laronda Merritt,Oakley,SD,43389,2003-10-06
+95,Heide Glass,Michigan City,SD,81411,1982-11-14
+96,Casey Payne,St. Paul,MT,66540,1969-11-04
+97,Elodia O'connor,Inkster,WA,32308,1991-09-05
+98,Ellis Campos,Portland,GA,06274,1972-11-13
+99,Jenise Erickson,Rialto,RI,89678,1931-06-02
+100,Luci Colon,Palmetto Bay,CO,06889,1961-09-15

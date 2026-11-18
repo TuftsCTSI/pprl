@@ -1,0 +1,162 @@
+# Generated patient histories at three sites, for testing record merging.
+#
+# Every individual's events come from clinical modules. Each site records
+# only part of each history, sometimes a conflicting copy, and knows the
+# individual by its own person_id. Each site has its own care sites, and
+# records each person's address as a location. true_linkages.csv is the
+# answer key. Raise `scale` for a larger population.
+seed: 20261005
+scale: 1
+sites: [hospital, clinic, imaging]
+outputs: [omop, patients]
+person_ids: per_site
+person_locations: true
+
+birth_years: [1925, 2025]
+measurement_years: [2023, 2025]
+event_sharing: {one_site: 0.5, several_sites: 0.3, all_sites: 0.2}
+same_month: 0.15
+site_coverage:
+  imaging: [mammography, ct_colonography]
+
+cdm_source:
+  - name: "Synthetic Histories"
+    abbreviation: "HIST"
+    cdm_holder: "TuftsCTSI"
+    source_description: "Generated histories at three sites, for testing record merging"
+
+concept:
+  - {id: 8507, name: MALE}
+  - {id: 8532, name: FEMALE}
+  - {id: 8527, name: white}
+  - {id: 8516, name: black}
+  - {id: 8515, name: asian}
+  - {id: 8657, name: american_indian_or_alaska_native}
+  - {id: 8557, name: native_hawaiian_or_pacific_islander}
+  - {id: 8552, name: unknown_race}
+  - {id: 38003563, name: hispanic}
+  - {id: 38003564, name: not_hispanic}
+  - {id: 8761, name: community_health_center}
+  - {id: 8940, name: office_visit}
+
+# Each site's own buildings. A visit at another site's care site is
+# recorded without one.
+location:
+  - {source_value: hospital_campus, city: Boston, state: MA, zip: "02118", sites: [hospital]}
+  - {source_value: hospital_annex, city: Boston, state: MA, zip: "02134", sites: [hospital]}
+  - {source_value: clinic_main, city: NewTown, state: MA, zip: "01608", sites: [clinic]}
+  - {source_value: imaging_center, city: Quincy, state: MA, zip: "02169", sites: [imaging]}
+
+care_site:
+  - source_value: hospital_primary_care
+    name: "General Hospital Primary Care"
+    place_of_service_concept_id: office_visit
+    location_id: hospital_campus
+    sites: [hospital]
+  - source_value: hospital_chc
+    name: "ABC Community Health Center"
+    place_of_service_concept_id: community_health_center
+    location_id: hospital_annex
+    sites: [hospital]
+  - source_value: clinic_family_medicine
+    name: "NewTown Family Medicine"
+    place_of_service_concept_id: office_visit
+    location_id: clinic_main
+    sites: [clinic]
+  - source_value: clinic_pediatrics
+    name: "NewTown Pediatrics"
+    place_of_service_concept_id: office_visit
+    location_id: clinic_main
+    sites: [clinic]
+  - source_value: clinic_chc
+    name: "Main Street CHC"
+    place_of_service_concept_id: community_health_center
+    location_id: clinic_main
+    sites: [clinic]
+  - source_value: imaging_suite
+    name: "Center for Imaging"
+    location_id: imaging_center
+    sites: [imaging]
+
+generated_individuals:
+  - sites: [hospital, clinic, imaging]
+    count: 50
+    modules: &coherent
+      routine_exam: {prevalence: 0.9}
+      blood_pressure: {prevalence: 0.6}
+      body_mass_index: {prevalence: 0.7}
+      psc17: {prevalence: 0.5}
+      food_security_screen: {prevalence: 0.4}
+      housing_screen: {prevalence: 0.4}
+      mmr_vaccine: {prevalence: 0.85}
+      hypertension: {prevalence: 0.3}
+      type_2_diabetes: {prevalence: 0.12}
+      hba1c: {prevalence: 0.2}
+      tobacco_status: {prevalence: 0.5}
+      covid_vaccine: {prevalence: 0.6}
+      depression: {prevalence: 0.1}
+      anxiety: {prevalence: 0.1}
+      schizophrenia: {prevalence: 0.02}
+      bipolar: {prevalence: 0.03}
+      alcohol_use_disorder: {prevalence: 0.05}
+      opioid_use_disorder: {prevalence: 0.03}
+      substance_abuse: {prevalence: 0.02}
+      vision_disability: {prevalence: 0.03}
+      hearing_disability: {prevalence: 0.03}
+      autism_spectrum: {prevalence: 0.03}
+      intellectual_disability: {prevalence: 0.02}
+      mammography: {prevalence: 0.6}
+      mastectomy: {prevalence: 0.02}
+      fobt: {prevalence: 0.4}
+      fit_dna: {prevalence: 0.2}
+      colonoscopy: {prevalence: 0.4}
+      sigmoidoscopy: {prevalence: 0.1}
+      ct_colonography: {prevalence: 0.05}
+      colectomy: {prevalence: 0.01}
+      advanced_illness: {prevalence: 0.03}
+      frailty_diagnosis: {prevalence: 0.03}
+      frailty_encounter: {prevalence: 0.03}
+      frailty_symptom: {prevalence: 0.03}
+      hospice: {prevalence: 0.02}
+      acute_inpatient_admission: {prevalence: 0.08}
+      esrd: {prevalence: 0.02}
+      kidney_transplant: {prevalence: 0.01}
+      pregnancy: {prevalence: 0.1}
+  - {sites: [hospital, clinic], count: 50, modules: *coherent}
+  - {sites: [hospital, imaging], count: 25, modules: *coherent}
+  - {sites: [clinic, imaging], count: 25, modules: *coherent}
+  - {sites: [hospital], count: 25, modules: *coherent}
+  - {sites: [clinic], count: 25, modules: *coherent}
+  # Any combination of events, with no clinical rules
+  - {sites: [hospital, clinic], count: 20, modules: {scatter: {}}}
+
+person_attributes:
+  gender_concept_id:
+    change_rate: 0.02
+    pool:
+      - {value: MALE, weight: 49}
+      - {value: FEMALE, weight: 51}
+  # Flattened weights, so every value occurs often enough to test
+  race_concept_id:
+    change_rate: 0.05
+    pool:
+      - {value: white, weight: 25}
+      - {value: black, weight: 15}
+      - {value: asian, weight: 15}
+      - {value: american_indian_or_alaska_native, weight: 10}
+      - {value: native_hawaiian_or_pacific_islander, weight: 10}
+      - {value: unknown_race, weight: 10}
+      - {value: 0, weight: 5}        # no matching concept
+  ethnicity_concept_id:
+    change_rate: 0.05
+    pool:
+      - {value: not_hispanic, weight: 60}
+      - {value: hispanic, weight: 25}
+      - {value: 0, weight: 15}       # unknown
+
+pii:
+  name:
+    typos: {rate: 0.05, max_edits: 1}
+  address:
+    change_rate: 0.05
+    typos: {rate: 0.05, max_edits: 1}

@@ -1,0 +1,61 @@
+seed: 20260926
+scale: 1
+sites: [site_a, site_b, site_c]
+outputs: [omop, patients]
+
+cdm_source:
+  - name: "Synthetic Linkage Test"
+    abbreviation: "SLT"
+    cdm_holder: "Test"
+    source_description: "Synthetic 3-site dataset for linkage testing"
+
+concept:
+  - {id: 8507, name: "MALE"}
+  - {id: 8532, name: "FEMALE"}
+  - {id: 8551, name: "UNKNOWN"}
+  - {id: 8527, name: "White"}
+  - {id: 8516, name: "Black"}
+  - {id: 8515, name: "Asian"}
+  - {id: 8522, name: "Other"}
+  - {id: 38003563, name: "Hispanic"}
+  - {id: 38003564, name: "Not Hispanic"}
+
+generated_individuals:
+  - {sites: [site_a, site_b, site_c], count: 50}
+  - {sites: [site_a, site_b], count: 50}
+  - {sites: [site_a, site_c], count: 50}
+  - {sites: [site_b, site_c], count: 50}
+  - {sites: [site_a], count: 850}
+  - {sites: [site_b], count: 850}
+  - {sites: [site_c], count: 850}
+
+person_attributes:
+  gender_concept_id:
+    change_rate: 0.0
+    pool:
+      - {value: "MALE", weight: 49}
+      - {value: "FEMALE", weight: 49}
+      - {value: "UNKNOWN", weight: 2}
+  race_concept_id:
+    change_rate: 0.05
+    pool:
+      - {value: "White", weight: 60}
+      - {value: "Black", weight: 13}
+      - {value: "Asian", weight: 6}
+      - {value: "Other", weight: 21}
+  ethnicity_concept_id:
+    change_rate: 0.05
+    pool:
+      - {value: "Not Hispanic", weight: 82}
+      - {value: "Hispanic", weight: 18}
+
+pii:
+  name:
+    typos:
+      rate: 0.10
+      max_edits: 1
+  address:
+    change_rate: 0.05
+    typos:
+      rate: 0.10
+      max_edits: 1

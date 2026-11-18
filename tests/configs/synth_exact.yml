@@ -1,0 +1,6 @@
+# Identical records at both sites: every shared individual should link.
+seed: mSjy2cMGVrqznNJUeo0f
+sites: [site_a, site_b]
+outputs: [patients]
+generated_individuals:
+  - {sites: [site_a, site_b], count: 100}

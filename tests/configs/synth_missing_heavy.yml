@@ -1,0 +1,9 @@
+# About 30% of name and address fields are empty at one site or the other.
+seed: kYGtH8WuUeWWouGlhvgt
+sites: [site_a, site_b]
+outputs: [patients]
+generated_individuals:
+  - {sites: [site_a, site_b], count: 100}
+pii:
+  name: {missing: 0.15}
+  address: {missing: 0.15}

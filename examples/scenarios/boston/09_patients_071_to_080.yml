@@ -1,0 +1,203 @@
+individuals:
+- source_value: bh01_depression_active
+  id: 71
+  description: "38-year-old female; depression diagnosed Mar 2023; routine exam in Jun 2023"
+  expected:
+    BH_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1985
+  month_of_birth: 4
+  day_of_birth: 10
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: depression
+    start_date: "2023-03-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: bh01_anxiety_active
+  id: 72
+  description: "33-year-old male; anxiety diagnosed May 2023; routine exam in Jun 2023"
+  expected:
+    BH_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1990
+  month_of_birth: 7
+  day_of_birth: 20
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: anxiety
+    start_date: "2023-05-15"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: bh01_expired
+  id: 73
+  description: "45-year-old female; depression Feb to Jun 2019 (resolved); routine exam in Jun 2023"
+  expected:
+    BH_01:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1978
+  month_of_birth: 1
+  day_of_birth: 5
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: depression
+    start_date: "2019-02-01"
+    end_date: "2019-06-01"
+    visit: {concept_id: zero_visit}
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: bh02_schizophrenia
+  id: 74
+  description: "48-year-old male; schizophrenia diagnosed Jan 2022; routine exam in Jun 2023"
+  expected:
+    BH_02:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1975
+  month_of_birth: 9
+  day_of_birth: 12
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: schizophrenia
+    start_date: "2022-01-10"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: bh02_bipolar
+  id: 75
+  description: "41-year-old female; bipolar disorder diagnosed Apr 2023; routine exam in Jun 2023"
+  expected:
+    BH_02:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1982
+  month_of_birth: 11
+  day_of_birth: 3
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: bipolar
+    start_date: "2023-04-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: bh09_sud_active
+  id: 76
+  description: "43-year-old male; alcohol use disorder diagnosed Feb 2023; routine exam in Jun 2023"
+  expected:
+    BH_09:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1980
+  month_of_birth: 6
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: sud_alcohol
+    start_date: "2023-02-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: bh09_sud_expired
+  id: 77
+  description: "44-year-old female; alcohol use disorder Jan to Jun 2019 (resolved); routine exam in Jun 2023"
+  expected:
+    BH_09:
+      '2019': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1979
+  month_of_birth: 3
+  day_of_birth: 22
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: sud_alcohol
+    start_date: "2019-01-10"
+    end_date: "2019-06-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: dis01_vision
+  id: 78
+  description: "63-year-old female; vision disability diagnosed Jun 2020; routine exam in Jun 2023"
+  expected:
+    DIS_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1960
+  month_of_birth: 2
+  day_of_birth: 14
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: vision_disability
+    start_date: "2020-06-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: dis02_hearing
+  id: 79
+  description: "68-year-old male; hearing disability diagnosed Mar 2021; routine exam in Jun 2023"
+  expected:
+    DIS_02:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1955
+  month_of_birth: 8
+  day_of_birth: 30
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: hearing_disability
+    start_date: "2021-03-15"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: dis03_autism
+  id: 80
+  description: "13-year-old male; autism spectrum diagnosed Sep 2015; routine exam in Jun 2023"
+  expected:
+    DIS_03:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2010
+  month_of_birth: 5
+  day_of_birth: 20
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: autism_spectrum
+    start_date: "2015-09-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"

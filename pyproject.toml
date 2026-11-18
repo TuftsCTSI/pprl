@@ -1,0 +1,139 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pprl"
+version = "3.0.0rc1"
+authors = [
+  { name="Ashlin Harris" },
+  { name="Michael Foster" }
+]
+description = "Privacy-preserving record linkage for Tufts CTSI and collaborators"
+readme = "README.md"
+requires-python = "==3.14.*"
+# Every package pprl runs with, at its exact version: written by
+# `make pins` (python -m tests.pins) from [tool.pprl] requires; do not edit
+dependencies = [
+  "anonlink @ https://github.com/TuftsCTSI/anonlink/releases/download/v0.16.0%2Btufts.4/anonlink-0.16.0%2Btufts.4-cp314-cp314-macosx_10_15_x86_64.whl#sha256=f699478ecb2344f8f97d172b072a50079ea5a3c6a0b952b377cd5f8892261337 ; platform_machine == 'x86_64' and sys_platform == 'darwin'",
+  "anonlink @ https://github.com/TuftsCTSI/anonlink/releases/download/v0.16.0%2Btufts.4/anonlink-0.16.0%2Btufts.4-cp314-cp314-macosx_11_0_arm64.whl#sha256=098a3fd63854074f69dcb8e7ae8533f660d3c28e8ed1d24c419b36a3f86b06da ; platform_machine == 'arm64' and sys_platform == 'darwin'",
+  "anonlink @ https://github.com/TuftsCTSI/anonlink/releases/download/v0.16.0%2Btufts.4/anonlink-0.16.0%2Btufts.4-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl#sha256=301a0ca00517eae7e9f10733773f15627c07c6dea18845a06abd375b176d11a6 ; platform_machine == 'x86_64' and sys_platform == 'linux'",
+  "anonlink @ https://github.com/TuftsCTSI/anonlink/releases/download/v0.16.0%2Btufts.4/anonlink-0.16.0%2Btufts.4-cp314-cp314-win_amd64.whl#sha256=0b329408a01d2485e2befe02e3da5c0a3525a73dce67a200b4a7904b624c0623 ; platform_machine == 'AMD64' and sys_platform == 'win32'",
+  "anyascii==0.3.3",
+  "argcomplete==3.7.2",
+  "attrs==26.1.0",
+  "bitarray==3.12.3",
+  "cffi==2.1.1 ; platform_python_implementation != 'PyPy'",
+  "clkhash @ https://github.com/TuftsCTSI/clkhash/releases/download/v0.18.3%2Btufts.3/clkhash-0.18.3%2Btufts.3-py3-none-any.whl#sha256=b8d5a9d3212ef66031108179b977fdc7d0e75007b9431b0c14f3b793b7463794",
+  "colorama==0.4.6",
+  "cryptography==50.0.2",
+  "jsonschema==4.26.0",
+  "jsonschema-specifications==2025.9.1",
+  "mimesis==22.2.0",
+  "numpy==2.5.4",
+  "pandas==3.1.1",
+  "pycparser==3.12 ; implementation_name != 'PyPy' and platform_python_implementation != 'PyPy'",
+  "python-dateutil==4.0.0",
+  "pyyaml==6.0.3",
+  "referencing==0.37.0",
+  "rpds-py==2026.9.1",
+  "tqdm==4.70.1",
+  "typing-extensions==4.16.0",
+  "tzdata==2026.6",
+]
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.urls]
+Homepage = "https://github.com/TuftsCTSI/pprl"
+Repository = "https://github.com/TuftsCTSI/pprl"
+Issues = "https://github.com/TuftsCTSI/pprl/issues"
+
+[project.scripts]
+pprl = "pprl.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pprl*"]
+
+[tool.setuptools.package-data]
+pprl = [
+  "py.typed",
+  "synth/cdm/*",
+  "templates/*.html",
+]
+
+[tool.pprl]
+requires = [
+  "anonlink @ https://github.com/TuftsCTSI/anonlink/releases/download/v0.16.0%2Btufts.4/anonlink-0.16.0%2Btufts.4-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl ; sys_platform == 'linux' and platform_machine == 'x86_64'",
+  "anonlink @ https://github.com/TuftsCTSI/anonlink/releases/download/v0.16.0%2Btufts.4/anonlink-0.16.0%2Btufts.4-cp314-cp314-macosx_10_15_x86_64.whl ; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+  "anonlink @ https://github.com/TuftsCTSI/anonlink/releases/download/v0.16.0%2Btufts.4/anonlink-0.16.0%2Btufts.4-cp314-cp314-macosx_11_0_arm64.whl ; sys_platform == 'darwin' and platform_machine == 'arm64'",
+  "anonlink @ https://github.com/TuftsCTSI/anonlink/releases/download/v0.16.0%2Btufts.4/anonlink-0.16.0%2Btufts.4-cp314-cp314-win_amd64.whl ; sys_platform == 'win32' and platform_machine == 'AMD64'",
+  "anyascii>=0.3.3",
+  "argcomplete>=3.6.3",
+  "bitarray>=3",
+  "clkhash @ https://github.com/TuftsCTSI/clkhash/releases/download/v0.18.3%2Btufts.3/clkhash-0.18.3%2Btufts.3-py3-none-any.whl",
+  "colorama>=0.4.6",
+  "cryptography>=47",
+  "mimesis==22.2.0",
+  "numpy>=2.4.0",
+  "pandas>=2.2.3",
+  "PyYAML>=6.0.0",
+  "typing-extensions>=4.0.0", # imported by Mimesis
+]
+
+[tool.ruff]
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["ALL"]
+allowed-confusables = ["×"]
+ignore = [
+  "COM812",  # The formatter places trailing commas itself.
+  "D203",    # Conflicts with D211 (no blank line before a class docstring).
+  "D213",    # Conflicts with D212 (the summary starts on the first line).
+  "CPY001",  # No copyright line per file: LICENSE covers the whole project.
+  "PLR0913", # Total argument count. PLR0917 (positional arguments) is kept,
+             # so any argument after the fifth must be passed by name.
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+  "S101",    # pytest checks results with assert.
+  "PLR2004", # A test compares with its expected value, written out.
+  "SLF001",  # A test may inspect or replace a private part of pprl.
+  "S311",    # Seeded randomness, so that test data repeats.
+]
+"tests/{playground,wheel_check,pins}.py" = ["T201"]
+"tests/benchmarks/report.py" = ["T201"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.codespell]
+skip = "*.csv"
+ignore-words-list = "EHR"
+check-hidden = false
+
+[tool.pytest.ini_options]
+# Run on every core, and skip the exhaustive tests (`make test-all`, or
+# `pytest -m "extended or not extended"`, runs them). Benchmark results go to
+# build/benchmarks, not pytest-benchmark's hidden .benchmarks folder.
+addopts = "--doctest-modules --strict-markers -n auto -m 'not extended' --benchmark-storage=build/benchmarks"
+testpaths = ["src/pprl", "tests"]
+# The benchmarks take minutes; run them with `make bench`.
+norecursedirs = [".*", "build", "dist", "*.egg", "venv", "benchmarks"]
+
+[dependency-groups]
+dev = [
+    "codespell>=2.4.3",
+    "jellyfish>=1.2.1",
+    "pytest>=8.4.2",
+    "pytest-benchmark>=5.3.0",
+    "pytest-xdist>=3.8.0",
+    "ruff==0.17.4",
+    "ty==0.0.101",
+]

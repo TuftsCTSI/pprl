@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example project: guide for the linkage agent</title>
+<style>
+  :root {
+    --text: #1d1d1f; --muted: #5c5c66; --background: #ffffff;
+    --panel: #f4f4f7; --rule: #d9d9e0; --accent: #2b5a9e; --warning: #8a4b00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #e8e8ed; --muted: #a5a5b0; --background: #17171a;
+      --panel: #222227; --rule: #3a3a42; --accent: #8fb4ec; --warning: #f0b46a;
+    }
+  }
+  body {
+    margin: 0 auto; max-width: 46rem; padding: 2rem 1rem 4rem;
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text); background: var(--background);
+  }
+  header { border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
+  header p { color: var(--muted); margin: 0.25rem 0 1rem; }
+  h1 { font-size: 1.6rem; margin: 0; }
+  h2 { font-size: 1.2rem; margin-top: 2.2rem; }
+  h2 .step { color: var(--muted); font-weight: normal; }
+  a { color: var(--accent); }
+  code {
+    font: 0.9em ui-monospace, "Cascadia Mono", Consolas, monospace;
+    background: var(--panel); padding: 0.1em 0.3em; border-radius: 3px;
+    overflow-wrap: anywhere;
+  }
+  pre { background: var(--panel); padding: 0.75rem 1rem; border-radius: 4px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 0.75rem 0; }
+  th, td { text-align: left; vertical-align: top; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule); }
+  th { font-weight: 600; }
+  .note { border-left: 3px solid var(--warning); padding: 0.25rem 0 0.25rem 0.9rem; margin: 1rem 0; }
+  footer { margin-top: 3rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }
+  @media print {
+    body { max-width: none; padding: 0; font-size: 11pt; }
+    a { color: inherit; }
+    h2 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<header>
+<h1>Example project: guide for the linkage agent</h1>
+<p>pprl 3.0.0rc1, generated at 2026-11-16 08:30:00. Questions: Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+</header>
+<p>You are <strong>the linkage agent</strong> of Example project. Each site participant (site_a and site_b) sends you the site's hashes: codes made from patients' identifying details with a secret you never receive. You find the hashes that belong to the same person, and send the groups you find to the merge agent. You never see a name, a site's own id, or a clinical table.</p>
+
+<p>The project's times:</p>
+<table>
+<tr><th>Planned</th><th>What happens</th></tr>
+<tr><td>09:00 on Monday 16 November 2026</td><td>bundle and this guide received</td></tr>
+<tr><td>12:00 on Monday 16 November 2026</td><td>every site's hashes received</td></tr>
+<tr><td>14:00 on Monday 16 November 2026</td><td>linkage file and linkage report sent (steps 1 to 4)</td></tr>
+<tr><td>14:30 on Monday 16 November 2026</td><td>hashes deleted, workspace destroyed, receipt sent (step 5)</td></tr>
+</table>
+<p>All times are Eastern time.</p>
+
+<h2><span class="step">1.</span> Install pprl</h2>
+<p>Install <a href="https://docs.astral.sh/uv/">uv</a>, then pprl 3.0.0rc1:</p>
+<pre><code class="command">uv tool install https://github.com/TuftsCTSI/pprl/releases/download/v3.0.0rc1/pprl-3.0.0rc1-py3-none-any.whl</code></pre>
+<p>Open a new terminal, and run <code class="command">pprl</code>: it lists its commands. If a step fails, or your computer restricts what you can install, write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+
+<h2><span class="step">2.</span> Create your workspace</h2>
+<p>Your workspace is a new, empty folder you create, such as <code class="file">example-project-linkage</code>: somewhere your organization has approved for the project's files, on an encrypted drive, where files can be deleted permanently. Keep it out of search indexing, cloud sync and backups. You receive your bundle, <code class="file">linkage.pprl</code>, from Jo Example, over a secure channel. You can create your workspace at any time before linking, such as once the sites' hash files arrive (step 3). Save the bundle, and any hash files you have, in the folder, open a terminal there, and run:</p>
+<pre><code class="command">pprl init</code></pre>
+<p>pprl reads your role from the bundle and shows it back, makes the folder your workspace, and lists the files it created. Any hash files stay as they are. Open a terminal in your workspace for every step below.</p>
+<div class="note"><p>Every file in this folder is deleted at the end of the project, so keep nothing else here, such as your notes.</p><p>Open no file in your workspace, not even to look: an editor or your computer itself can leave copies of a file elsewhere on the disk, such as backup files or a search index, which pprl cannot delete. To see what a file holds, run <code class="command">pprl inspect</code> on it.</p></div>
+<div class="note"><p>If you ever receive a file meant for a site participant, such as a site's bundle, secret file or private key, do not open it: delete it, and tell Jo Example. The secret is what you must never have.</p></div>
+
+<h2><span class="step">3.</span> Link the sites' hashes</h2>
+<p>Each site participant sends you the site's hash file, over a secure channel, expected around 12:00 on Monday 16 November 2026. Save each in your workspace folder, if you have not already, under the name it has:</p>
+<ul>
+<li><code class="file">site_a.hashes.pprl</code>, from site_a</li>
+<li><code class="file">site_b.hashes.pprl</code>, from site_b</li>
+</ul>
+<p>Never open or rename them: pprl refuses a file that was opened and saved. Then run:</p>
+<pre><code class="command">pprl link</code></pre>
+<p>pprl checks that it has every site's file, from this project's set of bundles, and links them. It writes <code class="file">outbox/merge/linkages.pprl</code>, and says how many records it linked between each pair of sites. Read its warnings, and do what each says.</p>
+<p>It also writes <code class="file">outbox/coordinator/linkage_report.pprl</code>, the linkage report: what pprl showed you about the linkage's quality, as counts only, with no record and no hash. To see what it holds, run <code class="command">pprl inspect</code> on it.</p>
+
+<h2><span class="step">4.</span> Send the linkage file and the linkage report</h2>
+<p>Send each file in your workspace's <code class="file">outbox/</code> folder, as it is, over a secure channel. This is planned for around 14:00 on Monday 16 November 2026:</p>
+<ul>
+<li><code class="file">outbox/merge/linkages.pprl</code>, to the merge agent, Max Example (<a href="mailto:max@example.org">max@example.org</a>);</li>
+<li><code class="file">outbox/coordinator/linkage_report.pprl</code>, to the coordinator, Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</li>
+</ul>
+<p>Never send anything else from your workspace, and above all never send the hashes on. Then wait: Jo Example judges from the report whether the linkage is plausible, and tells you what to do next. Keep your workspace until then.</p>
+
+<h2><span class="step">5.</span> Delete the hashes and destroy your workspace</h2>
+<p><strong>Do not run <code class="command">pprl destroy</code> until Jo Example tells you the linkage is plausible.</strong> You should hear soon after you send the report: the other roles' go-ahead waits for your receipt, and is planned for around 14:30 on Monday 16 November 2026. Then, before any table arrives, first check that the merge agent has the linkage file, at the same size as <code class="file">outbox/merge/linkages.pprl</code>, as what you run below deletes your only other copy. Then delete every copy of the files you received, the hashes above all, wherever they were shared, such as in your downloads folder or in messages you sent or received, emptying deleted items, and any copy of the linkage file and the linkage report you shared. Then, in your workspace, run:</p>
+<pre><code class="command">pprl destroy</code></pre>
+<p>pprl lists every file in your workspace, asks you to type "yes", and deletes them permanently. It leaves the folder, with only your receipt, <code class="file">outbox/coordinator/linkage.receipt_&lt;date&gt;.txt</code>: send it to Jo Example over a secure channel. Jo Example gives the site participants and the merge agent the go-ahead only after receiving it. The receipt holds your workspace's <code class="file">linkage.log</code>, and no patient details or secret. You may then delete the folder.</p>
+<p>pprl destroy cannot delete copies kept by your storage (recycle bins, version history, retention policies and backups; OneDrive keeps deleted files for up to 93 days), so follow these up. Nor can it delete files you sent on, such as hashes at the linkage agent: each recipient destroys the copies received, and confirms that. Your drive&#x27;s encryption protects data left on the drive after deletion.</p>
+
+<h2>Questions</h2>
+<p>Write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>) about anything unclear, however small: a step in this guide, a message you did not expect, or anything that did not seem right. Each question helps the project. If pprl stops with a problem and its message doesn't settle it, send <code class="file">linkage.log</code>, in your workspace, to Jo Example over a secure channel: it holds what pprl showed you, and no patient details or secret.</p>
+
+<footer>
+<p>This guide was generated at 2026-11-16 08:30:00 for Example project by pprl guides, for pprl 3.0.0rc1. If anything in it does not match what pprl shows you, stop, and write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+</footer>
+</body>
+</html>

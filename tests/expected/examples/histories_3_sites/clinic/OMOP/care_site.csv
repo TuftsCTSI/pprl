@@ -1,0 +1,4 @@
+care_site_id,care_site_name,place_of_service_concept_id,location_id,care_site_source_value,place_of_service_source_value
+3,NewTown Family Medicine,8940,3,clinic_family_medicine,office_visit
+4,NewTown Pediatrics,8940,3,clinic_pediatrics,office_visit
+5,Main Street CHC,8761,3,clinic_chc,community_health_center

@@ -1,0 +1,1001 @@
+person_id,name,city,state,zip,dob
+1,Emile Cummings,Lake in the Hills,OR,23588,1987-12-13
+2,Loralee Boyle,Stow,VT,57427,1986-12-09
+3,Lonna Roberson,Los Altos,IA,38892,1998-03-01
+4,Alan Stokes,Santa Barbara,SD,94071,1947-07-31
+5,Harrison Dudley,Port Chester,WA,30045,1970-12-29
+6,Rolf Ellis,Clarksdale,CN,37140,1979-11-20
+7,Jae Clements,Longmont,GA,39178,1986-07-14
+8,Craig Joyner,Pharr,MA,49702,1957-12-20
+9,Foster Mclaughlin,Prichard,PT,90755,1944-11-03
+10,Hans Bradley,Simi Valley,KY,75217,1932-08-18
+11,Leanora Gillespie,Lauderdale Lakes,RY,90639,1939-02-06
+12,Wiley Randolph,Hialeah Gardens,CT,46900,1986-03-24
+13,Sharmaine Maldnado,Rapid City,WY,69404,1961-09-17
+14,Joane Sykes,Hemet,RI,15303,1972-05-14
+15,Caleb Patton,Wausau,ND,35201,1954-11-07
+16,Monet Mejia,Winchester,AR,93424,2004-10-23
+17,Samuel Willis,Burien,IL,12531,1955-07-07
+18,Kandra Puhg,Livonia,DA,98642,1999-02-20
+19,Tyler Hall,Phenix Ciry,CT,41455,1932-06-29
+20,Stanford Jackson,Hinsdale,WV,62785,1936-09-14
+21,Chas Garcia,Panama City,TX,82728,1998-06-12
+22,Shaniuqa Mcdowell,Asheboro,NH,79443,1976-10-26
+23,Vimbra Wallace,Conway,KE,37856,1968-12-14
+24,Solange Curry,Piqua,MA,61822,1975-05-03
+25,Dayle Clayton,Camas,FL,75215,1952-06-11
+26,Margurite Moody,eBnbrook,AZ,70403,1991-07-13
+27,Carylno Villarreal,Buffalo,AK,49698,1975-10-24
+28,Allena Spencer,Kirksville,AK,36031,1957-03-04
+29,Reggie Rivera,Tooele,AL,59662,1977-12-08
+30,Tatum Tillman,Woodridge,RI,08179,1940-11-10
+31,Gylord Espinoza,Green Bay,WV,48655,1994-06-22
+32,Tristan Richard,Wausau,TV,73263,1939-08-01
+33,dah Yill,Collinsville,AK,16615,1966-10-19
+34,Dsuty Moon,Central Falls,UT,90306,1955-05-13
+35,Abram Wooten,Vallejo,OH,61621,1985-11-15
+36,Carita Fry,Omaha,NE,16601,2005-07-25
+37,Harrison Mooney,Laguna Niguel,CA,90036,1957-12-21
+38,Brandon Shepard,Atwater,RA,73105,1968-05-01
+39,Seth Lopez,North Chicago,NJ,89706,1933-06-21
+40,aCrter Franklin,Siox Falls,JA,43059,2006-08-19
+41,Santos Jones,Farragut,HI,53434,1976-04-22
+42,Marc Foreman,Marietta,MD,20205,1983-10-28
+43,Joshua Workman,Lombard,CT,04250,1934-03-27
+44,Giig Mcdowell,Denton,UT,08758,1931-10-16
+45,Yon Avery,Nashville,WI,08207,1931-10-13
+46,Norbert Aguilar,Crystal,OH,79779,1957-11-30
+47,Taina Yang,Ashtabula,WA,24469,2005-04-02
+48,Khalilah Singleton,Clovis,IH,55646,1942-10-02
+49,Bradly Hatfield,Liberty,PA,67176,1994-02-06
+50,Darcey Armstrogn,Odessa,KY,13597,1989-10-24
+51,Merna Wall,Gallup,SC,12745,1939-07-02
+52,Katherin Noel,Lewiston,NY,93343,1931-03-20
+53,Cole Benjamin,Corpus Christi,ME,59906,1934-04-12
+54,Cameron Salinas,Chillicothe,TN,27596,1947-05-09
+55,Delicia Martin,Beverly Hills,LA,28226,1952-05-19
+56,Lance Anthony,Ypsilanti,NH,16714,1968-02-22
+57,Denae Henderson,Juneau,OR,04015,1972-06-30
+58,Brady Palmer,Lake Havasu City,WY,90536,1950-01-29
+59,Veola Larsne,Rocklin,AK,17185,1940-05-02
+60,Trang Wagner,Logansport,WI,50406,1969-11-12
+61,Buster Foley,East Ridge,SD,11287,1969-02-04
+62,Eldirdge Lowe,Apache Junction,IA,61339,1968-04-04
+63,Micah Bullock,Pacifica,AK,22575,1944-02-04
+64,Cathey Rogers,Duncanville,WA,05425,1959-08-10
+65,Ignacia Ochoa,Newberg,WI,97386,1992-10-31
+66,Libbie Salas,Wilkes-Barre,FL,68807,1964-06-11
+67,Ill Miranda,Palm Springs,DE,89363,1970-09-18
+68,Marcelene Franks,Suth Plainfield,NI,06194,1973-02-13
+69,Dia Evans,McDonough,ON,47510,1960-04-02
+70,Brice Frank,Crystal,ME,03262,1985-03-05
+71,Ute Klen,Xenia,MI,01785,1999-09-27
+72,Stasia Wilcox,Tlint,CN,71652,1974-04-24
+73,Leland Snow,National City,KS,43420,1986-08-29
+74,Lee Fuller,Newark,NE,15571,1967-11-24
+75,Iceen Hopper,Stillwater,KY,94504,1967-04-04
+76,Rolando Wallace,Commerce City,RI,79499,1953-08-26
+77,Aldo Bowman,Alameda,FL,22908,1950-01-12
+78,Ignacio Mathews,LaGrange,KA,19412,1930-03-21
+79,Phillip Mullins,Larog,ND,77823,1961-04-16
+80,Michael Hale,Chanhsasen,IN,66223,1968-12-24
+81,Roscoe Davis,Tamarac,MA,61757,1937-12-30
+82,Rolando Nelson,Brockton,MS,95638,1988-04-11
+83,Britta Brnoks,Marana,AL,05196,1954-02-19
+84,Omar Gilmore,Mesquite,LA,70153,1957-06-15
+85,lan Hunt,Tinton Falls,CO,45211,1972-02-08
+86,Willette Harding,Corona,PA,16857,1947-11-18
+87,Clarita Benton,Sugar Hill,KS,01924,1976-10-12
+88,Brant Fuller,Santa Rosa,MI,36065,1964-12-08
+89,Keenaq Christian,Frankfort,ND,53662,1985-07-11
+90,Andrea Gill,Winter Garden,NJ,71028,1972-09-16
+91,Louvenia Blak,Dayton,VT,47914,1986-03-09
+92,Jackeline Mccullough,Marietta,MT,63280,1983-02-05
+93,Mose Green,Hemet,FL,88775,1997-06-16
+94,Reita Russo,Huntley,MI,39457,1971-07-15
+95,Mirta Nixon,Rohnert Park,OH,71676,1953-02-06
+96,Phylicia Gaines,Wellington,MN,89593,2010-02-04
+97,Kathern Mercado,Oak Park,OK,47266,1972-12-29
+98,Darrel Finch,Prescott Valley,WI,12121,1930-07-22
+99,Jefferey Mcdaniel,Rozeburg,MT,59309,1937-12-05
+100,Chun Gillespie,Cornelius,WA,32870,2010-11-13
+101,Glayds Gonzalez,Amsterdam,SD,09603,1948-12-24
+102,Hilaria Scott,Loves Park,NY,04486,1972-04-06
+103,Virgil Hatfield,East Lansing,OR,43766,1992-03-27
+104,Treyt Cash,Lewisville,MT,99272,2007-08-13
+105,Lyman Reese,Irvine,ND,44549,1939-03-02
+106,Noella Torres,Gulfport,SD,99421,1971-12-25
+107,Joel Frazier,Lynwood,ME,76788,1988-11-03
+108,David Fuentes,Douglasville,MT,25089,1998-02-27
+109,Archie Little,Coeur d'Alene,TX,57477,1997-05-22
+110,Fermin Villarreal,Scranton,CA,07374,1943-07-03
+111,Calista Cooley,Westlyke,NE,04313,2007-12-21
+112,Dagmar Carr,Joliet,ID,03693,1991-09-05
+113,Che Adams,Honolulu,IL,43899,1981-04-03
+114,Bronwyn Harding,New Albany,MA,16560,1961-12-17
+115,Wendell Michael,Rancho Cordoav,AK,59888,1949-01-22
+116,Gerarx Goodwin,South Plainfield,VA,95923,1957-06-14
+117,Kelley Odom,Fort Lauderdale,VA,75208,2000-01-29
+118,Damion Maxwell,Lemon Grove,NC,16745,1994-10-28
+119,Sheril Ward,New Lenox,MI,63212,1987-08-30
+120,Leo Roy,Wausau,UT,50527,1971-12-23
+121,Winford Hughes,Moline,CT,09607,2000-01-27
+122,Gordon Delley,Visalia,SC,78413,1941-02-22
+123,Brendon Malone,Lynchburb,PA,81230,1953-01-19
+124,Ileen Guerra,St. Louis Park,WV,17138,1983-01-17
+125,Danyelle Andrews,Dinuba,MO,80619,1962-06-16
+126,Amal Hebert,Cedar Rapids,SD,63522,1998-01-16
+127,Odis Strickland,Bentonville,NC,69123,1945-10-06
+128,Nery Berger,Durant,VT,47997,1988-11-18
+129,Lucilla Rich,University Place,WA,09737,1974-11-23
+130,Newton Mckay,Macomb,ME,68328,1936-11-20
+131,Henry Savage,Cutler Bay,HI,17169,1975-01-01
+132,Fredericka Mcmahon,Napa,ND,33962,1966-05-08
+133,Ehtel Calderon,New Smyrna Beach,AZ,42417,1941-03-22
+134,Oletus Larsen,Lynchburg,AR,86427,2010-07-02
+135,Nicholle Marsh,Menlo Park,IA,62090,1960-11-25
+136,Trinity Mosley,Ferndale,TN,21006,1961-06-25
+137,Dagmar Hyde,Chino,SD,60572,1930-05-12
+138,Tyson Tran,Liberty,VA,45298,1989-09-01
+139,Colon Caldwell,Anderson,NE,46121,1992-11-21
+140,Randall Nixon,Duncan,KS,75716,1942-06-03
+141,Quinn Davenpor,Alton,JI,06680,1961-08-18
+142,Shery Robinson,Winchester,WI,67350,2009-04-17
+143,Eusebio Britt,Muskogee,BV,40814,1992-11-29
+144,Donald Snaders,Antioch,ME,40886,1963-03-21
+145,Dudley Kirby,Crest Hill,ND,65729,1994-11-16
+146,Jeome Osborn,Rutherford,IL,50592,1936-03-18
+147,Kattie Shaffer,Burnsville,IN,74792,1963-08-05
+148,Wonda Pitts,Forest Park,VY,27575,1940-09-11
+149,Jarrod Pennington,Tigard,AA,18700,1993-03-25
+150,Ling Foreman,Santa Clara,GA,14179,1953-11-08
+201,Myrkn Douglas,Gaihersburg,ID,59756,2004-02-29
+202,Nolna Olsen,East St. Louis,WI,47900,2007-02-20
+203,Lecia English,Salina,OK,16902,1987-07-15
+204,Isreal Solis,Gahanna,CO,40110,1989-05-21
+205,Damien Boone,Jeffersontown,OH,36696,1984-11-16
+206,Richie Spencer,East Orange,PA,25477,1992-09-06
+207,Aide Mcgee,West Hollywood,SD,67501,1975-10-03
+208,Adrian Huber,Thornton,SO,60503,1995-10-13
+209,Carlo Bowman,Houston,NJ,76522,1968-09-28
+210,Williams Hawkins,Castle Rock,MN,81446,1948-01-18
+211,Charlsie Byr,Farragut,CO,01965,1967-11-30
+212,Tisa Griffith,South Gate,WA,16924,1969-09-17
+213,Rodolfo O'neill,Willoughb,AR,45131,1939-06-01
+214,Conhita Curry,Michigan City,OH,38793,2002-10-19
+215,Deon Singleton,Soutc Portland,WA,91781,1989-08-23
+216,Trudie Serrano,State College,RI,76168,1983-09-23
+217,Francis Hatfield,Parkersburg,OR,30525,1958-01-22
+218,Benedict Francis,Hempstead,LA,64908,1931-03-28
+219,Audria Bernard,West Haven,SC,17847,1954-01-11
+220,Wilburn Doyle,Fuquay-Varina,FY,44487,1983-04-15
+221,Gil Grant,Wbourn,MT,15484,1998-12-20
+222,Niees Dotson,San Carlos,MI,95838,2007-12-24
+223,Bret Valentine,Bangor,NJ,39113,1955-12-30
+224,Sean Rosales,Slidell,MT,91126,2006-12-04
+225,Ossie Knowles,Butte-Silver Bow,TN,50459,1998-07-09
+226,Gordon Santana,Downey,UT,37716,1945-08-24
+227,Bud Nicholson,Pontiac,MT,21074,1934-01-20
+228,Joline Ortega,Melrose Park,TV,11217,1993-08-11
+229,Sachiko Cline,Richland,NE,11452,1941-06-11
+230,Jonathan Moore,Sedalia,NH,68893,1935-01-23
+231,Darrel Frye,Cedar Rpids,TN,71334,1957-01-12
+232,Lenard Landy,Bountiful,DE,75766,1963-08-22
+233,Setsuko Meyer,Redands,MI,08944,1945-10-13
+234,aRymonde Pruitt,Asbury Park,NV,31315,1997-03-04
+235,Marth Barron,Sothaven,WY,87849,1940-11-12
+236,Ardelle Wade,Richardson,AL,90117,1935-10-27
+237,Dot Hobbs,Atlanta,CN,11016,2008-01-05
+238,Daryl Russo,Yukon,OK,17468,1936-09-09
+239,Pura Morrow,Matteson,IN,93143,2001-07-05
+240,indsy Guthrie,Mountlake Terrace,AL,11021,1938-08-21
+241,Toby Matthews,Doral,KS,09227,1981-01-16
+242,Esteban Vaughn,Claremont,VA,66474,1952-11-04
+243,Michael O'neil,Delray Beach,NV,29446,1960-02-18
+244,Noah Terrell,Rockwall,NH,77177,1975-05-06
+245,Keeha ordan,Mooresville,MS,06395,1996-01-04
+246,Saran Park,West Valley City,MT,67528,1972-04-21
+247,Cordig Hughep,Vernon Hills,GA,98115,1959-09-12
+248,Bert bAbott,Elmira,TX,67884,2007-10-28
+249,Ruthanne Joyce,Bell,WA,64024,1967-09-22
+250,Darrel Palmer,Rahway,MO,92192,1940-04-30
+251,Clark Cannon,Murray,NY,83582,1994-10-27
+252,Omar Vazquez,Alice,WV,92257,1934-10-31
+253,Charlesetta Nelson,Westminster,CO,19040,1994-06-14
+254,Federico English,Anacortes,SD,14659,1954-05-18
+255,Kindra Bridges,Raleigh,AL,90628,1977-11-06
+256,Laverna Brown,Atascadero,TX,52349,1963-02-21
+257,Dotty oYung,La Vitsa,RI,72591,1967-03-12
+258,Jake Welch,Springdale,SD,01348,1936-06-13
+259,Shenna Guzman,Warner Robins,PA,72558,1972-01-25
+260,Frances Gardner,South Bend,VA,95787,1980-11-03
+261,Luana Haley,Daly City,WV,05590,1946-09-26
+262,Tristan Winters,Pflugerville,GA,92791,1956-01-04
+263,Lindsey Vaughan,Dalton,WY,15511,1948-01-17
+264,Mary Hopkins,St. Geogre,GA,96757,2000-09-01
+265,Ellan Avery,Sevierville,ND,73912,1986-10-25
+266,Beaulah Wallace,Rosemead,CO,49246,2009-04-23
+267,Casey Fowler,Isdaquah,NE,86712,1959-06-30
+268,Curt Hood,Goshen,MN,73990,1994-07-27
+269,Ronald Powers,Jupiter,WV,87711,1996-06-17
+270,Chauncey Schroeder,Roanoke,IL,72485,1947-03-09
+271,Annita House,Campbell,ND,55144,1938-06-06
+272,Ivey Joyce,Watertown,WI,92248,1965-07-15
+273,Sarina Stewart,Elgin,OH,56388,1976-10-12
+274,Providencia Wade,Inglewood,KS,59613,1998-05-26
+275,Lyl Barnett,Vincennes,MN,65854,1983-05-08
+276,Owen Bryant,Richardson,FL,15410,1970-02-20
+277,Shakita Henson,Phenix City,FL,90715,1933-03-30
+278,Hipolito Noble,Costa Mesa,MD,13052,1971-02-18
+279,Dwight Vincent,Evanston,AR,32669,2000-09-27
+280,Antonetta Savage,Staunton,MA,79834,1983-10-18
+281,Eliz Fuentes,Bolingbrook,FL,08091,1991-09-15
+282,Shavonne Moses,Kennesaw,MI,10893,2006-07-18
+283,Markus Santiago,Carpentersville,CT,82829,1958-03-12
+284,Cleo Gilmore,De Pere,MD,75864,1983-06-27
+285,Ken eDan,East Ridge,NV,57085,1954-01-28
+286,aErnest Montoya,Delray Beach,AR,16448,1962-08-09
+287,Jordon Ochoa,South Portland,KS,23057,1947-05-24
+288,Kayleen Stokes,Walnut,UT,61804,1945-07-02
+289,Madie Herman,Mount Pleasant,RI,89219,1992-06-22
+290,Mermit Buckner,Dana Point,VN,57278,1999-08-09
+291,Dotty Manning,Smyrna,TN,07215,1997-01-31
+292,Milan Hines,Perris,TX,84237,1999-01-26
+293,Glenn Donovan,Kirkwood,AR,27811,1945-02-11
+294,Shirley Wheeler,Crestview,NU,59714,1955-10-31
+295,Roderick Sandoval,Elizabfth,NJ,05832,1987-07-07
+296,Shalanda Randall,Marquette,SC,77700,1994-02-22
+297,Toi Garcia,Evanstn,WO,70872,1978-01-05
+298,Jodee O'connor,El Centro,MI,15805,1992-09-13
+299,Ling Vipcent,Fort Wayne,HI,42260,1943-08-06
+300,Shoxa Cooley,American Fork,ME,17360,2007-11-29
+301,Davis Bailey,Angleton,NJ,18910,1986-03-21
+302,Donay Frazier,Texas City,CO,69011,2002-03-11
+303,Phiilp Burnett,Grants Pass,MN,62473,1956-03-21
+304,Jeanelle Hatfield,Tukwila,NH,94965,1995-06-22
+305,Daniel Dodson,Hays,AZ,21058,1977-02-15
+306,Rozanne O'donnell,Sulphur,IN,27663,1945-05-04
+307,Edgardo Knapp,South Salt Lake,AL,67210,2001-08-30
+308,Jeremy Jimenez,La Verne,DE,72806,1994-04-21
+309,Hipolito Allen,Concord,HI,40170,2000-07-18
+310,Wilton Vang,Eustis,OC,01935,1989-07-15
+311,Leoam English,Bristol,NC,22084,1967-01-02
+312,Cicely Mckinney,Enterprise,MA,31179,1930-09-25
+313,Mnh Hebert,Rapid City,GA,87747,1989-01-23
+314,Amina Schneider,Hamilton,CT,69971,1953-02-03
+315,Amberly Booker,Gulfport,NE,90664,1989-02-04
+316,Nakosha O'brien,Apex,MD,96261,1978-07-11
+317,Brande Frederick,Inglewood,IL,72250,1980-07-31
+318,Stefany Harpea,Plainfield,MT,35336,1972-07-21
+319,Sherman Bolton,Mustang,NJ,15396,1934-08-02
+320,Teodoro Duffy,West Covina,MO,69881,1994-04-27
+321,Shemika Lopez,North Platte,CA,07295,1987-09-03
+322,Sylvie Bernard,North Plainfield,MA,99049,1944-11-17
+323,Edmnudo Conrad,Everett,OA,49860,1991-07-02
+324,Jere Oliver,Watlham,MN,75766,1945-07-11
+325,Julian Willis,Clearwater,NH,51461,1944-03-27
+326,Sunni Mclean,St. Louis Park,FL,11729,2007-12-02
+327,Oralee Greer,Rexburg,AK,65958,2001-12-08
+328,Necole Oliver,Champlin,KY,29143,2010-11-15
+329,Oren Tanner,Tinley Park,OK,72418,1961-06-27
+330,Dennis Tcker,Santa Paula,OH,54705,1963-11-26
+331,Ermelinda Carpenter,Apex,IA,43910,1939-05-02
+332,Freeman Frederick,Wayne,AR,80050,2005-02-08
+333,Deedee Lan,Bainbridge Island,MY,67160,1942-04-29
+334,Bradly Perkins,Avon,NH,31725,1966-06-03
+335,Mikel Espinoza,Oklahoma City,MO,87800,1954-01-18
+336,Albertina Dugn,Milpiats,MN,69815,1955-04-15
+337,Etha Gordon,Beverly,UT,63464,1971-07-10
+338,Genie Durham,Coon Rapids,AZ,66571,1959-02-05
+339,Roy Hawkins,Leavenworth,ND,89415,1982-08-19
+340,Pari Stevenson,Huntitgton Park,NJ,21739,1962-09-02
+341,Eddie Huff,University Park,WY,00750,1956-04-19
+342,Warren Crawford,Billings,LA,44678,1959-09-26
+343,randen Hanson,Windsor,KS,24222,1942-07-17
+344,Mariella Swanson,Logan,WV,40469,1964-02-13
+345,Ian Mcdowell,Winter Springs,WI,50382,1954-06-12
+346,Rufus Parker,Holland,NH,50738,1956-03-21
+347,Dick Strickland,Sayreivlle,FI,62667,1947-12-24
+348,Khalilah Castillo,Hoboken,UT,13875,1937-10-05
+349,Rolando Hendrix,Donna,MO,62485,1971-05-11
+350,Vincenzo Eaton,Urbandale,OD,93427,2010-09-22
+351,Shaneka Brewer,New Britain,RA,15425,1934-11-30
+352,Karlny Lawson,Ithaca,MD,79064,2002-05-31
+353,Jamison Barrera,Paso Robles,HI,27099,1967-04-26
+354,Dewitt Barr,Lase in the Hills,PA,07460,1953-06-19
+355,Mika England,Ocean Springs,VA,61702,1969-04-20
+356,Vevlet Salazar,North Lauderdale,QN,15833,1939-08-29
+357,Tenille Mccarty,Wayne,RI,19388,1941-06-28
+358,Oliver Munoz,High Point,MO,36663,1976-01-26
+359,Cleo Reese,Pawtucket,TX,47828,1938-05-23
+360,Dennis Bridges,Newport,VA,11090,1952-12-02
+361,Pa Hines,Casselberry,SD,05303,1966-08-24
+362,Kendal Campos,Hopewell,IL,06969,1989-09-22
+363,Jonelle Hancock,Sheridan,NJ,91630,1978-04-02
+364,Ed Willsi,Battle Creek,OH,87046,1995-04-09
+365,Colene Valenzuela,Talladega,OH,65779,1970-02-07
+366,Adam Lewis,Hopkinsville,MD,54349,1985-08-29
+367,Chassidy Asutin,Bossier City,VA,88380,1930-08-28
+368,Rufus Gillespie,Apex,MN,09837,1980-06-11
+369,Frances Galloway,North Tonawanda,ND,86725,1996-02-02
+370,Prince Gilmore,Charlotte,WY,74153,1989-05-27
+371,Golden Gonzales,Euclid,MO,39164,1994-09-14
+372,Sammie Castro,Poway,ID,21906,1998-01-24
+373,Gary Bonner,Palm Deset,HI,03958,2003-05-30
+374,Aleisa Gay,Country Club Hills,IL,73357,1991-12-26
+375,Dennise Lawson,Santa Fe Springs,NP,08133,1965-12-20
+376,Ramonita Sykes,Ankeny,AM,14221,1930-10-05
+377,Shyla Mccormick,Rutland,IN,10302,1972-09-26
+378,Versne Ayers,St. Matthews,NE,72604,1962-04-18
+379,Walter Pena,Rockville Centre,SM,19159,1937-03-02
+380,Ross Nolan,Port Huron,AZ,31061,1945-09-18
+381,Jayson Key,Lodi,FL,54480,1947-11-11
+382,Todd Crawford,Easton,MA,40287,1957-01-14
+383,Tashia Mccarthy,Northbrook,WI,40272,1995-11-11
+384,Mn Wozds,Havelock,NM,57161,1989-10-29
+385,Hoyt Tyler,Wausau,AR,16119,1997-05-13
+386,Parker Zaomra,Ithaca,WY,50180,1982-04-22
+387,Arnulfo Barrett,Ankeny,CA,47215,1951-04-23
+388,Conchita Hudson,Statesboro,ZN,05648,2009-09-01
+389,Jaleesa Navarro,Bellwood,AR,78778,1971-01-19
+390,Rivka Buckley,Lompoc,RI,41564,1960-05-06
+391,Randell Austin,San Angelo,MD,99070,2007-12-09
+392,Faustino Ray,Spanish Fors,UT,48782,2009-07-17
+393,Jodee Elliott,Clearwater,CO,90481,2010-08-14
+394,Anneliees Jrodan,Portland,FL,72110,1937-03-12
+395,Shelton Watson,San Bernardino,NY,33149,1961-08-07
+396,Genesis Rosxles,Clibton,CA,78914,1984-08-28
+397,Pablo Dillon,Joliet,MS,30058,1952-01-06
+398,Kirk Franks,Wisconsin Rapids,MI,46209,1942-06-20
+399,Keitha Hahn,Laconia,CL,76400,2007-07-29
+400,Jude Velazquez,Dixon,KY,00534,2005-06-22
+401,Ned Padilla,Lisle,AL,49274,1961-10-10
+402,Jeffry Tyson,Dana Point,OH,18601,1946-10-10
+403,Quiana Barber,MAllen,FA,70921,1972-08-24
+404,Kandra Stevenson,Santa Rosa,VA,66140,2009-10-31
+405,Jacquelynn Puckett,Deltona,OR,35625,1933-05-08
+406,Wynell Moonye,Bell,NJ,50037,1940-09-10
+407,Nu Ayala,Dana Point,GA,34556,2000-03-25
+408,Jerry Bkyer,Franklin Park,SD,32477,1944-02-11
+409,Cedric Strong,Alliance,PA,72274,1998-11-01
+410,Raymond Calhoun,South Pasadena,ID,90019,1949-07-31
+411,Shane Arnold,Los Altso,AM,63770,1945-02-24
+412,Theo Mckenzie,Simi Valley,KY,03950,1947-07-17
+413,Ray Jennings,Laguna Woods,KY,02573,1980-09-06
+414,Lynsey Bradford,Rogers,ME,53693,1998-04-27
+415,oan Peters,Kankakee,TN,76618,1972-12-31
+416,Willard Gilbert,Amsterdam,AL,03805,1985-03-11
+417,Stefan Guthrie,Midwest City,TN,75256,1963-05-14
+418,Luco Wise,Rogers,AL,03115,2000-02-21
+419,Estefana Riley,Carol Stream,MT,28336,1964-06-30
+420,Shakira Hubbard,Mauldin,WI,70672,1992-08-05
+421,Bronwyn Kline,Victorville,MA,34752,1970-06-25
+422,Augsut Mccarty,McHenry,WV,21742,1972-05-31
+423,Caley Bright,East Cleveland,CT,35894,1969-02-10
+424,Logan Snchez,Key West,NC,81842,1933-10-06
+425,Vernia Drake,Bradenton,AZ,17319,1930-11-07
+426,Ethyl Graves,Carbondale,DE,46134,1995-06-17
+427,Arla Koch,Kernersville,TX,96848,1957-01-09
+428,Mac Koch,Beaverton,SC,95645,1969-02-09
+429,Dacia Zimmerman,Huntington Beach,SM,02364,2004-07-27
+430,Devorha Cochran,Kalispell,GN,98608,1950-05-01
+431,Lakia Saunders,Bourbonnais,TX,40289,2008-03-02
+432,Arvilla Simmons,Perrysburg,UT,30678,1971-01-21
+433,Toby Dalton,Lorain,NM,26174,1978-04-02
+434,Oscar Velazuez,West Chicago,MI,98195,1948-02-18
+435,Clayton Casey,Jeffersonville,VT,38312,1976-07-29
+436,Myrta Gallegos,Sachse,MD,03842,1995-06-05
+437,Saul Benton,Olathe,TN,33382,2008-09-05
+438,Tim Malone,Greeley,WV,86887,1962-08-19
+439,Jackie Zimmerman,Whitehall,LA,21216,1956-01-20
+440,Adalberto Foreman,Lake in the Hills,KS,12492,1970-12-31
+441,Clemente Lewis,Carrboro,AL,36342,1953-08-05
+442,Tracey Daugherty,Utica,NM,65362,1935-06-12
+443,Hedy Benjamin,Mnoterey,IN,01554,1943-05-14
+444,Rickie Bradley,Centerville,UT,97794,1948-05-02
+445,Doretta Wolf,Royal Palm Beach,KY,93082,1951-11-15
+446,Duncan Bauer,Hackensack,MN,17284,1941-02-15
+447,Jerrod Middleton,Houston,NM,34877,1976-12-08
+448,Clay Williamson,Poughkeepsie,TC,92524,1970-09-19
+449,Keitha Irwin,Fontana,WY,64891,1983-07-08
+450,Ivelisse Lang,West Bend,MD,30168,1938-06-04
+451,Jamaal Guy,Agawam,MT,93874,1976-08-22
+452,Jenae Keller,Lenoir,ND,06733,1955-07-12
+453,Johnson Bender,Ankeny,MO,30076,1985-03-29
+454,Talitha Carney,Fountain Valley,WI,05273,1940-06-04
+455,Liil Shaw,Belvidere,CT,35349,1989-06-28
+456,Wesley Webster,Cartersville,CT,04279,2007-01-03
+457,Maurita Knapp,Calexico,IT,08738,1982-02-01
+458,Isidra Parks,Lakeland,OR,17708,2001-10-17
+459,Jimmy Austin,Ferguson,OK,44552,1996-04-17
+460,Sandee Holder,Romulus,GA,51542,1953-01-11
+461,Kirby Cleveland,Westland,FL,74028,1983-09-04
+462,Mitchel Miranda,Arvada,UT,69646,1999-07-21
+463,Dewitt Odom,Bainbridge Island,AR,01404,2007-05-23
+464,Noriko Dotson,Moses Lake,PA,74872,1937-11-21
+465,Leopoldo Chandler,Hartford,MA,97803,1938-11-18
+466,Reed Whitfield,Edinburg,FL,27262,1988-01-01
+467,Vinnie Doyle,Washington,AZ,09035,1943-01-19
+468,Ernie O'neill,Madison,TU,69730,1987-08-26
+469,Jacqiu Stuart,Chicago Heights,NJ,66543,1957-07-23
+470,Stephen Ware,Fairborn,MT,40494,1964-10-31
+471,Fredrick Boyd,Lima,MO,78856,1969-10-25
+472,Milton Compton,South Bend,WA,40941,1934-02-18
+473,Jacques Mcintyre,Sherwood,TW,07708,1942-12-01
+474,Chantell Hines,Belvidere,AK,19965,1998-02-20
+475,Otelia Arnold,Leawood,VA,67889,1938-08-30
+476,Maisie Huber,North Las Vegas,TX,95880,1948-08-01
+477,Katriec Serrano,Poay,WA,76873,1952-07-16
+478,Gabriel Thompson,Dothan,WR,95779,2010-09-24
+479,Florencio Long,Ormond Beach,NH,99553,1983-10-08
+480,Dane Littel,Littleton,MN,56815,1993-03-20
+481,Cristobaf Dawson,Kinston,CS,23584,1994-07-30
+482,Eli Singleton,Rancho Cucamonga,MT,39672,1959-05-14
+483,Gwenda Santiago,Vernon Hilsl,NY,07202,1952-03-19
+484,Ansia Noble,Sachse,HO,61271,1972-06-27
+485,Sindy Blankenship,Maricopa,DE,83046,1943-08-08
+486,Stuart Jacobs,Irvine,CT,40041,2009-05-19
+487,Chanell Bea,Gastonia,IN,42033,1942-02-11
+488,Bernard Mcconnell,Riverton,IN,79913,1983-08-27
+489,Jess Head,St. Marys,OH,06542,2000-11-13
+490,Annamaria Burch,West Hollywood,AR,36041,1950-02-13
+491,Laovna rice,Marietta,IA,20710,1990-06-04
+492,Camellia Holmes,North Plainfield,AR,24705,1976-10-01
+493,Thad Potter,Cleburne,OR,62731,1961-02-21
+494,Marvin Cain,West Chester,MD,72224,1955-05-20
+495,Pamelia Christensen,Dultuh,MD,70315,1945-04-27
+496,Tony Parsons,lifton,MD,97257,1997-07-24
+497,Son Bond,St. Cloud,HI,34834,1986-03-30
+498,Alfredo Richardson,Crown Point,MI,49275,1936-01-03
+499,Hilario Rivera,Vincennes,AV,73137,2007-08-18
+500,Andrew Velazquez,Hobart,WI,81363,1967-02-16
+501,Quyen Valenzuela,Lancaster,NY,55692,1977-10-07
+502,Tracy Gray,Prichard,NJ,01807,1947-05-04
+503,Adam Waller,Ventura,CT,20595,1963-06-21
+504,Sachiko Stephenson,Hazleton,NY,15845,1964-07-03
+505,Emmanuel Mloina,Melrose,MS,87449,2009-05-13
+506,Na Osborn,North Miami,MT,79207,1943-06-07
+507,Marlon Riddle,Cocoa,NM,84242,2000-06-07
+508,Juan Kemp,Mountlake Terrace,MD,87811,1960-04-16
+509,Lincoln Dejesus,Blue Springs,VA,12901,1990-12-09
+510,Kerry Pickett,Fond du Lac,AL,88378,1938-12-12
+511,Carylon Bryan,Algonquin,NE,04918,1959-12-28
+512,Pa Forbes,Santa Fe,IA,13634,1955-09-11
+513,Kasey Herman,Burbank,TX,97246,1964-11-09
+514,Edgardo Pance,Harrison,GA,93511,1956-12-28
+515,Nigel Barnett,New Port Richey,MS,87233,1966-06-27
+516,Sanford Manning,Pascagoula,MI,44443,1963-09-03
+517,Jame Moss,Layton,ND,92296,1944-11-05
+518,China Long,Albuquerque,NE,37355,2007-10-06
+519,Kendall Shepard,Yuba City,NV,66100,1982-09-24
+520,Sari Petty,Kingsville,IF,22760,1949-05-13
+521,Brent Gill,Taylor,RA,52726,1987-09-20
+522,Dong Rose,Chino,IA,35389,2007-09-09
+523,Mireille Copeland,Huntsville,OR,62878,1960-12-06
+524,Darlena Benson,Ferguson,SC,21997,1933-07-25
+525,Jonathon Mcconnell,Brawley,MA,19847,2002-09-05
+526,Deane Carlson,Bainbridge Island,LA,51035,1992-08-15
+527,Aubrey Owens,Pinole,NM,45458,1953-07-22
+528,Ivory Fuller,Highland,MA,43348,1971-09-28
+529,Tanna Calhoun,Apex,MO,09104,1959-12-02
+530,Latoyia Hamilton,Wauwatosa,IL,94205,1947-06-29
+531,Roni Nguen,Methuen,CA,85302,1999-05-02
+532,Leia Reynolds,Erie,TN,48074,1984-08-16
+533,Del Morgan,Holly Springs,KY,10383,1939-07-12
+534,Eloy Kirkland,Plattsburgh,LA,67350,1930-02-10
+535,Kooey Riddle,Herndon,ME,38781,1993-01-27
+536,Tamatha Farmer,Bartlett,AZ,21801,1986-08-09
+537,Clfiton Leonard,Chino Hills,LA,71000,1993-07-07
+538,Wan Bauer,Butte-Silver Bow,TN,61783,1933-04-27
+539,Stuart Briggs,Chicopee,OK,02593,1935-09-23
+540,Anglic Garrison,Addison,AK,95894,1943-01-11
+541,Sang Htuchinson,Shanee,NC,96602,1976-11-03
+542,Madaline Jarvis,Columbia,CT,97484,1952-08-26
+543,Savmy Jacobson,Herriman,VH,85067,1937-05-24
+544,Floretta Vinson,Wellington,NE,64822,1972-06-12
+545,Caroyln Hayes,Waukegan,NI,81304,1964-04-15
+546,Belkis Patel,Centennial,AZ,72030,1943-03-29
+547,Delora Richmond,Minot,NJ,71271,1999-07-06
+548,Rubi Ruiz,Odessa,AZ,83754,1945-05-16
+549,Tran Small,Bay City,AR,40880,1999-02-12
+550,Joya Spencer,Washington,MS,49829,2001-07-05
+551,Glenn Holt,Hagerstown,VA,56498,1940-12-13
+552,Oliver Buck,Tukwila,AZ,52034,2005-01-13
+553,Murray Mcneil,Sumter,MS,65893,1991-02-10
+554,tSefan Gy,Paramus,NC,22209,1998-11-02
+555,Inger Cole,Marquette,AL,71506,1972-10-11
+556,Alec Patterson,Goodyear,DE,93421,2008-02-28
+557,Ricardo Salas,Norfolk,TX,20062,1955-08-26
+558,Alfred Frederick,South St. Paul,HI,33120,1986-08-26
+559,eNd Adams,Riverton,IA,96684,1971-02-19
+560,Vasiliki Horn,Searcy,ME,89261,2007-01-07
+561,Rachele Uradshaw,Liberal,CT,64373,1956-08-09
+562,Andera Graham,Upland,MA,93257,1944-05-02
+563,Annice Haynes,Papillion,RI,98240,1989-05-02
+564,rTey Moss,Tustin,SD,15563,1957-04-21
+565,Tony Rice,Decatur,KS,18194,2008-08-22
+566,Kimi Morton,Montgomery,SD,48753,1985-11-11
+567,Royal Hartman,University Place,DE,41843,2009-06-11
+568,Delbert Lynn,Hrrker Heights,IL,57126,1945-10-06
+569,Donnie Solis,Greer,ME,22716,1981-10-27
+570,Cuc Dotson,Sammamish,CO,18213,1932-04-04
+571,Victor Michael,Hobb,SD,63533,1987-05-05
+572,Neville Gibbs,Charlottesville,PA,08501,2002-02-05
+573,Pat Hikcs,Pueblo,NJ,72167,1981-01-26
+574,Ronni Allen,Cleburne,VA,31547,2007-05-05
+575,Monty Le,Dania Beach,NY,37909,1941-04-04
+576,Russel Fuller,Monroe,MT,55427,2003-10-18
+577,Nia Berg,Bartlesville,GA,74524,1937-09-24
+578,Almeta Valenzuela,Derby,IN,87468,1953-12-01
+579,Daysi Arnld,Laconia,MT,64667,1934-10-12
+580,Sharzka Livinston,Cedar Rapids,RI,03846,1974-08-21
+581,Cliff Navarro,Schererville,MD,55927,1972-08-17
+582,Lashawna Gallegos,Corsicana,SD,44685,1966-05-03
+583,Arlie Larson,Hopkins,SC,79410,1932-12-23
+584,Justin Foster,Whitehall,HI,26895,1978-03-02
+585,Shaquita Cherry,Hattiesburg,WV,97554,1944-06-12
+586,Beata Peterson,Lawndale,FL,63138,1935-07-24
+587,Ling Hurst,Horn Lake,MO,52871,1958-06-15
+588,wDayne Nelson,Maryville,MN,88474,1988-03-16
+589,Onita Bowerr,Shakopee,OR,44229,1969-01-16
+590,Horace Tyson,Sand Springs,DE,36779,1930-07-14
+591,Barry Malonado,Cutler Bay,ME,86775,1962-07-05
+592,Christopher Sparks,Joliet,FL,49040,1992-09-27
+593,Johnathon Spence,Cortland,CA,06956,1989-08-31
+594,Phil Sosa,Glovis,NV,36425,1930-07-14
+595,Marcell Rowland,Shoreline,NC,96599,2003-08-05
+596,Juliane Valentine,Rapid City,AK,00901,1951-10-11
+597,Ellis Stewart,Wilmette,AL,11878,1962-07-21
+598,Toshia Salazar,Bullhead City,MT,66897,2006-11-18
+599,Raymond Zimmerman,University Place,MA,94067,1944-08-03
+600,Allan Foster,Wisconsin Rapids,NY,95003,1962-05-17
+601,Hward Becker,Thomasville,VT,16883,1934-03-15
+602,Earlea Nguyen,Thornton,TX,49062,1990-04-01
+603,Blondell Mccullough,Seaside,AM,16729,1932-01-31
+604,Thresa Hardy,Waxahachie,FL,52072,1953-04-13
+605,Corlaee Foley,Lake Zurich,IA,49499,1968-04-10
+606,Sherise Luna,Bellaire,VT,95905,2008-07-26
+607,Zandra Terry,Lacey,TN,83359,1980-02-25
+608,Theressa Brady,Redwood City,VO,06377,2001-03-29
+609,Oliver Marsh,Mesquite,NN,61952,1996-04-19
+610,Therpsia Robbins,San Pablo,MO,53980,1995-01-11
+611,Charles Cooper,McHenrg,IA,01929,1998-11-18
+612,Mahalia Woods,Stockton,YK,67266,1935-10-09
+613,Gus Zimmerman,Noblesville,CT,57723,1964-11-07
+614,Fattie Meadfws,Palos Hills,DE,25135,1949-07-29
+615,Shan Sanders,Romulus,OD,79006,1934-04-02
+616,Clair Benton,Port Arthur,KS,21982,2010-06-27
+617,Twana Stephenson,Cedar Hill,WG,02542,2005-06-24
+618,Clarence Spears,Spokane,NE,71132,1945-09-22
+619,Loria Barker,Fort yers,LA,06837,1989-07-01
+620,Jazine Fsiher,University Place,NE,91380,2010-09-17
+621,Audie Jacobson,Berha,SE,73926,1948-09-27
+622,Paug Shepherd,Barstow,WA,53380,1981-03-25
+623,Jayson Jimenez,Ponca City,NE,66320,1976-01-13
+624,Tiesha Flores,Garden Grove,ND,43777,1995-10-21
+625,Amberly Bradford,Desert Hot Springs,KY,33995,1949-05-14
+626,Carolynn Harmon,Huber Heights,MT,57640,2002-03-31
+627,Ods Beard,Natchitoches,AZ,81617,1993-03-09
+628,Amee Sosa,North Las Vegas,NC,46714,2002-03-04
+629,Alverta Sandoval,Shakopee,MN,92979,1958-10-12
+630,Soo Snider,Newburyport,GA,85686,1943-03-21
+631,Dave Sandoval,San Fernando,NJ,92263,1931-03-19
+632,Joane Sargent,Rapid City,BE,00646,2003-09-02
+633,Brendon Hicks,New Lenox,OR,36743,1980-12-03
+634,Maryanna Hickman,Miramar,LA,65120,1974-02-23
+635,Isaac Fields,Blue Island,AL,65395,2009-04-29
+636,Edmund Santiago,Bellevue,KJ,68676,1972-07-11
+637,Sina Craft,Rocky Mount,WI,60863,1947-04-14
+638,Chuck Donovan,McKeesport,CO,16814,2007-08-22
+639,Xenia David,Temecula,NM,73557,1966-08-24
+640,Daniele Franco,Miami,TX,50445,1985-09-11
+641,Rikcey aBrrett,Cleveland,ZK,92570,1957-11-10
+642,Sergio Wilcox,Erie,WA,64862,2006-03-20
+643,Margherita Fischer,Killeen,MD,91955,1961-07-29
+644,Austin Griffin,Palttsburgh,OH,19569,1972-12-10
+645,Tom Burt,Oak Rige,AR,67984,1955-08-10
+646,Sheldon Levine,Desert Hot Springs,OR,73720,1968-01-10
+647,Kende Lang,Santa Paula,NJ,47019,1972-10-04
+648,Dewey Wilcox,Westfield,VA,56787,1982-06-20
+649,rlando Weber,Rocklin,KY,09457,1978-08-01
+650,Claris Witt,Rancho Cordova,UT,04166,1947-01-20
+651,Benito Sellres,Lincoln,IM,99836,2000-08-28
+652,Wiley Larson,Shawnee,LA,80493,1997-11-22
+653,Jim Wolfe,La Quinta,WI,14232,1995-09-15
+654,Rico Frye,Collinsville,TN,95768,1993-06-27
+655,Gaynelle Fry,Jupiter,QM,81056,1988-08-14
+656,Lucas Sanders,Grand Junction,ND,30403,1976-08-03
+657,Eura Clements,Newport Beach,MS,37036,1959-09-10
+658,Rogelio Armtsrong,Cambridge,CT,74107,1985-01-21
+659,Douglass Bradford,Bozeman,CO,65255,1981-12-05
+660,Winford Aubtin,Chattanooga,IA,67524,1949-11-19
+661,Garry Singleton,Simpsonville,NV,93490,1935-03-26
+662,Howard Reilly,Watertown,OR,04583,1985-12-20
+663,Zackary Goodman,Lindenhurst,MS,15686,1968-10-21
+664,Monty Fransk,Kennewick,DE,91886,2002-08-13
+665,Art Freeman,Mokena,OR,52983,1938-05-18
+666,Herma Emerson,Manchester,WA,69055,2007-08-27
+667,Brigida Pearson,Santa Fe Springs,OR,50044,1981-10-04
+668,Wei Lara,Decatur,NH,82549,2000-09-24
+669,Brian Savage,Fargo,NH,96696,1980-04-09
+670,Anastacia Hraris,Queen Creek,NV,76455,2009-02-14
+671,Mora Irwin,Moses Labe,SD,43770,2009-01-16
+672,Dimple Holman,San Leandro,AL,12643,1998-07-02
+673,Billy Cox,Modesto,AL,84099,1941-08-14
+674,Ron Floyd,Marlborough,LA,24299,1978-05-18
+675,Micah Morse,Pampa,VA,73324,1983-04-07
+676,Carlita Barrera,Port Arthur,AR,05476,2004-09-19
+677,Gaylord Franklin,Ferguson,MT,36016,1956-08-11
+678,Bryce Hurley,Grandville,NY,54903,1999-09-28
+679,Alease Marks,Plano,MN,13528,1991-01-11
+680,Cassey Beasley,Farragut,ND,16375,1941-08-25
+681,Margert Albert,Reading,WI,82650,1973-10-26
+682,Manuel Filey,Key West,WI,05020,2000-12-12
+683,Clarinda Santana,Brookfield,PA,89750,1947-08-17
+684,Arnold Mejia,Gardner,AK,65519,1938-09-30
+685,Gus Guzman,San Bruno,MO,44268,1935-03-25
+686,Willard Kiney,Tigard,MO,44716,1976-11-24
+687,Clarence Stevenson,Lincoln,IL,82701,1977-07-17
+688,Joella Mcnecl,Orinda,WV,70878,1943-07-11
+689,Latina Soto,Darien,OH,36812,1962-01-21
+690,Wilsob William,Pascagoula,NM,47516,1953-07-03
+691,Shirely Frost,Harker Heights,OR,75397,1931-07-02
+692,Dyan Sexton,Miami Gardens,WV,83867,1996-01-05
+693,Margorie Baird,Matteson,UT,00628,1942-08-11
+694,Kimberli Albert,Santa Fe Springs,WY,04921,1950-07-21
+695,Herbert Bishop,Trenton,MS,62963,1931-08-27
+696,Jessenia Watkins,Round Lake Beach,WY,82799,1974-02-14
+697,Lane Mercado,Kiryas Joel,MD,61633,1949-05-06
+698,Kattie Hester,Camas,OC,61913,1944-04-14
+699,Cherryl Alvarado,Burlingame,CA,91968,1935-11-14
+700,Zane Roajs,North Platte,KS,13977,1996-11-18
+701,Trevor Whitfield,Lebanon,LA,91363,1997-01-24
+702,Vernetta Ingram,Bismarck,DE,60334,1953-01-09
+703,Napoleon Cohen,Pittsfield,IL,31976,1938-04-12
+704,Lanie Stone,Manitowoc,KS,53746,1962-07-11
+705,Vi Dixon,Kalispell,RI,19205,1952-04-19
+706,Babara Guerrero,Evans,NY,22632,1997-03-07
+707,Hunqer uDdley,La Quinta,OH,79891,1970-12-21
+708,George Sexton,Batavia,LA,29935,1944-02-21
+709,Ricardo Riley,Granite City,AK,06518,1991-10-19
+710,Ludie Castillo,Sn Fernando,IN,52391,1997-05-26
+711,Jewel Spencer,New Rochelle,NM,52122,1997-03-08
+712,Alfwnso Parrish,New Brunswick,IA,01201,1931-07-08
+713,Alyse West,Indian Trail,LA,74730,1958-07-23
+714,Kip Allison,Vista,VT,49831,1954-03-07
+715,Wayne Montoya,Snata Paula,IA,81718,1954-10-19
+716,Perry Foster,Newnan,MN,65070,1991-05-07
+717,Verdie Wiley,Hays,CO,62138,2004-12-08
+718,Donn Cristensen,Smyrna,AZ,04022,1949-03-25
+719,Un Arnold,Oak Ridge,PA,63499,1989-06-11
+720,Branden Mccoy,Kennewick,KS,80634,1985-12-23
+721,Jacinda Key,San Marcos,MT,61567,1972-06-17
+722,Mchel Moody,Independence,KY,93455,1962-05-12
+723,Chancb French,Benicia,NV,28371,1985-04-17
+724,Jenaice Cochran,Odessa,PA,64374,2006-12-30
+725,Simon Atkins,Hobbs,WV,58104,1992-12-27
+726,Lester Holden,Salt Lake City,OH,92582,1954-01-23
+727,Tiega Kinney,San Pablo,MT,07707,1959-04-29
+728,Rob Marks,Jeffersontown,NH,74781,1942-04-18
+729,Edris Ramos,Rocky Mount,WA,49492,2000-07-15
+730,Daine Ward,New York,ND,28801,2008-03-28
+731,Irwin Drake,Hollywood,OR,12575,1987-08-25
+732,Mitsue Mclean,Batavia,IA,85725,1934-06-27
+733,Jeremiah Floyd,Kyle,ND,17809,2007-09-27
+734,Coleman Chan,Marshfield,DE,67795,1979-11-10
+735,Liacoln Ashley,Pine Bluff,ME,87684,1982-08-19
+736,Elisha Gutierrez,Wentzville,AK,50122,2007-06-18
+737,Latia Bowen,Ashland,RI,57464,1942-05-16
+738,Yessenia Michael,Portsmouth,WV,08654,1941-03-04
+739,Juliane Sanford,Pompano Beach,MI,11904,2004-02-15
+740,Millard Clark,Homestead,AK,20826,1962-05-21
+741,Florrie Mercer,Cutler Bay,ND,14711,2007-09-28
+742,Robin Cantrell,Wehat Ridge,CH,05539,2000-07-15
+743,Hollis Lowe,Marshfield,OH,96006,2000-12-16
+744,Sandie Acosta,Gaithersburg,WI,14761,1995-12-02
+745,Kattie Page,Wausau,OK,63517,1956-10-01
+746,Phung Pickett,Burien,ID,17088,1984-07-27
+747,Michel Perry,South Pasadena,WI,33076,2005-09-26
+748,Graham Solomon,Santa Fe,NM,81675,1958-07-19
+749,Boris Reid,Atascadero,HI,74670,1941-03-11
+750,Tonita Banks,Hamilton,MT,86590,1955-07-12
+751,Kmi Hurst,Boise City,MI,80406,1930-10-19
+752,Odis Goodman,Muscatine,WV,97823,2001-02-18
+753,Mathew Bowman,Peekskill,HI,28714,1995-05-29
+754,Dale Michael,West Valley Oity,SM,78323,1969-03-31
+755,Staley Holloway,Mavhattan,AR,41529,1954-05-16
+756,Ronald Cohen,Warrensburg,IA,11467,1995-12-14
+757,Margeret Thornton,Mason,VA,38359,1998-01-22
+758,Everett Mcmahon,Newberg,IW,58740,1983-02-09
+759,Orvaj Terrell,Honolulu,AR,53896,1998-05-26
+760,Donn Byr,Taylor,CO,23312,1980-08-24
+761,Dennise Hanson,Clearfield,HO,72072,1952-04-10
+762,Kzekiel Bass,Sparks,LA,52075,1935-03-25
+763,Scottie Crosby,Kenner,MN,12172,1946-03-06
+764,Piper Watkins,Vallejo,NZ,79065,1953-02-10
+765,Joshua Holder,Poplar Bluff,PA,45587,1943-08-21
+766,Simonne Carssn,Poplar Bluff,AQ,88278,1999-12-01
+767,Brandon Stein,Southgate,NJ,09820,1990-01-21
+768,Bob Farlet,Fort Collins,MA,90340,1941-01-04
+769,Sharri Chang,Alice,NJ,99848,1999-06-10
+770,Celesta Woodard,Hillsboro,CO,70654,1988-01-09
+771,Normad Deleon,Bradenton,NC,92282,1990-10-26
+772,Tonette Vang,Key West,NC,75273,1934-02-16
+773,Lynell Colon,Sammamish,MD,81833,1976-06-20
+774,Cheryll Finley,Muscatine,AK,07390,1978-05-21
+775,Jacqulyn Gamble,Terrell,KY,58037,1951-10-27
+776,Laal Hill,Ellensburg,VA,42417,2005-12-02
+777,Alonzo Alofrd,Concord,UT,30333,1965-05-02
+778,Mayola Randall,Allen,OK,75105,1951-08-21
+779,Gita Hickman,Topeka,UT,28370,1937-07-10
+780,Lyelle Rollins,Milpitas,AK,72867,1992-09-03
+781,Kristopher Lowe,Cliffside Park,NV,50316,1952-06-09
+782,Alton Greer,Chattanooga,NJ,36103,2004-08-17
+783,Janella Sellers,Maywood,IA,07380,1932-11-12
+784,Mauro Watson,North Canton,HI,56018,1950-08-10
+785,Talitha Wagner,South El Monte,NV,90571,1948-01-20
+786,Charles Keith,Peoria,GA,15226,1932-06-06
+787,Jules Mckee,Gardena,LN,71013,1957-02-09
+788,Irwin Boyd,Asken,OH,03881,2010-04-06
+789,Dylan Blankenship,Mercer Iland,RI,14169,1983-09-30
+790,Glayds Whitfield,Helena,MS,41710,1984-11-04
+791,Yolande Dale,Meridin,OR,53820,1931-11-22
+792,Zandra Fuller,Yorkville,MT,25801,1983-09-08
+793,Yolando Christian,Leawood,NH,95157,1960-09-20
+794,Deonna Stein,Jersey City,FL,74611,1997-05-21
+795,Lenna Mccoy,Harker Heights,NE,11829,2000-08-30
+796,Miss Nixon,Palatine,WY,91818,1980-06-13
+797,Dyan Daniel,Knoxville,GA,38460,1935-10-29
+798,Meridith Mcpherson,Montebello,IN,94513,1950-05-11
+799,Dnog Freeman,Inkster,HI,88759,1997-05-21
+800,Hedy Fields,Kearnye,OK,18413,1983-06-22
+801,Santos Hampton,Mokena,WV,83753,1992-05-18
+802,Nenita Pittman,Normal,CA,19248,1962-01-08
+803,Jesse Johns,Odessa,NM,15511,1962-06-19
+804,Chong Campbell,San Juan,OH,81133,1998-08-07
+805,Lauryn Ramos,Valparaiso,LA,71554,1952-12-04
+806,Luba Garcia,Goose Creek,YN,90622,1991-05-07
+807,Sau Zmimerman,Las Cruces,MA,69851,1993-11-19
+808,Marylynn Downs,Tualatin,YL,06292,1972-06-29
+809,Alonso Cain,Marshall,MI,66934,1962-05-17
+810,Brigida Nolan,Allen,OK,55160,2009-01-16
+811,Amberly Morris,Taunton,CT,47299,2007-07-11
+812,Ulysses Lynn,Collierville,AK,46495,1999-11-06
+813,Trinity Dodson,Coachella,OK,42756,1980-03-28
+814,Dwain Patrick,Attlebro,IA,55421,1974-06-25
+815,Martin Middleto,Rexburg,MN,33110,1945-05-10
+816,Ayanna Cole,Wilkinsburg,NE,70519,1995-05-04
+817,Gidget Slater,Laguna Hills,NE,19217,1985-03-11
+818,Casimira Wright,Fontana,RI,05347,1940-12-25
+819,John Webster,Idaho Falls,WA,55149,2010-05-13
+820,Laila Aguilar,Asheboro,NV,75317,1958-01-17
+821,Kati Stout,Mountlake Terrace,CT,96538,1963-04-22
+822,Chance Wogn,Wilson,MU,62917,1953-02-12
+823,Lee Saunders,Kalispell,MS,95289,1972-04-09
+824,Teofila Elliso,South Milwaukee,CT,14646,1933-05-20
+825,Troy Hulo,Omaha,VA,06094,1933-05-04
+826,Yevette Livingston,Frederick,DE,30857,1958-08-01
+827,Odis Clayton,Statesboro,OH,35923,1947-01-18
+828,Toby Mccormick,Hillsboro,NM,05344,1954-07-13
+829,Neal Hendrix,Cooper City,DE,69349,1955-06-20
+830,Edwin Rosario,Bradenton,MT,89793,1975-01-30
+831,Valentine Benjamin,Janesville,NV,19306,1962-09-16
+832,Van Moon,Lathrop,ML,53154,1930-07-23
+833,Tobias Steele,Ferndale,GA,83204,1978-11-14
+834,Kenisha Klein,Gilbert,MD,16301,1966-07-15
+835,Marcelino Blankenship,Pontiac,WI,85400,1978-06-23
+836,Gabriel Marks,Country Club Hills,WV,40532,1934-10-09
+837,Gaynelle Mcdowell,La Porte,KY,07196,1996-02-07
+838,Johanne Harrington,Findlay,MI,81476,1962-02-08
+839,Page Carrillo,Victoria,TX,36953,1956-08-09
+840,Margaretta Lewis,Fuquay-Varina,TN,94927,1981-04-10
+841,Lyndia Waller,White Bear Lake,TL,92966,2008-04-23
+842,Maragaret Palmer,Farmington,RI,35225,1975-09-15
+843,Lyla Robbins,Lynbrook,OH,46122,1982-04-15
+844,Ray Kramer,Danbury,SC,96137,1938-09-16
+845,Claris Car,Diamond Bar,HI,29902,2008-03-07
+846,Charlena Acosta,Lombarf,PA,88735,1974-04-10
+847,Mary Vinson,San Diego,RI,88571,1969-05-29
+848,Perry Lewis,Clifton,MT,40344,1997-12-12
+849,Julius Cardenas,Beverly,OH,55503,1972-11-10
+850,Edmund Silva,Abilene,WY,81181,1966-01-06
+851,Chuck Henry,University City,LA,61587,1987-10-22
+852,Lorita Barrett,Cortland,NC,72028,1947-01-27
+853,Eddie Salinas,Bakersfield,AZ,68436,1950-12-29
+854,January Sweet,Sanford,MI,63512,1938-10-03
+855,So Sweeney,Northampton,NC,42835,1970-06-19
+856,Kirstie Potter,Orindt,RI,80948,1965-04-14
+857,Justin Randolph,Sioux City,NV,82195,1940-01-11
+858,Jason Silva,Holland,WV,28094,1978-06-04
+859,Antoine Noel,Mequon,MT,03031,1966-04-20
+860,Lamont Hamilton,West Chicago,WA,47384,1946-08-30
+861,Johnette Sweeney,Kissimmee,NJ,70911,2010-11-24
+862,Jel Hosman,Lake in the Hills,IA,95070,1946-05-30
+863,Liberty Huber,Rochester Hills,OV,18476,1937-11-03
+864,Marlin Greer,Northfield,OR,16851,1957-07-13
+865,Lakendra Berg,Greensboro,HN,89670,1963-11-13
+866,Kourtney Conley,South Euclid,CA,47686,1986-04-02
+867,alena Grimes,West Mifflin,OR,07679,1955-08-05
+868,Chery Frazier,Temple Terrace,AL,53198,1946-02-26
+869,Lanora Nielsen,McKeesport,MN,38161,1932-01-06
+870,Antony Howell,Fort Lee,TN,22477,1991-01-11
+871,Criselda Cannon,Onalaska,NE,04516,1986-04-28
+872,Saul George,Windsor,OH,86525,1938-04-19
+873,Suanne Rollins,Long Branch,OK,80723,1934-07-09
+874,Edda Kramer,Mission Viejo,NM,80177,1941-04-17
+875,Jonathan Lindsay,Kennesaw,VT,38328,1950-02-11
+876,Kevin Hewitk,Birmingham,CT,16038,1935-12-27
+877,Suzann Barry,Rosenberg,WV,93316,1965-09-09
+878,Grnaville Moore,Galt,NJ,09604,1977-12-02
+879,Wally Mosley,Grandview,OR,32479,1978-01-06
+880,Christene Miranda,Wilmington,AZ,57271,1965-08-31
+881,Dillon Hbeert,Hobart,SC,75194,1930-04-10
+882,eRx Hernanedz,Camas,CT,19245,1998-09-02
+883,Gilberto Myers,Somerville,AZ,22340,1939-05-30
+884,Sterling Lara,Paragould,KY,65649,1979-04-18
+885,Dirk Miranda,Cartersville,AK,59853,1948-02-21
+886,Stanford Koch,Canton,DM,43040,1977-04-15
+887,Blake Pennington,Forest Laye,NC,04403,1956-09-25
+888,Ilana Bishop,Barerton,SC,36508,1938-06-23
+889,Russel Guoss,Superior,WV,51449,1963-06-27
+890,Coreen Puckett,North Ridgeville,NV,84853,1999-03-31
+891,Eddie Mckenzie,Faihrope,DE,48067,1979-05-29
+892,Roger Acevedo,Kirkwood,PA,65663,1978-02-13
+893,Omer Norris,Rowlett,LA,84561,1961-06-02
+894,Karoline Bek,Winston-Salem,CO,76626,1992-06-09
+895,Rex Sullivan,Winter Haven,CA,00009,2001-01-12
+896,Malvina Vaughan,Friendswood,HI,22920,1997-11-12
+897,Bryc Drake,Lee's Summit,MS,83172,1999-07-22
+898,Tyler Dillard,Brea,TN,57000,1999-05-25
+899,Azucena Riley,Evergreen Park,WI,05552,2009-05-28
+900,Suzi Avry,Redmond,CT,03431,1981-04-24
+901,Celine Kramer,Derby,IN,10042,1939-09-21
+902,Cheryll Blanchard,Hrcules,FL,77791,1953-04-11
+903,Nathaniel Wipkerson,New Brunswick,PA,98114,1974-10-28
+904,Irwin Sanford,Rolling Meadows,MA,19026,2005-07-16
+905,Julio Ross,Texas City,PA,49815,1996-08-18
+906,Felisa Cox,Belle Glade,AC,27314,1985-11-15
+907,Sergio amb,Allen,NC,02657,1988-09-29
+908,Myrle Pearson,Streamwood,MS,72775,1930-07-11
+909,Donn Padilla,Oakland,NJ,93115,1943-04-08
+910,Blondell Fisher,East St. Louis,WI,99204,1989-03-03
+911,Kimberli Curtis,Fairborn,MO,17211,1955-02-20
+912,Jackson Lara,Fall River,FL,08571,1986-02-02
+913,Collen Richmond,Sammamish,WY,21488,2002-05-09
+914,Teofila Baird,Oregon City,AZ,88871,1936-06-14
+915,Kanisha Jenkins,Mustang,IL,66333,2009-01-24
+916,Dan Pate,Hamilton,TN,47812,1981-01-20
+917,Angel Strong,Macon,YK,36372,1977-09-08
+918,Charita Nelson,Brownsville,NY,16017,1982-07-18
+919,Alessandra Bowen,Clifton,WV,86344,2001-03-14
+920,Tomika Joyce,Faribault,DA,39923,1984-11-19
+921,Edmund Preston,Biloxi,KY,61122,1976-06-07
+922,Tyesha Picket,Fair Lawn,NM,38154,1981-10-20
+923,Dion Bernard,Eureka,MT,73502,1946-05-20
+924,Inell Skinner,Richmond,TX,96784,1964-02-27
+925,Angelika Guerra,Menomonee Falls,KY,92888,1954-01-15
+926,Reynaldo O'neal,Eustis,TX,88405,1978-02-26
+927,Latoyia Keith,North Little Rock,VT,27960,2007-10-28
+928,Jeremiha Solomon,Dearborn Heights,MS,44636,1962-02-04
+929,Will Kaufman,Fort Collins,HI,16850,1994-01-17
+930,Wes Hensley,Surprise,NH,94809,1934-12-15
+931,Randell Hood,Fairbanks,RI,52256,1994-01-05
+932,Ricky Bowman,Saratoga,NU,58672,2000-02-23
+933,Joeann Ferrell,Cedar Hilo,SD,12122,1967-04-27
+934,Myron Flyod,Harrison,AK,57862,1970-05-19
+935,Debbra Richmond,North Little Rock,NC,75552,1941-04-30
+936,Jesus Cherry,Savannah,MS,00722,1966-09-29
+937,Dominick Byrd,Sachse,AL,42382,1954-02-28
+938,Jack Jackson,Harlingen,WA,44720,1967-06-09
+939,Mel Sims,Ashland,WV,89441,1987-10-21
+940,Kai Whitehead,Fairhope,ND,32209,1944-10-13
+941,Aubrey Kramer,Pittsburg,ME,34765,1946-06-18
+942,Danyell Martin,Shreveport,OK,82574,1932-06-22
+943,Adam Benjamin,Plano,MN,55157,1954-05-14
+944,Joel Elliott,University City,AR,13776,1957-02-17
+945,Sherly Curtis,Asbury Park,PI,33331,1970-10-22
+946,uciano Cameron,Novi,NE,44952,1951-12-06
+947,Christoper Meadows,San Bernardino,WI,48484,1984-10-27
+948,Neal Foley,Pawtucket,OR,87510,2000-04-17
+949,Eduardo Delaney,Ann Arbor,AZ,65272,1997-08-18
+950,Salvador Kaufman,Rosenberg,AL,79204,1977-09-25
+951,Un Hernandez,Ozark,SC,43038,1946-03-21
+952,Miguelina Jeffersno,Compton,MT,21276,2000-11-08
+953,Billy Jacobson,Wilson,KS,15473,1967-11-21
+954,Kenneth Hodges,Muskogee,SD,83191,1978-05-05
+955,Buddy Ballard,Corsicana,HI,37188,1944-07-02
+956,Dallas Pruitt,Martinsburg,MT,84298,2005-07-19
+957,Berne O'neill,Tulare,MI,67820,1976-06-21
+958,Hisako Mcknight,Rocky River,AZ,11483,1974-01-15
+959,Rolando William,Fairborn,MS,64237,1989-06-12
+960,Talisha Wolfe,Prattvile,IL,51819,1973-05-03
+961,Alphonse Kline,Juneau,ID,42443,1976-03-13
+962,Silas Murphy,Lewisville,AR,80924,2000-12-24
+963,Bettyann Sexton,Butte-Silver Bow,DN,21834,1960-01-15
+964,Saamra Trevino,Golden,HI,91857,1954-09-13
+965,Adena Curry,Del Rio,VA,07514,1956-02-27
+966,Rueben Csaey,East Cleveland,AZ,21834,2002-08-18
+967,Anika Shannon,oBurbonnais,WA,67564,1999-04-08
+968,Mose Foreuan,Nogales,NC,29587,2001-06-10
+969,Avery Haley,Chanhassen,GA,37727,1957-05-08
+970,Shavonne Crane,Buffalo Grove,IN,56455,1954-12-14
+971,Dieo Nieves,Jamestown,HE,65508,1939-07-13
+972,Lear Mercao,Palos Hills,OH,80433,2005-02-26
+973,Josef Hoffman,Franklin Park,MX,72822,1997-03-25
+974,Lou Murray,Poway,DY,23389,1979-10-01
+975,Sanford Chapma,Goleta,CO,55937,1931-09-04
+976,Bruce Cain,Bll,FL,52491,1957-11-23
+977,Julius Farrell,Westlake,NV,64174,1971-01-10
+978,Lindsey Bonner,El Reno,VK,92092,2004-01-11
+979,Brain Johnson,Andover,VT,66115,1936-01-10
+980,Barton Castro,Glendora,GA,08411,1944-03-18
+981,Yuonne Mckee,Brea,NY,96362,1978-07-23
+982,Lionel Sheppard,Ceadr Hill,AK,21458,1946-03-28
+983,Wallace Hines,Erie,UV,75778,1981-09-12
+984,Wes Holer,Central Ponit,ME,58319,1983-05-22
+985,Ned Brewer,Gary,WI,63904,1996-03-18
+986,Bell Castro,Manchester,AP,25836,1968-10-16
+987,Danial Drake,ePrth Amboy,CT,14881,1974-10-29
+988,Austin O'neal,Chicago Heights,FL,44893,1964-01-17
+989,Verea Gordon,Apple Valley,MT,07388,1970-03-02
+990,Kent Walters,Perth Amboy,FL,17889,1957-02-15
+991,Classie Valdez,Alsip,MI,94958,1953-11-06
+992,Dwight Bishop,McMinnville,IN,75924,1952-09-23
+993,Fredrick Franks,Temple Terrace,CT,64554,1950-07-23
+994,Shaun Luna,Columbus,MA,43013,1968-03-09
+995,Benjamin Koch,Gardner,KS,91291,1986-05-05
+996,Lucas Burgess,Lauderdale Lakes,AL,52648,1997-02-09
+997,Loriann Riley,Searcy,NY,39708,1955-06-06
+998,Kandra Carson,Michigan City,NO,58282,1977-07-11
+999,Brady Boyd,Fitchburg,KY,64405,1990-08-24
+1000,Lionel Benson,Steubenville,IN,38091,1958-05-21
+1001,Nicolle Holloway,Benicia,MD,43012,2004-12-08
+1002,Joeann Rollins,Elyria,MN,31849,1973-05-03
+1003,Jarod Waters,Chelsea,IN,69508,1947-04-06
+1004,Wesley Dicekrson,Madiosn Heights,OK,36459,1961-07-18
+1005,Randolph Bolton,Bloomington,MS,16456,1979-12-23
+1006,Vern Dawson,Santa Monica,KS,56507,1946-08-21
+1007,Caron Crawford,Kiryas Joel,NY,19352,1949-06-07
+1008,Dannielle Payne,Mineola,WY,93429,1960-02-18
+1009,Grant Ellis,Edinburg,PA,88622,1949-08-10
+1010,Margurbte Willis,Miami,NC,03516,1954-03-05
+1011,Bo Gallagher,Dyersburg,ND,64500,2004-12-25
+1012,Tad Simon,Homestead,FL,22398,1968-09-07
+1013,Alexacder Hodges,Murrysville,TX,45472,1966-04-16
+1014,Tracee Norris,Westerville,MA,55479,1937-01-18
+1015,Leslie Mcpherson,Jonseboro,CO,86381,1971-11-19
+1016,Dorsey O'neill,Rohnert Park,RI,75075,1963-04-09
+1017,Terina Weaver,Ansonia,NJ,81850,1973-09-12
+1018,Wynell Church,Norwalk,MT,57526,1938-01-16
+1019,Danial Knught,Harlingen,MT,75138,1939-09-09
+1020,Kanisha Guy,New Britxin,LA,49975,1971-11-10
+1021,Shakira Holland,Quincy,KY,51705,1992-12-30
+1022,Arianna Cobb,Lynn,UT,32605,1973-10-29
+1023,Craig Gomez,O'Fallon,OK,95606,2005-01-09
+1024,Donetta Hahn,Peekskill,NY,75605,1997-03-03
+1025,Laveta Stanley,Painesville,MD,19480,1948-03-11
+1026,Junita Sndyer,Rohnert Park,KS,94817,1981-08-31
+1027,Lac Cooper,Benicia,MN,46649,2009-08-04
+1028,Emory Valentine,Tuson,MA,89649,2003-10-19
+1029,Bud Hoover,Pampa,TN,51089,2008-01-04
+1030,Gilma Waters,Mayfield Heights,RI,27743,2007-09-03
+1031,Oliver Booker,Doral,LA,46783,1999-07-29
+1032,Karena Mcfarland,Knoxville,OK,98608,1953-06-25
+1033,Arnoldo Aguirre,Columbus,AG,07490,1980-06-25
+1034,Tari Hendrix,Tyler,NY,63255,1987-07-27
+1035,Barabara Burks,Muscatine,RI,22314,1992-08-09
+1036,Tiffiny Rivera,Terrell,MT,73578,2005-06-02
+1037,Gerardo Battl,Newton,NH,52731,1979-06-12
+1038,Sheldon Stafford,Cleveland,RI,00960,1940-01-07
+1039,Rob Mosley,Coppell,VT,80912,1954-09-20
+1040,Ivlry Yanw,Winston-Salem,KS,49395,1951-02-28
+1041,Vanesa Dominguez,Scottsdale,WY,16024,1990-10-24
+1042,Alverta Morrow,Cottage Grove,WY,27791,1942-12-27
+1043,Dusti Iecker,Lafayette,KY,10838,2003-12-12
+1044,Maximo Nash,Battle Creek,HI,40963,1994-11-20
+1045,Avery Charles,Lima,SC,91533,1966-04-25
+1046,Judson Alvarado,Jonesboro,WY,73296,1942-01-12
+1047,Yur Holland,Norwich,ME,54547,1998-09-23
+1048,Marsi Beach,Bensenville,OK,16053,1969-01-16
+1049,Travis Carr,McAlester,UT,07263,1970-09-06
+1050,Lael Heath,Oro Valley,PA,53395,1974-07-11

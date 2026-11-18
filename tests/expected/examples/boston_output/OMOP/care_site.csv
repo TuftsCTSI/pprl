@@ -1,0 +1,3 @@
+care_site_id,care_site_name,place_of_service_concept_id,location_id,care_site_source_value,place_of_service_source_value
+1,Boston CHC,8761,1,boston_chc,community_health_center
+2,Primary Care Office,8940,1,pcp_office,office_visit

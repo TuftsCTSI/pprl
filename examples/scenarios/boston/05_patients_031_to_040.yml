@@ -1,0 +1,202 @@
+individuals:
+- source_value: crc_met_sigmoid_window
+  id: 31
+  description: "53-year-old female; sigmoidoscopy in Jul 2020; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1970
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: sigmoidoscopy
+    date: "2020-07-01"
+
+- source_value: crc_notmet_sigmoid_old
+  id: 32
+  description: "53-year-old female; sigmoidoscopy in Jul 2018; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1970
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: sigmoidoscopy
+    date: "2018-07-01"
+
+- source_value: crc_met_ct_window
+  id: 33
+  description: "52-year-old male; CT colonography in Jul 2020; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1971
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: ct_colonography
+    date: "2020-07-01"
+
+- source_value: crc_notmet_ct_old
+  id: 34
+  description: "52-year-old male; CT colonography in Jul 2018; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1971
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: ct_colonography
+    date: "2018-07-01"
+
+- source_value: crc_met_fitdna_window
+  id: 35
+  description: "53-year-old female; FIT-DNA in Jun 2022; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1970
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  measurement:
+  - concept_id: sdna_fit
+    date: "2022-06-01"
+    value_as_number: 1.0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- source_value: crc_notmet_fitdna_old
+  id: 36
+  description: "53-year-old female; FIT-DNA in Jun 2020; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1970
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  measurement:
+  - concept_id: sdna_fit
+    date: "2020-06-01"
+    value_as_number: 1.0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- source_value: crc_notmet_none
+  id: 37
+  description: "53-year-old male; no colorectal screening on record; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1970
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- source_value: crc_age49_excluded
+  id: 38
+  description: "49-year-old male; FOBT in May 2023; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1974
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  measurement:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- source_value: crc_age75_included
+  id: 39
+  description: "75-year-old male; FOBT in May 2023; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1948
+  month_of_birth: 6
+  day_of_birth: 20
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurement:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- source_value: crc_age76_excluded
+  id: 40
+  description: "76-year-old male; FOBT in May 2023; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1947
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  measurement:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"

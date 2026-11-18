@@ -1,0 +1,22 @@
+<p>You are <strong>the host</strong> of $project. You receive its merged dataset: the clinical tables of its $site_count sites, $sites, with the records of each person found at more than one site brought together. You do not install or run pprl, and you never receive anything else from the project.</p>
+
+<p>The project's times:</p>
+<table>
+<tr><th>Planned</th><th>What happens</th></tr>
+<tr><td>$time_merge</td><td>merged dataset sent to you by the merge agent</td></tr>
+<tr><td>$time_destroy</td><td>project's workspaces destroyed, after you confirm receipt (step 2)</td></tr>
+</table>
+<p>All times are Eastern time.</p>
+
+<h2><span class="step">1.</span> Receive the merged dataset</h2>
+<p>The merge agent sends you the folder $merged, over a secure channel, expected around $time_merge. It holds one CSV file for each table:</p>
+<ul>
+$merged_tables
+</ul>
+<p>Save them where your organization holds the project's data. The column $id holds each person's id, the same in every table. It is new: a random number, drawn when the tables were merged, so that no row can be traced back to a site's records. No site's own ids, and no study ids, are in the dataset.</p>
+
+<h2><span class="step">2.</span> Confirm</h2>
+<p>Check that you have every table above, then tell $contact_name. Delete any other copy outside your own storage, wherever it was shared, such as in your downloads folder.</p>
+
+<h2>Questions</h2>
+<p>Write to $contact about anything unclear, however small: a step in this guide, or anything that did not seem right.</p>

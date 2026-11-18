@@ -1,0 +1,8 @@
+# Identical records, written in a different order at each site.
+seed: 22kpPVDnKz7vhY45UyZB
+sites: [site_a, site_b]
+outputs: [patients]
+generated_individuals:
+  - {sites: [site_a, site_b], count: 100}
+pii:
+  shuffle_rows: true

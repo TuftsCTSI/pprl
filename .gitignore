@@ -1,0 +1,15 @@
+# Build files
+.venv/
+venv/
+*.egg-info/
+__pycache__
+build/
+dist/
+
+# Test and lint caches
+tests/tmp/
+.pytest_cache/
+.ruff_cache/
+
+# Ignore MacOS specific files
+.DS_Store

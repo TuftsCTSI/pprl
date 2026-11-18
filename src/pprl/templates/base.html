@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$project: guide for $role_title</title>
+<style>
+  :root {
+    --text: #1d1d1f; --muted: #5c5c66; --background: #ffffff;
+    --panel: #f4f4f7; --rule: #d9d9e0; --accent: #2b5a9e; --warning: #8a4b00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #e8e8ed; --muted: #a5a5b0; --background: #17171a;
+      --panel: #222227; --rule: #3a3a42; --accent: #8fb4ec; --warning: #f0b46a;
+    }
+  }
+  body {
+    margin: 0 auto; max-width: 46rem; padding: 2rem 1rem 4rem;
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text); background: var(--background);
+  }
+  header { border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
+  header p { color: var(--muted); margin: 0.25rem 0 1rem; }
+  h1 { font-size: 1.6rem; margin: 0; }
+  h2 { font-size: 1.2rem; margin-top: 2.2rem; }
+  h2 .step { color: var(--muted); font-weight: normal; }
+  a { color: var(--accent); }
+  code {
+    font: 0.9em ui-monospace, "Cascadia Mono", Consolas, monospace;
+    background: var(--panel); padding: 0.1em 0.3em; border-radius: 3px;
+    overflow-wrap: anywhere;
+  }
+  pre { background: var(--panel); padding: 0.75rem 1rem; border-radius: 4px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 0.75rem 0; }
+  th, td { text-align: left; vertical-align: top; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule); }
+  th { font-weight: 600; }
+  .note { border-left: 3px solid var(--warning); padding: 0.25rem 0 0.25rem 0.9rem; margin: 1rem 0; }
+  footer { margin-top: 3rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }
+  @media print {
+    body { max-width: none; padding: 0; font-size: 11pt; }
+    a { color: inherit; }
+    h2 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<header>
+<h1>$project: guide for $role_title</h1>
+<p>pprl $release, generated at $generated. Questions: $contact.</p>
+</header>
+$body
+<footer>
+<p>This guide was generated at $generated for $project by pprl guides, for pprl $release. If anything in it does not match what pprl shows you, stop, and write to $contact.</p>
+</footer>
+</body>
+</html>

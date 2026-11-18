@@ -1,0 +1,25 @@
+# An example deployment.yml: what the coordinator writes beside
+# project.yml, then runs `pprl guides` on. CI renders its example guides
+# from it. Every value here is an example.
+# Whom each role sends files to: one person for each role, and for
+# each of project.yml's sites. Every role writes to the coordinator with
+# questions.
+contacts:
+  coordinator: {name: Jo Example, email: jo@example.org}
+  site_a: {name: Ana Example, email: ana@example.org}
+  site_b: {name: Ben Example, email: ben@example.org}
+  linkage: {name: Lee Example, email: lee@example.org}
+  merge: {name: Max Example, email: max@example.org}
+  host: {name: Hal Example, email: hal@example.org}
+# Planned times, for scheduling, on a 24-hour clock. No command reads them.
+times:
+  bundles: 2026-11-16 09:00  # bundles and guides sent
+  secrets: 2026-11-16 09:30  # secrets generated and sent
+  hash: 2026-11-16 12:00     # hashes shared
+  link: 2026-11-16 14:00     # linking finished
+  review: 2026-11-16 14:30   # linkage reviewed, go-ahead sent
+  pack: 2026-11-16 15:00     # tables packed and shared
+  merge: 2026-11-16 16:30    # merging finished
+  destroy: 2026-11-16 17:00  # workspaces destroyed, receipts sent
+# wheel: https://...   # where pprl is installed from, if not GitHub's release;
+#                      # it may end in #sha256= and the wheel's SHA-256

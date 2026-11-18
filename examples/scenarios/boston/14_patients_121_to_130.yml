@@ -1,0 +1,200 @@
+individuals:
+- source_value: crc_excluded_hospice
+  id: 121
+  description: "53-year-old male; FOBT in May 2023; hospice encounter in Apr 2023"
+  expected:
+    PS_02:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1970
+  month_of_birth: 4
+  day_of_birth: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  measurement:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observation:
+  - concept_id: hospice_enc
+    date: "2023-04-01"
+  - concept_id: routine_exam
+    date: "2023-06-15"
+
+- source_value: crc_excluded_colectomy
+  id: 122
+  description: "55-year-old male; colectomy in Nov 2019; FOBT in May 2023; routine exam in Jun 2023"
+  expected:
+    PS_02:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1968
+  month_of_birth: 7
+  day_of_birth: 22
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  measurement:
+  - concept_id: fobt
+    date: "2023-05-15"
+    value_as_number: 1.0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: colectomy_proc
+    date: "2019-11-01"
+
+- source_value: mmr_met_boundary
+  id: 123
+  description: "Infant born Jan 2022; MMR vaccine administered Jul 15, 2023 at exactly 18 months"
+  expected:
+    PS_04:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2022
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-07-15"
+  drug:
+  - concept_id: mmr_vaccine
+    start_date: "2023-07-15"
+    lot_number: LOT003
+
+- source_value: mmr_met_two_doses
+  id: 124
+  description: "Infant born Jan 2022; first MMR in Jun 2023 at 17 months, second MMR in Dec 2023"
+  expected:
+    PS_04:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2022
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+  drug:
+  - concept_id: mmr_vaccine
+    start_date: "2023-06-01"
+    lot_number: LOT004A
+  - concept_id: mmr_vaccine
+    start_date: "2023-12-01"
+    lot_number: LOT004B
+
+- source_value: mmr_no_lot
+  id: 125
+  description: "Infant born Mar 2022; MMR vaccine administered Jun 2023 without lot number"
+  expected:
+    PS_04:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2022
+  month_of_birth: 3
+  day_of_birth: 1
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+  drug:
+  - concept_id: mmr_vaccine
+    start_date: "2023-06-01"
+
+- source_value: food_declined
+  id: 126
+  description: "38-year-old male; food security screen Jul 2023: 'Patient declined to answer'"
+  expected:
+    SDOH_01:
+      '2023': -1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1985
+  month_of_birth: 9
+  day_of_birth: 5
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: food_security_q1
+    date: "2023-07-01"
+    value_as_string: "Patient declined to answer"
+
+- source_value: housing_unknown
+  id: 127
+  description: "37-year-old female; housing screen Jul 2023: 'Prefer not to say'"
+  expected:
+    SDOH_02:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1986
+  month_of_birth: 4
+  day_of_birth: 12
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: housing_stability
+    date: "2023-07-01"
+    value_as_string: "Prefer not to say"
+
+- source_value: ptype04_current_yr
+  id: 128
+  description: "43-year-old male; routine exam in Jun 2023"
+  expected:
+    PTYPE_04:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1980
+  month_of_birth: 1
+  day_of_birth: 1
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: ptype04_no_visit_current
+  id: 129
+  description: "43-year-old female; visit in Jun 2022 without valid visit type; no visit in 2023"
+  expected:
+    PTYPE_04:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1980
+  month_of_birth: 2
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2022-06-01"
+    visit: {concept_id: zero_visit}
+
+- source_value: ptype03_1yr_lookback
+  id: 130
+  description: "43-year-old male; routine exam in Sep 2022"
+  expected:
+    PTYPE_03:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1980
+  month_of_birth: 5
+  day_of_birth: 10
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2022-09-01"

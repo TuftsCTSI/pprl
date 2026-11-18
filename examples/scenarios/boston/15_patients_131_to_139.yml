@@ -1,0 +1,183 @@
+individuals:
+- source_value: ptype05_2yr_lookback
+  id: 131
+  description: "43-year-old female; routine exam in Nov 2021"
+  expected:
+    PTYPE_05:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1980
+  month_of_birth: 7
+  day_of_birth: 20
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2021-11-01"
+
+- source_value: ptype05_3yr_ago
+  id: 132
+  description: "43-year-old male; visit in Apr 2020 without valid visit type; no subsequent visits"
+  expected:
+    PTYPE_05:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1980
+  month_of_birth: 10
+  day_of_birth: 5
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2020-04-01"
+    visit: {concept_id: zero_visit}
+
+- source_value: ptype04_zero_concept
+  id: 133
+  description: "43-year-old female; visit in Jun 2023 recorded without valid visit type"
+  expected:
+    PTYPE_04:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1980
+  month_of_birth: 12
+  day_of_birth: 1
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+    visit: {concept_id: zero_visit}
+
+- source_value: ptype08_pcp_current
+  id: 134
+  description: "45-year-old male; routine exam at primary care office in Apr 2023"
+  expected:
+    PTYPE_08:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1978
+  month_of_birth: 3
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-04-01"
+    visit: {care_site_id: pcp_office}
+
+- source_value: ptype08_pcp_prior_yr
+  id: 135
+  description: "45-year-old female; routine exam at primary care office in Apr 2022"
+  expected:
+    PTYPE_08:
+      '2022': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1978
+  month_of_birth: 6
+  day_of_birth: 20
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2022-04-01"
+    visit: {care_site_id: pcp_office}
+
+- source_value: ptype02_chc_current
+  id: 136
+  description: "47-year-old male; routine exam at Boston CHC in May 2023"
+  expected:
+    PTYPE_02:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1976
+  month_of_birth: 9
+  day_of_birth: 1
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: routine_exam
+    date: "2023-05-01"
+    visit: {care_site_id: boston_chc}
+
+- source_value: ptype08_not_pcp
+  id: 137
+  description: "46-year-old female; routine exam at Boston CHC in Jun 2023"
+  expected:
+    PTYPE_08:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1977
+  month_of_birth: 11
+  day_of_birth: 10
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+    visit: {care_site_id: boston_chc}
+
+- source_value: null_patient
+  id: 138
+  description: "38-year-old male; visit in Jun 2023 with no clinical measurements, conditions, or procedures"
+  expected: {}
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1985
+  month_of_birth: 5
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+    visit: {concept_id: zero_visit}
+
+- source_value: inactive_shared
+  id: 139
+  description: "48-year-old female with multiple conditions diagnosed 2023; last routine exam in Jun 2020"
+  expected:
+    BH_01:
+      '2023': absent
+    BH_09:
+      '2023': absent
+    DIS_01:
+      '2023': absent
+    DIS_03:
+      '2023': absent
+    DIS_04:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1975
+  month_of_birth: 3
+  day_of_birth: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: depression
+    start_date: "2023-03-01"
+    visit: {concept_id: zero_visit}
+  - concept_id: sud_alcohol
+    start_date: "2023-02-01"
+    visit: {concept_id: zero_visit}
+  - concept_id: vision_disability
+    start_date: "2023-01-15"
+    visit: {concept_id: zero_visit}
+  - concept_id: autism_spectrum
+    start_date: "2023-04-01"
+    visit: {concept_id: zero_visit}
+  - concept_id: intellectual_disability
+    start_date: "2023-05-01"
+    visit: {concept_id: zero_visit}
+  observation:
+  - concept_id: routine_exam
+    date: "2020-06-01"
+    visit: {concept_id: zero_visit}

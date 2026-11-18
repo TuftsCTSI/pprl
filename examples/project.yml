@@ -1,0 +1,25 @@
+# An example project.yml: what the coordinator writes in its
+# workspace, then runs `pprl bundles` on. CI makes
+# its test bundles from it. The weights, hash length, fill ratio and
+# threshold are examples only: a project chooses its own, with `pprl synth`
+# and `pprl sweep`.
+name: Example project
+id: person_id  # the column of each site's patient file and tables that holds its id
+sites: [site_a, site_b]  # also merge's tie-breaking order: the definitive site first
+fields:
+  name: 0.45
+  city: 0.10
+  state: {weight: 0.05, type: state}
+  zip: {weight: 0.15, type: zip}
+  dob: {weight: 0.25, type: date}
+hash_length: 1024  # bits in each hash
+fill_ratio: 1.0  # the bits all fields set together, divided by hash_length
+threshold: 0.90
+secret_check: true  # whether link checks that every site used the same secret
+tables:  # each table's rows in the study, and how its columns are merged
+  scores:
+    primary_key: [person_id]
+    keep:  # the rules a row must meet for pprl select to keep it, in order
+      - not_empty: score
+    column:
+      score: {rank_by: [{take_highest: {column: score}}]}

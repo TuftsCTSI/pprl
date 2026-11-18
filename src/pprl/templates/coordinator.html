@@ -1,0 +1,79 @@
+<p>You are <strong>the coordinator</strong> of $project: you choose its settings, write every role's bundle and guide, and send them. Every other role follows a guide written for that role, which you send with the role's bundle. This one stays in your workspace, and is never sent.</p>
+<p>You are also one of the sites. Your site's workspace is a separate folder, and you follow your site's guide as any site participant does, holding back your site's tables until the go-ahead too.</p>
+<div class="note"><p>Through your site you hold the project's secret, so you must never have access to another site's hashes: never receive one, nor set up a place to share them or the linkage file. That would in effect give you that site's patients' details. So someone else holds the linkage agent's role, and no site participant holds that role or the merge agent's.</p></div>
+
+<p>The project's times:</p>
+<table>
+<tr><th>Planned</th><th>What happens</th></tr>
+<tr><td>$time_bundles</td><td>bundles and guides sent (step 4)</td></tr>
+<tr><td>$time_secrets</td><td>public keys received, secret files sent to each site participant (step 5)</td></tr>
+<tr><td>$time_hash</td><td>each site's hashes sent to the linkage agent</td></tr>
+<tr><td>$time_link</td><td>linkage file sent to the merge agent, linkage report sent to you (step 6)</td></tr>
+<tr><td>$time_review</td><td>linkage judged plausible, linkage agent's receipt received, go-ahead sent (steps 6 and 7)</td></tr>
+<tr><td>$time_pack</td><td>each site's tables sent to the merge agent</td></tr>
+<tr><td>$time_merge</td><td>merged dataset sent to the host</td></tr>
+<tr><td>$time_destroy</td><td>workspaces destroyed, receipts sent to you (step 8)</td></tr>
+</table>
+<p>All times are Eastern time.</p>
+
+<h2><span class="step">1.</span> Install pprl</h2>
+<p>Install <a href="https://docs.astral.sh/uv/">uv</a>, then pprl $release:</p>
+<pre>$install</pre>
+<p>Open a new terminal, and run <code class="command">pprl</code>: it lists its commands.</p>
+
+<h2><span class="step">2.</span> Your workspace and the project's settings</h2>
+<p>Your workspace is a new, empty folder, such as $folder, that holds the project's settings and every bundle until the end of the project: it must be somewhere your organization has approved for it, on an encrypted drive, left out of search indexing, cloud sync and backups.</p>
+<p>In it, write $project_file, the project's settings: its sites, each site's id column, the fields to hash and their weights, the threshold, and how each table is merged. The order of its sites breaks every tie in the merge: put the definitive site first, the one whose records for the study's tables are the most complete and current (then the enrolling site, then the one with the most patients), and note why beside it. Then open a terminal in the folder, and run:</p>
+<pre>$init</pre>
+<p>It makes the folder your workspace, for a new project. Open a terminal in your workspace for every step below.</p>
+<div class="note"><p>$deleted_at_end</p><p>To see what a bundle holds, run <code class="command">pprl inspect</code> on it.</p></div>
+
+<h2><span class="step">3.</span> The bundles and the guides</h2>
+<p>Choose the fields' weights, the hash length, the fill ratio and the threshold on synthetic data, with $synth and $sweep. Then write every bundle:</p>
+<pre>$bundles</pre>
+<p>$deployment_file, beside $project_file, holds what the guides tell each role: whom to write to, and the times. Then write every guide:</p>
+<pre>$guides</pre>
+<p>It writes a guide for each recipient into the recipient's folder in $outbox, beside the bundle, and this one, $own_guide. Read each before you send it.</p>
+
+<h2><span class="step">4.</span> Send the bundles and guides</h2>
+<p>Send each recipient exactly the files in the recipient's folder in your $outbox, over a secure channel, planned for around $time_bundles:</p>
+<table>
+<tr><th>To</th><th>Contact</th><th>Files</th></tr>
+$sends
+</table>
+<p>A site's bundle holds the fields' weights: it goes to that site's participant only. Your own site's needs no sending: copy it between your two workspaces.</p>
+
+<h2><span class="step">5.</span> Send each site participant the secret</h2>
+<p>Once the site workspace exists, each site participant sends you the site's public key over a secure channel. Accept a public key only from the site participant you already know: pprl has no other check of whose it is. Save each in your workspace under its own name: $keys. Then run:</p>
+<pre>$secrets</pre>
+<p>It makes the project's one secret, locks it to each site's public key, and keeps no copy: this workspace cannot read it. It writes $secret_files. Then send each site participant that site's file over a secure channel, planned for around $time_secrets:</p>
+<table>
+<tr><th>To</th><th>Contact</th><th>File</th></tr>
+$secret_sends
+</table>
+<p>Your own site's public key and secret file don't need sending: copy each between your two workspaces.</p>
+
+<h2><span class="step">6.</span> Review the linkage</h2>
+<p>The site participants send the hashes to the linkage agent, and keep the tables back. The linkage agent sends the linkage file to the merge agent, and you the linkage report, $linkage_report, expected around $time_link: what <code class="command">pprl link</code> found, as counts only, with no record and no hash. Save it in your workspace, under that name, without opening it, and run:</p>
+<pre>$review</pre>
+<p>It shows what the linkage report holds, and writes a histogram of best scores beside it, $histogram. Leave both in your workspace until the end of the project, when $destroy deletes them (step 8). Judge from them whether the linkage is plausible:</p>
+<ul>
+<li>each pair of sites: same secret, or not checked, and why (too few records, or $project_file turns the check off);</li>
+<li>linked pairs near the overlap you expect;</li>
+<li>a clear gap at the threshold, with few near misses;</li>
+<li>an estimate of false pairs small enough for the study;</li>
+<li>each warning from <code class="command">pprl link</code> understood.</li>
+</ul>
+<p>If it is plausible, tell the linkage agent, $contact_linkage, to delete every copy of the hashes, destroy the linkage workspace and send you the receipt. Save the receipt in your workspace, and read it: does anything in it suggest a problem with pprl, such as a step that was hard to follow or a bug worth reporting?</p>
+
+<h2><span class="step">7.</span> Send the go-ahead</h2>
+<p>Once you hold the linkage agent's receipt, and not before, tell every site participant and the merge agent to go ahead. This is planned for around $time_review. The go-ahead means that the linkage agent's hashes are gone before any table moves. Each site participant then sends the site's tables, and the merge agent starts merging. Site participants keep every other file in the site workspaces until the end of the project (step 8).</p>
+
+<h2><span class="step">8.</span> At the end of the project</h2>
+<p>When the host confirms receipt of the merged dataset, expected around $time_merge, tell every site participant and the merge agent that the project's transfers are complete, and that the workspaces may be destroyed. No role destroys a workspace before you say so. Each deletes any copy shared outside the workspace, destroys the workspace and sends you the receipt. This is planned for around $time_destroy. Save each receipt you receive in your workspace, and read it, as in step 6. Delete any copy of the bundles and guides you shared. Then, in your workspace, run:</p>
+<pre>$destroy</pre>
+<p>It deletes every file in your workspace, including the linkage report, its histogram and the receipts you received, none of which is needed after the project, and leaves the folder, with only your receipt in it, $receipt.</p>
+<p>$destroy_limits</p>
+
+<h2>Questions</h2>
+<p>Every role writes to you with questions: welcome each one, however small, as a step one role found unclear may trouble others too. When pprl's message doesn't settle a problem, the role sends you the workspace's log over a secure channel: it holds what pprl showed, and no patient details or secret.</p>

@@ -1,0 +1,258 @@
+individuals:
+- source_value: htn_age17_excluded
+  id: 1
+  description: "17-year-old male with hypertension diagnosed Jan 2023; blood pressure 139/89 in Jun 2023"
+  expected:
+    CVR_03:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2006
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: hypertension
+    start_date: "2023-01-10"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-06-15"
+    value_as_number: 139
+  - concept_id: diastolic_bp
+    date: "2023-06-15"
+    value_as_number: 89
+
+- source_value: htn_age18_met
+  id: 2
+  description: "18-year-old male with hypertension diagnosed Jan 2023; blood pressure 139/89 in Jul 2023"
+  expected:
+    CVR_03:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2005
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: hypertension
+    start_date: "2023-01-05"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-07-15"
+    value_as_number: 139
+  - concept_id: diastolic_bp
+    date: "2023-07-15"
+    value_as_number: 89
+
+- source_value: htn_age84_met
+  id: 3
+  description: "84-year-old female with hypertension diagnosed Jan 2023; blood pressure 139/89 in Jul 2023"
+  expected:
+    CVR_03:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1939
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: hypertension
+    start_date: "2023-01-05"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-07-15"
+    value_as_number: 139
+  - concept_id: diastolic_bp
+    date: "2023-07-15"
+    value_as_number: 89
+
+- source_value: htn_age85_excluded
+  id: 4
+  description: "85-year-old female with hypertension diagnosed Jan 2023; blood pressure 139/89 in Jul 2023"
+  expected:
+    CVR_03:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1938
+  month_of_birth: 1
+  day_of_birth: 15
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: hypertension
+    start_date: "2023-01-05"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-07-15"
+    value_as_number: 139
+  - concept_id: diastolic_bp
+    date: "2023-07-15"
+    value_as_number: 89
+
+- source_value: htn_notmet_dia
+  id: 5
+  description: "53-year-old male with hypertension diagnosed Jan 2023; blood pressure 138/91 in Aug 2023"
+  expected:
+    CVR_03:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1970
+  month_of_birth: 2
+  day_of_birth: 1
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: hypertension
+    start_date: "2023-01-10"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-08-01"
+    value_as_number: 138
+  - concept_id: diastolic_bp
+    date: "2023-08-01"
+    value_as_number: 91
+
+- source_value: htn_notmet_sys
+  id: 6
+  description: "52-year-old male with hypertension diagnosed Jan 2023; blood pressure 141/90 in Aug 2023"
+  expected:
+    CVR_03:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1971
+  month_of_birth: 2
+  day_of_birth: 1
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: hypertension
+    start_date: "2023-01-10"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-08-02"
+    value_as_number: 141
+  - concept_id: diastolic_bp
+    date: "2023-08-02"
+    value_as_number: 90
+
+- source_value: htn_notmet_both
+  id: 7
+  description: "51-year-old female with hypertension diagnosed Jan 2023; blood pressure 141/91 in Aug 2023"
+  expected:
+    CVR_03:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1972
+  month_of_birth: 2
+  day_of_birth: 1
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: hypertension
+    start_date: "2023-01-10"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-08-03"
+    value_as_number: 141
+  - concept_id: diastolic_bp
+    date: "2023-08-03"
+    value_as_number: 91
+
+- source_value: htn_last_reading_met_sep
+  id: 8
+  description: "Hypertension diagnosed Dec 2022; blood pressure 145/91 in Apr 2023, then 138/88 in Oct 2023"
+  expected:
+    CVR_03:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1965
+  month_of_birth: 3
+  day_of_birth: 1
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: hypertension
+    start_date: "2022-12-15"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-04-01"
+    value_as_number: 145
+  - concept_id: diastolic_bp
+    date: "2023-04-01"
+    value_as_number: 91
+  - concept_id: systolic_bp
+    date: "2023-10-01"
+    value_as_number: 138
+  - concept_id: diastolic_bp
+    date: "2023-10-01"
+    value_as_number: 88
+
+- source_value: htn_last_reading_notmet_sep
+  id: 9
+  description: "Hypertension diagnosed Dec 2022; blood pressure 138/88 in Apr 2023, then 145/91 in Oct 2023"
+  expected:
+    CVR_03:
+      '2023': 0
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1966
+  month_of_birth: 3
+  day_of_birth: 1
+  race_concept_id: asian
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: hypertension
+    start_date: "2022-12-15"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-04-01"
+    value_as_number: 138
+  - concept_id: diastolic_bp
+    date: "2023-04-01"
+    value_as_number: 88
+  - concept_id: systolic_bp
+    date: "2023-10-01"
+    value_as_number: 145
+  - concept_id: diastolic_bp
+    date: "2023-10-01"
+    value_as_number: 91
+
+- source_value: htn_same_day_low_high_sql_met
+  id: 10
+  description: "Hypertension diagnosed Dec 2022; two blood pressure readings on Oct 1, 2023: 145/91 and 138/88"
+  expected:
+    CVR_03:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1967
+  month_of_birth: 3
+  day_of_birth: 1
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: hypertension
+    start_date: "2022-12-15"
+  measurement:
+  - concept_id: systolic_bp
+    date: "2023-10-01"
+    value_as_number: 145
+  - concept_id: systolic_bp
+    date: "2023-10-01"
+    value_as_number: 138
+  - concept_id: diastolic_bp
+    date: "2023-10-01"
+    value_as_number: 91
+  - concept_id: diastolic_bp
+    date: "2023-10-01"
+    value_as_number: 88

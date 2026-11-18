@@ -1,0 +1,3 @@
+care_site_id,care_site_name,place_of_service_concept_id,location_id,care_site_source_value,place_of_service_source_value
+1,General Hospital Primary Care,8940,1,hospital_primary_care,office_visit
+2,ABC Community Health Center,8761,2,hospital_chc,community_health_center

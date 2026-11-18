@@ -1,0 +1,51 @@
+<p>You are <strong>the merge agent</strong> of $project. Each site participant ($sites) sends you the site's clinical tables, keyed by study ids that mean nothing outside the project, and the linkage agent sends you which study ids belong to the same person. You merge the tables into one dataset, with one new id for each person, for the host. You never see a hash, a name, or a site's own id.</p>
+<p><strong>Do not run <code class="command">pprl merge</code> until the go-ahead from $contact_name</strong>, which you should receive around $time_review. You can create your workspace at any time before merging, such as once the files arrive. Keep the linkage file, which reaches you before the go-ahead, unopened. The go-ahead goes out only once the linkage agent has deleted every copy of the hashes.</p>
+
+<p>The project's times:</p>
+<table>
+<tr><th>Planned</th><th>What happens</th></tr>
+<tr><td>$time_bundles</td><td>bundle and this guide received</td></tr>
+<tr><td>$time_link</td><td>linkage file received</td></tr>
+<tr><td>$time_review</td><td>go-ahead received from $contact_name</td></tr>
+<tr><td>$time_pack</td><td>every site's tables received</td></tr>
+<tr><td>$time_merge</td><td>merged dataset sent to the host (steps 1 to 4)</td></tr>
+<tr><td>$time_destroy</td><td>workspace destroyed, receipt sent (step 5)</td></tr>
+</table>
+<p>All times are Eastern time.</p>
+
+<h2><span class="step">1.</span> Install pprl</h2>
+<p>Install <a href="https://docs.astral.sh/uv/">uv</a>, then pprl $release:</p>
+<pre>$install</pre>
+<p>Open a new terminal, and run <code class="command">pprl</code>: it lists its commands. If a step fails, or your computer restricts what you can install, write to $contact.</p>
+
+<h2><span class="step">2.</span> Create your workspace</h2>
+<p>Your workspace is a new, empty folder you create, such as $folder: somewhere your organization has approved for clinical data, on an encrypted drive, where files can be deleted permanently. Keep it out of search indexing, cloud sync and backups. You receive your bundle, $bundle, from $contact_name, over a secure channel. Save it, and any of the files in step 3 you have received, in the folder, open a terminal there, and run:</p>
+<pre>$init</pre>
+<p>pprl reads your role from the bundle and shows it back, makes the folder your workspace, and lists the files it created. Any other files stay as they are. Open a terminal in your workspace for every step below.</p>
+<div class="note"><p>$deleted_at_end</p><p>Open no file in your workspace, not even to look: an editor or your computer itself can leave copies of a file elsewhere on the disk, such as backup files or a search index, which pprl cannot delete. To see what a file holds, run <code class="command">pprl inspect</code> on it.</p></div>
+<div class="note"><p>If you ever receive a bundle other than your own, do not open it: delete it, and tell $contact_name.</p></div>
+
+<h2><span class="step">3.</span> Merge the sites' tables</h2>
+<p>The linkage agent sends you the linkage file, $linkages, and each site participant sends you the site's tables, over a secure channel. The linkage file is expected around $time_link and the tables around $time_pack. Save them in your workspace folder, if you have not already, under the names they have:</p>
+<ul>
+$tables_received
+</ul>
+<p>Never open or rename them: pprl refuses a file that was opened and saved. Then run:</p>
+<pre><code class="command">pprl merge</code></pre>
+<p>pprl checks that every file is from this project's set of bundles, and that each site's tables and hashes came from the same run at that site, then merges each table by the project's rules. It writes $merged_out, one CSV file for each table:</p>
+<ul>
+$merged_tables
+</ul>
+<p>The column $id holds each person's new id, the same in every table: a random number, drawn anew each time, that no site's ids can be traced from.</p>
+
+<h2><span class="step">4.</span> Send the merged dataset</h2>
+<p>Send exactly the files in your workspace's $merged_out folder, as they are, to the host, $contact_host, over a secure channel. This is planned for around $time_merge. Never send anything else from your workspace, and above all never send the sites' tables or the linkage file on.</p>
+
+<h2><span class="step">5.</span> At the end of the project</h2>
+<p><strong>Do not run $destroy until $contact_name tells you that the project's transfers are complete.</strong> This is planned for shortly before $time_destroy. Then delete any copy you shared of the merged dataset, and every other copy of the files you received, wherever they were shared, such as in your downloads folder. Then, in your workspace, run:</p>
+<pre>$destroy</pre>
+<p>pprl lists every file in your workspace, asks you to type "yes", and deletes them permanently. It leaves the folder, with only your receipt, $receipt: send it to $contact_name over a secure channel. The receipt holds your workspace's $log, and no patient details or secret. You may then delete the folder.</p>
+<p>$destroy_limits</p>
+
+<h2>Questions</h2>
+<p>Write to $contact about anything unclear, however small: a step in this guide, a message you did not expect, or anything that did not seem right. Each question helps the project. If pprl stops with a problem and its message doesn't settle it, send $log, in your workspace, to $contact_name over a secure channel: it holds what pprl showed you, and no patient details or secret.</p>

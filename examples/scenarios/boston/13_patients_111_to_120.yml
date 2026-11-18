@@ -1,0 +1,213 @@
+individuals:
+- source_value: dis01_vision_inactive
+  id: 111
+  description: "63-year-old male; vision disability diagnosed Jun 2020; last routine exam in Jun 2017"
+  expected:
+    DIS_01:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1960
+  month_of_birth: 5
+  day_of_birth: 20
+  race_concept_id: white
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: vision_disability
+    start_date: "2020-06-01"
+    visit: {concept_id: zero_visit}
+  observation:
+  - concept_id: routine_exam
+    date: "2017-06-01"
+
+- source_value: dis01_vision_future_dx
+  id: 112
+  description: "63-year-old female; vision disability diagnosed Mar 2025; routine exam in Jun 2023"
+  expected:
+    DIS_01:
+      '2025': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1960
+  month_of_birth: 10
+  day_of_birth: 5
+  race_concept_id: black
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: vision_disability
+    start_date: "2025-03-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: dis01_vision_resolved
+  id: 113
+  description: "61-year-old male; vision disability Jun 2020 to Jun 2021 (resolved); routine exam in Jun 2023"
+  expected:
+    DIS_01:
+      '2023': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1962
+  month_of_birth: 3
+  day_of_birth: 12
+  race_concept_id: asian
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: vision_disability
+    start_date: "2020-06-01"
+    end_date: "2021-06-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: dis03_autism_inactive
+  id: 114
+  description: "13-year-old male; autism spectrum diagnosed Sep 2015; last routine exam in Jun 2020"
+  expected:
+    DIS_03:
+      '2022': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2010
+  month_of_birth: 8
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: 0
+  condition:
+  - concept_id: autism_spectrum
+    start_date: "2015-09-01"
+  observation:
+  - concept_id: routine_exam
+    date: "2020-06-01"
+
+- source_value: dis03_autism_future_dx
+  id: 115
+  description: "11-year-old female; autism spectrum diagnosed Jan 2025; routine exam in Jun 2023"
+  expected:
+    DIS_03:
+      '2025': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2012
+  month_of_birth: 4
+  day_of_birth: 1
+  race_concept_id: asian
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: autism_spectrum
+    start_date: "2025-01-15"
+    visit: {concept_id: zero_visit}
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: dis04_intellectual_inactive
+  id: 116
+  description: "15-year-old female; intellectual disability diagnosed Apr 2016; last routine exam in Jun 2013"
+  expected:
+    DIS_04:
+      '2023': absent
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 2008
+  month_of_birth: 6
+  day_of_birth: 20
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  condition:
+  - concept_id: intellectual_disability
+    start_date: "2016-04-01"
+    visit: {concept_id: zero_visit}
+  observation:
+  - concept_id: routine_exam
+    date: "2013-06-01"
+
+- source_value: dis04_intellectual_future_dx
+  id: 117
+  description: "14-year-old male; intellectual disability diagnosed May 2025; routine exam in Jun 2023"
+  expected:
+    DIS_04:
+      '2025': 1
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 2009
+  month_of_birth: 2
+  day_of_birth: 10
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  condition:
+  - concept_id: intellectual_disability
+    start_date: "2025-05-01"
+    visit: {concept_id: zero_visit}
+  observation:
+  - concept_id: routine_exam
+    date: "2023-06-01"
+
+- source_value: smoke_unknown_concept
+  id: 118
+  description: "48-year-old male; unclassified tobacco status response in May 2023"
+  expected:
+    PS_01:
+      '2023': empty
+  location_id: boston
+  gender_concept_id: MALE
+  year_of_birth: 1975
+  month_of_birth: 6
+  day_of_birth: 1
+  race_concept_id: black
+  ethnicity_concept_id: hispanic
+  observation:
+  - concept_id: tobacco_status
+    date: "2023-05-01"
+    value_as_concept_id: tobacco_unknown_val
+  - concept_id: routine_exam
+    date: "2023-05-01"
+
+- source_value: smoke_changed_year
+  id: 119
+  description: "53-year-old female; tobacco user in Sep 2022, then non-user in Mar 2023"
+  expected:
+    PS_01:
+      '2022': 0
+      '2023': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1970
+  month_of_birth: 11
+  day_of_birth: 15
+  race_concept_id: white
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: tobacco_status
+    date: "2022-09-01"
+    value_as_concept_id: tobacco_user
+  - concept_id: tobacco_status
+    date: "2023-03-01"
+    value_as_concept_id: tobacco_nonuser
+  - concept_id: routine_exam
+    date: "2022-09-01"
+  - concept_id: routine_exam
+    date: "2023-03-01"
+
+- source_value: breast_excluded_hospice
+  id: 120
+  description: "53-year-old female; mammogram in Jun 2022; hospice encounter in Apr 2023"
+  expected:
+    PS_03:
+      '2022': 1
+  location_id: boston
+  gender_concept_id: FEMALE
+  year_of_birth: 1970
+  month_of_birth: 3
+  day_of_birth: 1
+  race_concept_id: black
+  ethnicity_concept_id: not_hispanic
+  observation:
+  - concept_id: hospice_enc
+    date: "2023-04-01"
+  - concept_id: routine_exam
+    date: "2023-06-15"
+  procedure:
+  - concept_id: mammography
+    date: "2022-06-15"

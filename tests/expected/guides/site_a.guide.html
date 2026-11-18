@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example project: guide for the site_a participant</title>
+<style>
+  :root {
+    --text: #1d1d1f; --muted: #5c5c66; --background: #ffffff;
+    --panel: #f4f4f7; --rule: #d9d9e0; --accent: #2b5a9e; --warning: #8a4b00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #e8e8ed; --muted: #a5a5b0; --background: #17171a;
+      --panel: #222227; --rule: #3a3a42; --accent: #8fb4ec; --warning: #f0b46a;
+    }
+  }
+  body {
+    margin: 0 auto; max-width: 46rem; padding: 2rem 1rem 4rem;
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text); background: var(--background);
+  }
+  header { border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
+  header p { color: var(--muted); margin: 0.25rem 0 1rem; }
+  h1 { font-size: 1.6rem; margin: 0; }
+  h2 { font-size: 1.2rem; margin-top: 2.2rem; }
+  h2 .step { color: var(--muted); font-weight: normal; }
+  a { color: var(--accent); }
+  code {
+    font: 0.9em ui-monospace, "Cascadia Mono", Consolas, monospace;
+    background: var(--panel); padding: 0.1em 0.3em; border-radius: 3px;
+    overflow-wrap: anywhere;
+  }
+  pre { background: var(--panel); padding: 0.75rem 1rem; border-radius: 4px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 0.75rem 0; }
+  th, td { text-align: left; vertical-align: top; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule); }
+  th { font-weight: 600; }
+  .note { border-left: 3px solid var(--warning); padding: 0.25rem 0 0.25rem 0.9rem; margin: 1rem 0; }
+  footer { margin-top: 3rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }
+  @media print {
+    body { max-width: none; padding: 0; font-size: 11pt; }
+    a { color: inherit; }
+    h2 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<header>
+<h1>Example project: guide for the site_a participant</h1>
+<p>pprl 3.0.0rc1, generated at 2026-11-16 08:30:00. Questions: Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+</header>
+<p>You are <strong>the site_a participant</strong> of Example project: you run pprl for site_a, one of its 2 sites, site_a and site_b. You turn your patients' identifying details into hashes, which let the linkage agent find the same person at different sites without seeing a name, and you prepare your clinical tables for the merge agent. No patient's details, and none of your own ids, leave your site.</p>
+
+<p>The project's times:</p>
+<table>
+<tr><th>Planned</th><th>What happens</th></tr>
+<tr><td>09:00 on Monday 16 November 2026</td><td>bundle and this guide received</td></tr>
+<tr><td>09:30 on Monday 16 November 2026</td><td>public key sent, secret file received (steps 1 to 3)</td></tr>
+<tr><td>12:00 on Monday 16 November 2026</td><td>hashes sent to the linkage agent (steps 4 to 10)</td></tr>
+<tr><td>14:30 on Monday 16 November 2026</td><td>go-ahead received from Jo Example</td></tr>
+<tr><td>15:00 on Monday 16 November 2026</td><td>tables sent to the merge agent (step 11)</td></tr>
+<tr><td>17:00 on Monday 16 November 2026</td><td>workspace destroyed, receipt sent (step 12)</td></tr>
+</table>
+<p>All times are Eastern time.</p>
+
+<h2><span class="step">1.</span> Install pprl</h2>
+<p>Install <a href="https://docs.astral.sh/uv/">uv</a>, then pprl 3.0.0rc1:</p>
+<pre><code class="command">uv tool install https://github.com/TuftsCTSI/pprl/releases/download/v3.0.0rc1/pprl-3.0.0rc1-py3-none-any.whl</code></pre>
+<p>Open a new terminal, and run <code class="command">pprl</code>: it lists its commands. If a step fails, or your computer restricts what you can install, write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+
+<h2><span class="step">2.</span> Create your workspace</h2>
+<p>You receive your bundle, <code class="file">site_a.pprl</code>, from Jo Example, over a secure channel. It holds your role's settings: never forward it, and never open it.</p>
+<p>Your workspace is a new, empty folder you create, such as <code class="file">example-project-site_a</code>, that will hold your patients' details until the end of the project. It must be somewhere your organization has approved for them, on an encrypted drive, where files can be deleted permanently. Keep it out of search indexing, cloud sync and backups. Put the bundle in the folder, open a terminal there, and run:</p>
+<pre><code class="command">pprl init</code></pre>
+<p>pprl reads your role and site from the bundle and shows them back, makes the folder your workspace, makes your key pair, and lists the files it created. Open a terminal in your workspace for every step below.</p>
+<div class="note"><p>Every file in this folder is deleted at the end of the project, so keep nothing else here, such as your notes.</p><p>Open no file in your workspace but <code class="file">site_a.set_aside.csv</code> (step 7), not even to look: an editor, a spreadsheet or your computer itself can leave copies of a file elsewhere on the disk, such as backup and AutoRecover files or a search index, which pprl cannot delete. To see what a file holds, run <code class="command">pprl inspect</code> on it, such as <code class="command">pprl inspect outbox/linkage/site_a.hashes.pprl</code>.</p></div>
+
+<h2><span class="step">3.</span> Exchange keys for the project's secret</h2>
+<p>Every site's hashes use one secret, which reaches you locked, so that only your workspace can open it.</p>
+<ol>
+<li>Send <code class="file">outbox/coordinator/site_a.public_key.pprl</code>, your public key, to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>) over a secure channel. It is not secret, but the coordinator accepts it only from you.</li>
+<li>Jo Example sends back your secret file over a secure channel, expected around 09:30 on Monday 16 November 2026. Save it in your workspace as <code class="file">site_a.secret.pprl</code>, without opening it.</li>
+</ol>
+<p>Your private key, <code class="file">site_a.private_key.pprl</code>, is what unlocks it. It never leaves your workspace: never send it to anyone, nor copy it elsewhere. The linkage agent must never see your secret file or your private key.</p>
+
+<h2><span class="step">4.</span> Export your tables</h2>
+<p>Export each of the project's tables, with one row for each record, keyed by your own ids, and save it in your workspace's <code class="file">tables/</code> folder, as CSV: in Excel, choose File &gt; Save As &gt; "CSV UTF-8". Leave a cell empty where the value is unknown (NULL), and close the file once it is saved.</p>
+<ul>
+<li><code class="file">tables/scores.csv</code>: exactly the columns <code>person_id</code> and <code>score</code>, in any order; one row for each <code>person_id</code>. <code class="command">pprl select</code> keeps the rows where <code>score</code> is not empty.</li>
+</ul>
+
+<h2><span class="step">5.</span> Select the study's rows</h2>
+<pre><code class="command">pprl select</code></pre>
+<p>pprl checks each table, keeps only the rows the project's rules keep, and says how many rows each rule left out. It writes <code class="file">site_a.selected.pprl</code>, which stays in your workspace and is never sent. The rows it leaves out are not written anywhere. Its patients are the study's: only they are hashed.</p>
+<p>Read its summary, and do what any warning says.</p>
+
+<h2><span class="step">6.</span> Export your patient file</h2>
+<p>Export one row for each of your patients, as your records identify them, keyed by the same ids as your tables, with exactly these columns, named exactly so (names are case-sensitive), and no others. pprl leaves out every patient without a row that <code class="command">pprl select</code> kept, so the file may hold more patients than the study's.</p>
+<table>
+<tr><th>Column</th><th>What it holds</th></tr>
+<tr><td><code>person_id</code></td><td>Your own id for the patient, as your records have it. Never empty, and on one row only.</td></tr>
+<tr><td><code>name</code></td><td>As your records have it: pprl ignores case, accents, punctuation and spaces. Empty if unknown.</td></tr>
+<tr><td><code>city</code></td><td>As your records have it: pprl ignores case, accents, punctuation and spaces. Empty if unknown.</td></tr>
+<tr><td><code>state</code></td><td>2 capital letters, such as MA. Empty if unknown.</td></tr>
+<tr><td><code>zip</code></td><td>5 digits, such as 02111. In Excel, format the column as text, so that a leading 0 is kept. Empty if unknown.</td></tr>
+<tr><td><code>dob</code></td><td>Written yyyy-mm-dd, such as 1990-03-15. Empty if unknown.</td></tr>
+</table>
+<p>Where your records keep apart what a column holds as one, such as first and last names, join them with a space: the order of the words makes no difference.</p>
+<p>Save it in your workspace as <code class="file">patients.csv</code>, as CSV UTF-8, and close it. pprl reads any line endings, and a file saved as Windows text.</p>
+
+<h2><span class="step">7.</span> Clean your patient file</h2>
+<pre><code class="command">pprl clean</code></pre>
+<p>pprl leaves out the patients who are not the study's, checks the rest, repairs what it safely can, and gives each patient a random study id in place of your own id. It writes <code class="file">site_a.clean.pprl</code>, which stays in your workspace and is never sent, and <code class="file">site_a.set_aside.csv</code>, the rows it could not use: each one's row number in <code class="file">patients.csv</code>, your id, and the reason, and none of the patient's details, so that your data team can find and fix the record in your own database. It is the one file in your workspace to open.</p>
+<p>Read its warnings, and do what each says.</p>
+
+<h2><span class="step">8.</span> Hash your patients</h2>
+<pre><code class="command">pprl hash</code></pre>
+<p>pprl unlocks the secret, turns each patient's identifying details in <code class="file">site_a.clean.pprl</code> into a hash with it, and writes <code class="file">outbox/linkage/site_a.hashes.pprl</code>: each patient's study id and hash, and nothing else.</p>
+<p>Read its summary: it hashes every patient <code class="command">pprl clean</code> kept, and no others. If it shows a warning, do what the warning says.</p>
+
+<h2><span class="step">9.</span> Pack your tables</h2>
+<pre><code class="command">pprl pack</code></pre>
+<p>pprl checks the rows <code class="command">pprl select</code> kept against the project's rules again, and writes <code class="file">outbox/merge/site_a.tables.pprl</code>: those rows, with each of your ids replaced by its study id. It stays in your workspace until the go-ahead (step 11). You pack now, before your hashes leave, so that any problem with your patients or tables comes to light first. It leaves out, with a warning, the rows of a patient it has no study id for: one <code class="command">pprl clean</code> set aside, or one not in your patient file.</p>
+<p>Read its warnings, and do what each says.</p>
+
+<h2><span class="step">10.</span> Send your hashes</h2>
+<p>Send <code class="file">outbox/linkage/site_a.hashes.pprl</code>, from your workspace's <code class="file">outbox/</code> folder, as it is, to the linkage agent, Lee Example (<a href="mailto:lee@example.org">lee@example.org</a>), over a secure channel. This is planned for around 12:00 on Monday 16 November 2026. Send nothing else yet, and above all not your tables: no table moves until the linkage agent has deleted every copy of the hashes. Never open this file: pprl refuses a file that was opened and saved.</p>
+<p>Now wait for the go-ahead from Jo Example.</p>
+
+<h2><span class="step">11.</span> Wait for the go-ahead, then send your tables</h2>
+<p>Do not send your tables until Jo Example gives the go-ahead, which you should receive around 14:30 on Monday 16 November 2026. Then send <code class="file">outbox/merge/site_a.tables.pprl</code>, from your workspace's <code class="file">outbox/</code> folder, as it is, to the merge agent, Max Example (<a href="mailto:max@example.org">max@example.org</a>), over a secure channel. Never send anything else from your workspace.</p>
+<p>Leave every other file in your workspace as it is: <code class="command">pprl destroy</code> deletes them all at the end of the project (step 12).</p>
+<p>Do not run <code class="command">pprl clean</code> again after the go-ahead: the study ids would no longer match the linkage.</p>
+
+<h2><span class="step">12.</span> At the end of the project</h2>
+<p><strong>Do not run <code class="command">pprl destroy</code> until Jo Example tells you that the project's transfers are complete.</strong> This is planned for shortly before 17:00 on Monday 16 November 2026. Then delete every copy of a file you sent or received outside your workspace, wherever it was shared, such as in your downloads folder or in messages you sent or received, emptying deleted items: your hash file above all, and your tables, your secret file and your bundle. Then, in your workspace, run:</p>
+<pre><code class="command">pprl destroy</code></pre>
+<p>pprl lists every file in your workspace, asks you to type "yes", and deletes them permanently. It leaves the folder, with only your receipt, <code class="file">outbox/coordinator/site_a.receipt_&lt;date&gt;.txt</code>: send it to Jo Example over a secure channel. The receipt holds your workspace's <code class="file">site_a.log</code>, and no patient details or secret. You may then delete the folder.</p>
+<p>pprl destroy cannot delete copies kept by your storage (recycle bins, version history, retention policies and backups; OneDrive keeps deleted files for up to 93 days), so follow these up. Nor can it delete files you sent on, such as hashes at the linkage agent: each recipient destroys the copies received, and confirms that. Your drive&#x27;s encryption protects data left on the drive after deletion.</p>
+
+<h2>Questions</h2>
+<p>Write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>) about anything unclear, however small: a step in this guide, a message you did not expect, or anything that did not seem right. Each question helps the project. If pprl stops with a problem and its message doesn't settle it, send <code class="file">site_a.log</code>, in your workspace, to Jo Example over a secure channel: it holds what pprl showed you, and no patient details or secret.</p>
+
+<footer>
+<p>This guide was generated at 2026-11-16 08:30:00 for Example project by pprl guides, for pprl 3.0.0rc1. If anything in it does not match what pprl shows you, stop, and write to Jo Example (<a href="mailto:jo@example.org">jo@example.org</a>).</p>
+</footer>
+</body>
+</html>
