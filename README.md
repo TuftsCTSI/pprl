@@ -1,6 +1,9 @@
 # TuftsCTSI/pprl
 
-[![CI](https://github.com/TuftsCTSI/pprl/actions/workflows/run-pytest-suite.yml/badge.svg)](https://github.com/TuftsCTSI/pprl/actions/workflows/run-pytest-suite.yml)
+[![CI](https://github.com/TuftsCTSI/pprl/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/TuftsCTSI/pprl/actions/workflows/ci.yml?query=branch%3Amain)
+[![Release](https://img.shields.io/github/v/release/TuftsCTSI/pprl?include_prereleases)](https://github.com/TuftsCTSI/pprl/releases)
+[![Python](https://img.shields.io/badge/python-3.14-blue)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/github/license/TuftsCTSI/pprl)](LICENSE)
 
 This software is used to perform privacy-preserving record linkage (PPRL) to determine whether the same individual has records across different datasets without sharing any patient identifiers:
 
