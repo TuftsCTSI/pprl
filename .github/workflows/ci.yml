@@ -1,5 +1,4 @@
-name: run-pytest-suite
-run-name: Run Pytest suite
+name: CI
 
 on:
   push:
